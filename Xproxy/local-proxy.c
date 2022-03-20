@@ -193,6 +193,9 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	fd = connect_nonblocking(configuration.remote_addr, configuration.remote_port, 3000);
 	if (slow(fd < 0)) {
 		ERROR("connect to remote-proxy failed: %s", strerror(errno));
+#if defined(__APPLE__)
+		notify_post(REMOTE_PROXY_CONNCECT_FAILURE);
+#endif
 		return -1;
 	}
 
@@ -638,6 +641,13 @@ void stop_local_proxy(void)
 	cryptor_deinit(&cryptor);
 	crypt_cleanup();
 }
+
+#if defined(__APPLE__)
+const char *remote_proxy_connect_failure_name(void)
+{
+	return REMOTE_PROXY_CONNCECT_FAILURE;
+}
+#endif
 
 #if defined(HAS_MAIN)
 

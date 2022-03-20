@@ -21,7 +21,7 @@ class ViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVPN))
 		
         tableView.register(UINib(nibName: "VpnInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "VpnInfoTableViewCell")
-		
+		observeRemoteConnectFailure()
 		reloadManagers()
 	}
 	
@@ -29,6 +29,24 @@ class ViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		reloadManagers()
 	}
+	
+	private func observeRemoteConnectFailure() {
+        let notificationName = String(cString: remote_proxy_connect_failure_name()) as CFString
+        let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+        let observer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque())
+
+        CFNotificationCenterAddObserver(notificationCenter,
+                                        observer,
+                                        { (_, observer, _, _, _) -> Void in
+                                            if let observer = observer {
+                                                let myself = Unmanaged<ViewController>.fromOpaque(observer).takeUnretainedValue()
+                                                myself.showError("Cannot connect to remote-proxy")
+                                            }
+                                        },
+                                        notificationName,
+                                        nil,
+										.coalesce)
+    }
 	
 	@objc private func addVPN() {
 		let vc = VpnConfViewController.instance()
@@ -55,6 +73,12 @@ class ViewController: UITableViewController {
 	@objc private func showAbout() {
 		let vc = AboutTableViewController.instance()
 		navigationController?.pushViewController(vc, animated: true)
+	}
+	
+	private func showError(_ message: String) {
+		let alertVC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+		alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		self.present(alertVC, animated: true, completion: nil)
 	}
 
 	private func presentError(_ error: Error) {

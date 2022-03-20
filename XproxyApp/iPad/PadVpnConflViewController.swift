@@ -50,6 +50,26 @@ class PadVpnConfViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "XproxyBackgroudColor")
         tableView.backgroundColor = UIColor(named: "XproxyBackgroundColor")
+        
+        observeRemoteConnectFailure()
+    }
+    
+    private func observeRemoteConnectFailure() {
+        let notificationName = String(cString: remote_proxy_connect_failure_name()) as CFString
+        let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+        let observer = UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque())
+
+        CFNotificationCenterAddObserver(notificationCenter,
+                                        observer,
+                                        { (_, observer, _, _, _) -> Void in
+                                            if let observer = observer {
+                                                let myself = Unmanaged<PadVpnConfViewController>.fromOpaque(observer).takeUnretainedValue()
+                                                myself.showError("Cannot connect to remote-proxy")
+                                            }
+                                        },
+                                        notificationName,
+                                        nil,
+                                        .coalesce)
     }
     
     override func viewWillAppear(_ animated: Bool) {
