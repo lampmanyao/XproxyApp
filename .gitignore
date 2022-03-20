@@ -1,0 +1,17 @@
+Xproxy/.deps/
+Xproxy/Makefile
+Xproxy/Makefile.in
+Xproxy/aclocal.m4
+Xproxy/autom4te.cache/
+Xproxy/compile
+Xproxy/config.h
+Xproxy/config.h.in
+Xproxy/config.log
+Xproxy/config.status
+Xproxy/configure
+Xproxy/depcomp
+Xproxy/install-sh
+Xproxy/local-proxy
+Xproxy/missing
+Xproxy/remote-proxy
+Xproxy/stamp-h1
