@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F01742427ECBE3A00B49911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */; };
 		3F01AD6327DB680800906633 /* VpnConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F01AD6227DB680800906633 /* VpnConfViewController.swift */; };
 		3F26DC1E27E22ED1001E5B8D /* MethodPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DC1C27E22ED1001E5B8D /* MethodPickerTableViewCell.swift */; };
 		3F26DC1F27E22ED1001E5B8D /* MethodPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F26DC1D27E22ED1001E5B8D /* MethodPickerTableViewCell.xib */; };
@@ -110,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; tabWidth = 4; };
 		3F01AD6227DB680800906633 /* VpnConfViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnConfViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		3F26DC1C27E22ED1001E5B8D /* MethodPickerTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MethodPickerTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; };
 		3F26DC1D27E22ED1001E5B8D /* MethodPickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MethodPickerTableViewCell.xib; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			children = (
 				3F8C880327E3A59E002031CB /* Constant.swift */,
 				3F8C880527E3A6CA002031CB /* VpnConfiguration.swift */,
+				3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				3F66232C27DCF77C00CD2DF7 /* poller.c in Sources */,
 				3F8C880427E3A59E002031CB /* Constant.swift in Sources */,
 				3FBF610227D7B46D00F35E67 /* Xproxy.xcdatamodeld in Sources */,
+				3F01742427ECBE3A00B49911 /* UIViewController+Extension.swift in Sources */,
 				3F3D9CE127DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift in Sources */,
 				3F66231B27DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift in Sources */,
 				3FBF60F827D7B46D00F35E67 /* AppDelegate.swift in Sources */,

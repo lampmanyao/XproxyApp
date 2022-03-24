@@ -64,7 +64,7 @@ class PadVpnConfViewController: UIViewController {
                                         { (_, observer, _, _, _) -> Void in
                                             if let observer = observer {
                                                 let myself = Unmanaged<PadVpnConfViewController>.fromOpaque(observer).takeUnretainedValue()
-                                                myself.showError("Cannot connect to remote-proxy")
+                                                myself.presentError("Network", "Cannot connect to remote-proxy")
                                             }
                                         },
                                         notificationName,
@@ -94,15 +94,9 @@ class PadVpnConfViewController: UIViewController {
         return storyboard.instantiateViewController(withIdentifier: "PadVpnConfViewController") as! PadVpnConfViewController
     }
     
-    private func showError(_ message: String) {
-        let alertVC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-    
     @objc func saveVpn() {
         guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
-            showError("pleass enter the empty filed")
+            presentError(nil, "pleass enter the empty filed")
             return
         }
         
@@ -120,7 +114,7 @@ class PadVpnConfViewController: UIViewController {
         
         vpnManager!.saveToPreferences { error in
             if let saveError = error {
-                self.showError(saveError.localizedDescription)
+                self.presentError("VPN", saveError.localizedDescription)
                 return
             }
             self.delegate?.reloadManagers()
@@ -132,7 +126,9 @@ class PadVpnConfViewController: UIViewController {
             vpnManager?.isEnabled = true
             self.vpnManager?.saveToPreferences { (error) in
                 if let error = error {
-                    self.presentError(error)
+                    let title = String(describing: type(of: error))
+                    let message = error.localizedDescription
+                    self.presentError(title, message)
                     return
                 }
 
@@ -147,17 +143,10 @@ class PadVpnConfViewController: UIViewController {
         do {
             try self.vpnManager?.connection.startVPNTunnel()
         } catch {
-            presentError(error)
+            let title = String(describing: type(of: error))
+            let message = error.localizedDescription
+            presentError(title, message)
         }
-    }
-    
-    private func presentError(_ error: Error) {
-        let alertController = UIAlertController(title: String(describing: type(of: error)),
-                                                message: error.localizedDescription, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        })
-        present(alertController, animated: true)
     }
     
     @objc func addExceptionButtonCallback() {

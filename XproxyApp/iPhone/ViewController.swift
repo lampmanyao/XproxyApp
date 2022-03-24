@@ -40,7 +40,7 @@ class ViewController: UITableViewController {
                                         { (_, observer, _, _, _) -> Void in
                                             if let observer = observer {
                                                 let myself = Unmanaged<ViewController>.fromOpaque(observer).takeUnretainedValue()
-                                                myself.showError("Cannot connect to remote-proxy")
+                                                myself.presentError("Network", "Cannot connect to remote-proxy")
                                             }
                                         },
                                         notificationName,
@@ -75,28 +75,15 @@ class ViewController: UITableViewController {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
-	private func showError(_ message: String) {
-		let alertVC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-		alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-		self.present(alertVC, animated: true, completion: nil)
-	}
-
-	private func presentError(_ error: Error) {
-		let alertController = UIAlertController(title: String(describing: type(of: error)),
-												message: error.localizedDescription, preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: "Dismiss", style: .default) { _ in
-			alertController.dismiss(animated: true)
-		})
-		present(alertController, animated: true)
-	}
-
 	@objc func toggle(_ sender: UISwitch) {
 		let vpnManager = managers[sender.tag]
         if sender.isOn {
 			vpnManager.isEnabled = true
             vpnManager.saveToPreferences { (error) in
                 if let error = error {
-                    self.presentError(error)
+					let title = String(describing: type(of: error))
+                    let message = error.localizedDescription
+                    self.presentError(title, message)
                     return
                 }
 
@@ -126,7 +113,9 @@ class ViewController: UITableViewController {
 		do {
 			try vpnManager.connection.startVPNTunnel()
 		} catch {
-			presentError(error)
+			let title = String(describing: type(of: error))
+            let message = error.localizedDescription
+            self.presentError(title, message)
 		}
 	}
 	

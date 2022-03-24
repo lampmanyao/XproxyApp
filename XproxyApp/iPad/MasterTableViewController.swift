@@ -56,15 +56,21 @@ class MasterTableViewController: UITableViewController, MasterTableViewControlle
         NETunnelProviderManager.loadAllFromPreferences() { newManagers, error in
             guard let vpnManagers = newManagers else { return }
             self.managers = vpnManagers
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            let vc = PadVpnConfViewController.instance()
-            vc.delegate = self
             if vpnManagers.isEmpty {
                 self.managers.append(NETunnelProviderManager())
             }
+            var indexPath: IndexPath = IndexPath(row: 0, section: 0)
+            for (row, mgr) in self.managers.enumerated() {
+                if mgr.connection.status == .connected {
+                    indexPath = IndexPath(row: row, section: 0)
+                    break
+                }
+            }
+            let vc = PadVpnConfViewController.instance()
+            vc.delegate = self
             vc.vpnManager = self.managers[indexPath.row]
             self.tableView.reloadData()
+            self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             self.splitViewController?.setViewController(vc, for: .secondary)
         }
     }
@@ -135,6 +141,7 @@ class MasterTableViewController: UITableViewController, MasterTableViewControlle
         if editingStyle == .delete {
             deleteManager(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            reloadManagers()
         }
     }
 

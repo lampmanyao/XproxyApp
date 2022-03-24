@@ -65,12 +65,6 @@ class VpnConfViewController: UITableViewController {
         return vc
     }
     
-    private func showError(_ message: String) {
-        let alertVC = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
@@ -107,7 +101,7 @@ class VpnConfViewController: UITableViewController {
     
     @objc private func save() {
         guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
-            showError("pleass enter the empty filed")
+            presentError(nil, "pleass enter the empty filed")
             return
         }
         
@@ -129,7 +123,7 @@ class VpnConfViewController: UITableViewController {
         
         vpnManager!.saveToPreferences { error in
             if let saveError = error {
-                self.showError(saveError.localizedDescription)
+                self.presentError("VPN", saveError.localizedDescription)
                 return
             }
         }
