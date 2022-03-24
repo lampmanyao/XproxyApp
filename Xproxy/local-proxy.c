@@ -44,7 +44,7 @@ struct local_config {
 } configuration;
 
 struct cfgopts cfg_opts[] = {
-	{ "password", TYP_STRING, &configuration.password, {0, "helloworld"} },
+	{ "password", TYP_STRING, &configuration.password, {0, "he11owor1d"} },
 	{ "method", TYP_STRING, &configuration.method, {0, "aes-256-cfb"} },
 	{ "local_addr", TYP_STRING, &configuration.local_addr, {0, "127.0.0.1"} },
 	{ "local_port", TYP_INT4, &configuration.local_port, {1080, NULL} },
@@ -66,8 +66,8 @@ static void accept_cb(struct xproxy *xproxy)
 	bzero(&sock_addr, addr_len);
 
 	while ((fd = accept(xproxy->sfd, (struct sockaddr*)&sock_addr, &addr_len)) > 0) {
-		INFO("Accept incoming from %s:%d.",
-		      inet_ntoa(sock_addr.sin_addr), ntohs(sock_addr.sin_port));
+		logi("Accept incoming from %s:%d",
+			inet_ntoa(sock_addr.sin_addr), ntohs(sock_addr.sin_port));
 
 		set_nonblocking(fd);
 		tcp_conn = new_tcp_connection(fd, BUFF_SIZE, recvfrom_client_cb, sendto_client_cb);
@@ -75,7 +75,7 @@ static void accept_cb(struct xproxy *xproxy)
 	}
 
 	if (errno != EAGAIN && errno != EWOULDBLOCK)
-		ERROR("accept(): %s", strerror(errno));
+		loge("accept(): %s", strerror(errno));
 }
 
 #define CHECK_END()       \
@@ -92,17 +92,17 @@ static inline uint16_t parse_port(const char *buf, long len)
 
 static int handle_client_request(struct el *el, struct tcp_connection *client)
 {
-	char *data = client->rxbuf;
+	uint8_t *data = client->rxbuf;
 	uint32_t data_len = client->rxbuf_length;
-	char *buf = data;
-	char *end = data + data_len;
-	char *pos;
+	uint8_t *buf = data;
+	uint8_t *end = data + data_len;
+	uint8_t *pos;
 	int len;
 
-	int8_t version = SOCKS5_VER;
-	int8_t cmd = SOCKS5_CMD_CONNECT;
-	int8_t rsv = 0;
-	int8_t atyp = -1;
+	uint8_t version = SOCKS5_VER;
+	uint8_t cmd = SOCKS5_CMD_CONNECT;
+	uint8_t rsv = 0;
+	uint8_t atyp = 0;
 
 	/* the method */
 	while (*buf != ' ') {
@@ -115,7 +115,7 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	pos = buf;
 
 	/* if begin with 'http://', the request is HTTP */
-	if (strncmp(buf, "http://", 7) == 0) {
+	if (strncmp((const char *)buf, "http://", 7) == 0) {
 		buf += 7;
 		pos = buf;
 		client->type = REQ_TYPE_HTTP;
@@ -138,7 +138,7 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 		atyp = SOCKS5_ATYP_IPv6;
 
 		len = (int)(buf - pos);
-		strncpy(client->host, pos, len);
+		strncpy(client->host, (const char *)pos, len);
 		client->host[len] = '\0';
 		client->port = 80;
 
@@ -154,7 +154,7 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 			}
 
 			len = (int)(buf - pos);
-			client->port = parse_port(pos, len);
+			client->port = parse_port((const char *)pos, len);
 		} else {
 			client->port = 80;
 		}
@@ -166,12 +166,12 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 
 		if (*buf == '/' || *buf == ' ') {
 			len = (int)(buf - pos);
-			strncpy(client->host, pos, len);
+			strncpy(client->host, (const char *)pos, len);
 			client->host[len] = '\0';
 			client->port = 80;
 		} else if (*buf == ':') {
 			len = (int)(buf - pos);
-			strncpy(client->host, pos, len);
+			strncpy(client->host, (const char *)pos, len);
 			client->host[len] = '\0';
 
 			buf++;
@@ -183,7 +183,7 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 			}
 
 			len = (int)(buf - pos);
-			client->port = parse_port(pos, len);
+			client->port = parse_port((const char *)pos, len);
 		}
 	}
 
@@ -192,22 +192,22 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 
 	fd = connect_nonblocking(configuration.remote_addr, configuration.remote_port, 3000);
 	if (slow(fd < 0)) {
-		ERROR("connect to remote-proxy failed: %s", strerror(errno));
+		loge("connect to remote-proxy failed: %s", strerror(errno));
 #if defined(__APPLE__)
 		notify_post(REMOTE_PROXY_CONNCECT_FAILURE);
 #endif
 		return -1;
 	}
 
-	INFO("Connected to remote-proxy (%s:%d).", configuration.remote_addr, configuration.remote_port);
+	logi("Connected to remote-proxy (%s:%d)", configuration.remote_addr, configuration.remote_port);
 
 	remote = new_tcp_connection(fd, BUFF_SIZE, recvfrom_remote_cb, sendto_remote_cb);
 	remote->peer_tcp_conn = client;
 	client->peer_tcp_conn = remote;
 	el_watch(el, remote);
 
-	char request[512];
-	unsigned int req_len = SOCKS5_REQ_HEAD_SIZE;
+	uint8_t request[512];
+	uint32_t req_len = SOCKS5_REQ_HEAD_SIZE;
 
 	if (atyp != SOCKS5_ATYP_IPv6) {
 		struct sockaddr_in sa;
@@ -238,32 +238,33 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	request[2] = rsv;
 	request[3] = atyp;
 
-	uint16_t nport = (uint16_t)(client->port >> 8) | (uint16_t)(client->port << 8);
-	memcpy(request + req_len, &nport, 2);
+	uint16_t port = (uint16_t)(client->port >> 8) | (uint16_t)(client->port << 8);
+	memcpy(request + req_len, &port, 2);
 	req_len += 2;
 
-	char *ciphertext;
-	int ciphertext_len = cryptor.encrypt(&cryptor, &ciphertext, request, req_len);
-	if (slow(ciphertext_len < 0)) {
-		ERROR("Encryption failure.");
+	uint8_t *ciphertext;
+	uint32_t ciphertext_len;
+	int ret = cryptor.encrypt(&cryptor, &ciphertext, &ciphertext_len, request, req_len);
+	if (slow(ret < 0)) {
+		loge("Encryption failure");
 		return -1;
 	}
 
-	tcp_connection_append_txbuf(remote, (char *)&ciphertext_len, 4);
-	tcp_connection_append_txbuf(remote, ciphertext, (uint32_t)ciphertext_len);
+	tcp_connection_append_txbuf(remote, ciphertext, ciphertext_len);
 
 	free(ciphertext);
 
-	ssize_t tx = send(remote->fd, remote->txbuf, remote->txbuf_length, 0);
+	data = remote->txbuf;
+	data_len = remote->txbuf_length;
+	ssize_t tx = send(remote->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
-		if ((size_t)tx == remote->txbuf_length) {
-			tcp_connection_reset_txbuf(remote);
+		tcp_connection_move_txbuf(remote, (uint32_t)tx);
+		if ((uint32_t)tx == data_len) {
 			remote->stage = STAGE_HANDSHAKE;
 			client->stage = STAGE_STREAMING;
 		} else {
 			poller_unwatch_read(el->poller, client->fd, client);
 			poller_watch_write(el->poller, remote->fd, remote);
-			tcp_connection_move_txbuf(remote, (uint32_t)tx);
 		}
 		return 0;
 	} else {
@@ -277,35 +278,36 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	}
 }
 
-static int stream_to_remote(struct el *el, struct tcp_connection *client,
-			    struct tcp_connection *remote)
+static int stream_to_remote(struct el *el, struct tcp_connection *client, struct tcp_connection *remote)
 {
-	char *ciphertext;
-	int ciphertext_len;
+	int ret;
+	uint8_t *ciphertext;
+	uint32_t ciphertext_len;
+	uint8_t *data = client->rxbuf;
+	uint32_t data_len = client->rxbuf_length;
+	ssize_t tx;
 
-	ciphertext_len = cryptor.encrypt(&cryptor, &ciphertext,
-				      client->rxbuf, (unsigned int)client->rxbuf_length);
-
-	if (slow(ciphertext_len < 0)) {
-		ERROR("Encryption failuer.");
+	ret = cryptor.encrypt(&cryptor, &ciphertext, &ciphertext_len, data, data_len);
+	if (slow(ret < 0)) {
+		loge("Encryption failuer");
 		return -1;
 	}
 
-	tcp_connection_append_txbuf(remote, (char*)&ciphertext_len, 4);
 	tcp_connection_append_txbuf(remote, ciphertext, (uint32_t)ciphertext_len);
 
 	tcp_connection_reset_rxbuf(client);
 	free(ciphertext);
 
-	ssize_t tx = send(remote->fd, remote->txbuf, remote->txbuf_length, 0);
+	data = remote->txbuf;
+	data_len = remote->txbuf_length;
+
+	tx = send(remote->fd, data, data_len, 0);
 
 	if (fast(tx > 0)) {
-		if (tx == remote->txbuf_length) {
-			tcp_connection_reset_txbuf(remote);
-		} else {
+		tcp_connection_move_txbuf(remote, (uint32_t)tx);
+		if (slow((uint32_t)tx < data_len)) {
 			poller_unwatch_read(el->poller, client->fd, client);
 			poller_watch_write(el->poller, remote->fd, remote);
-			tcp_connection_move_txbuf(remote, (uint32_t)tx);
 		}
 		return 0;
 	} else {
@@ -325,7 +327,7 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 	struct tcp_connection *remote = NULL;
 
 	while (1) {
-		char buf[BUFF_SIZE];
+		uint8_t buf[BUFF_SIZE];
 		ssize_t rx = recv(client->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
 			tcp_connection_append_rxbuf(client, buf, (uint32_t)rx);
@@ -361,49 +363,43 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 static int sendto_client_cb(struct el *el, struct tcp_connection *client)
 {
 	struct tcp_connection *remote = client->peer_tcp_conn;
-	ssize_t tx = send(client->fd, client->txbuf, client->txbuf_length, 0);
+	uint8_t *data = client->txbuf;
+	uint32_t data_len = client->txbuf_length;
+	ssize_t tx = send(client->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
-		if (fast(tx == client->txbuf_length)) {
-			tcp_connection_reset_txbuf(client);
+		tcp_connection_move_txbuf(client, (uint32_t)tx);
+		if (fast((uint32_t)tx == data_len)) {
 			poller_unwatch_write(el->poller, client->fd, client);
 			poller_watch_read(el->poller, remote->fd, remote);
-		} else {
-			tcp_connection_move_txbuf(client, (uint32_t)tx);
 		}
 		return 0;
 	} else {
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
 			return 0;
-
 		return -1;
 	}
 }
 
 static int handle_handshake_response(struct el *el, struct tcp_connection *remote)
 {
+	int ret;
 	struct tcp_connection *client = remote->peer_tcp_conn;
-
-	char *data = remote->rxbuf;
+	uint8_t *data = remote->rxbuf;
 	uint32_t data_len = remote->rxbuf_length;
-
-	int ciphertext_len;
-	int plaintext_len;
+	uint32_t plaintext_len;
 	uint8_t *plaintext;
 	uint8_t reply[256];
 
 	if (slow(data_len < 4))
 		return 0;
 
-	memcpy((char*)&ciphertext_len, data, 4);
-
-	if (slow(data_len < 4 + (uint32_t)ciphertext_len))
-		return 0;
-
-	plaintext_len = cryptor.decrypt(&cryptor, (char **)&plaintext, data + 4,
-					(unsigned int)ciphertext_len);
-	if (plaintext_len < 0) {
-		ERROR("Decryption failure.");
+	ret = cryptor.decrypt(&cryptor, &plaintext, &plaintext_len, data, data_len);
+	if (slow(ret < 0)) {
+		loge("Decryption failure");
 		return -1;
+	} else if (slow(ret == 0)) {
+		logi("need more data");
+		return 0;
 	}
 
 	tcp_connection_reset_rxbuf(remote);
@@ -419,17 +415,17 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 
 	if (typ == SOCKS5_ATYP_IPv4) {
 		memcpy(reply, plaintext, SOCKS5_IPV4_REQ_SIZE);
-		tcp_connection_append_txbuf(client, (char *)reply, SOCKS5_IPV4_REQ_SIZE);
+		tcp_connection_append_txbuf(client, reply, SOCKS5_IPV4_REQ_SIZE);
 	} else if (typ == SOCKS5_ATYP_DONAME) {
 		uint8_t domain_name_len = (uint8_t)plaintext[SOCKS5_RSP_HEAD_SIZE];
 		memcpy(reply, plaintext, SOCKS5_RSP_HEAD_SIZE + 1 + domain_name_len + SOCKS5_PORT_SIZE);
-		tcp_connection_append_txbuf(client, (char *)reply,
+		tcp_connection_append_txbuf(client, reply,
 					    SOCKS5_RSP_HEAD_SIZE + 1 + domain_name_len + SOCKS5_PORT_SIZE);
 	} else if (typ == SOCKS5_ATYP_IPv6) {
 		memcpy(reply, plaintext, SOCKS5_IPV6_REQ_SIZE);
-		tcp_connection_append_txbuf(client, (char *)reply, SOCKS5_IPV6_REQ_SIZE);
+		tcp_connection_append_txbuf(client, reply, SOCKS5_IPV6_REQ_SIZE);
 	} else {
-		ERROR("Unknown address type: %d.", typ);
+		loge("Unknown address type: %d", typ);
 		return -1;
 	}
 
@@ -443,11 +439,12 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 	if (client->type == REQ_TYPE_HTTP)
 		return stream_to_remote(el, client, remote);
 
-	tcp_connection_append_txbuf(client, "HTTP/1.1 200 Connection Established\r\n\r\n", 39);
-	char *txbuf = client->txbuf;
-	size_t txbuf_len = client->txbuf_length;
+	tcp_connection_append_txbuf(client, (uint8_t *)"HTTP/1.1 200 Connection Established\r\n\r\n", 39);
 
-	ssize_t tx = send(client->fd, txbuf, txbuf_len, 0);
+	data = client->txbuf;
+	data_len = client->txbuf_length;
+	
+	ssize_t tx = send(client->fd, data, data_len, 0);
 
 	if (fast(tx > 0)) {
 		tcp_connection_reset_txbuf(client);
@@ -465,60 +462,52 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 
 static int stream_to_client(struct el *el, struct tcp_connection *remote)
 {
+	int ret;
 	struct tcp_connection *client = remote->peer_tcp_conn;
-	char *data = NULL;
+	uint8_t *data = NULL;
 	uint32_t data_len = 0;
-	int ciphertext_len = 0;
-	int plaintext_len = 0;
-	char *plaintext = NULL;
+	uint32_t plaintext_len = 0;
+	uint8_t *plaintext = NULL;
 	ssize_t tx = 0;
 
-try_again:
-	data = remote->rxbuf;
-	data_len = remote->rxbuf_length;
+	while (1) {
+		data = remote->rxbuf;
+		data_len = remote->rxbuf_length;
 
-	if (slow(data_len < 4))
-		return 0;
+		if (slow(data_len < 4))
+			return 0;
 
-	memcpy((char*)&ciphertext_len, data, 4);
-
-	if (slow(data_len < 4 + (uint32_t)ciphertext_len))
-		return 0;
-
-	plaintext_len = cryptor.decrypt(&cryptor, &plaintext, data + 4,
-					(unsigned int)ciphertext_len);
-	if (plaintext_len < 0) {
-		ERROR("Decryption failure.");
-		return -1;
-	}
-
-	tcp_connection_append_txbuf(client, plaintext, (uint32_t)plaintext_len);
-	free(plaintext);
-
-	if (data_len == 4 + (uint32_t)ciphertext_len)
-		tcp_connection_reset_rxbuf(remote);
-	else
-		tcp_connection_move_rxbuf(remote, 4 + (uint32_t)ciphertext_len);
-
-	tx = send(client->fd, client->txbuf, client->txbuf_length, 0);
-
-	if (fast(tx > 0)) {
-		if (tx == client->txbuf_length) {
-			tcp_connection_reset_txbuf(client);
-			goto try_again;
-		} else {
-			poller_unwatch_read(el->poller, remote->fd, remote);
-			poller_watch_write(el->poller, client->fd, client);
-			tcp_connection_move_txbuf(client, (uint32_t)tx);
-		}
-		return 0;
-	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK) {
-			poller_unwatch_read(el->poller, remote->fd, remote);
-			poller_watch_write(el->poller, client->fd, client);
+		ret = cryptor.decrypt(&cryptor, &plaintext, &plaintext_len, data, data_len);
+		if (slow(ret < 0)) {
+			loge("Decryption failure");
+			return -1;
+		} else if (slow(ret == 0)) {
 			return 0;
 		}
-		return -1;
+
+		tcp_connection_move_rxbuf(remote, 4 + plaintext_len);
+
+		tcp_connection_append_txbuf(client, plaintext, plaintext_len);
+		free(plaintext);
+		data = client->txbuf;
+		data_len = client->txbuf_length;
+		tx = send(client->fd, data, data_len, 0);
+
+		if (fast(tx > 0)) {
+			tcp_connection_move_txbuf(client, (uint32_t)tx);
+			if (slow(tx < data_len)) {
+				poller_unwatch_read(el->poller, remote->fd, remote);
+				poller_watch_write(el->poller, client->fd, client);
+				return 0;
+			}
+		} else {
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				poller_unwatch_read(el->poller, remote->fd, remote);
+				poller_watch_write(el->poller, client->fd, client);
+				return 0;
+			}
+			return -1;
+		}
 	}
 }
 
@@ -526,7 +515,7 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 {
 	int ret = -1;
 	while (1) {
-		char buf[BUFF_SIZE];
+		uint8_t buf[BUFF_SIZE];
 		ssize_t rx = recv(remote->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
 			tcp_connection_append_rxbuf(remote, buf, (uint32_t)rx);
@@ -535,7 +524,6 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 		} else if (rx < 0) {
 			if (errno == EAGAIN || errno == EWOULDBLOCK)
 				break;
-
 			return -1;  /* error */
 		} else {
 			return -1;  /* eof */
@@ -562,25 +550,25 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 static int sendto_remote_cb(struct el *el, struct tcp_connection *remote)
 {
 	struct tcp_connection *client = remote->peer_tcp_conn;
-	ssize_t tx = send(remote->fd, remote->txbuf, remote->txbuf_length, 0);
+	uint8_t *data = remote->txbuf;
+	uint32_t data_len = remote->txbuf_length;
+	ssize_t tx = send(remote->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
-		if ((size_t)tx == remote->txbuf_length) {
-			tcp_connection_reset_txbuf(remote);
+		tcp_connection_move_txbuf(remote, (uint32_t)tx);
+		if ((uint32_t)tx == data_len) {
+			poller_unwatch_write(el->poller, remote->fd, remote);
 			poller_watch_read(el->poller, client->fd, client);
-		} else {
-			tcp_connection_move_txbuf(remote, (uint32_t)tx);
 		}
 		return 0;
 	} else {
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
 			return 0;
-
 		return -1;
 	}
 }
 
-int running = 0;
 int sfd = 0;
+int running = 0;
 struct xproxy *xproxy = NULL;
 
 int start_local_proxy(const char *address, uint16_t port, const char *password, const char *method)
@@ -599,19 +587,19 @@ int start_local_proxy(const char *address, uint16_t port, const char *password, 
 	configuration.maxfiles = 256;
 
 	if (cryptor_init(&cryptor, configuration.method, configuration.password) == -1) {
-		ERROR("Unsupport method: %s.", configuration.method);
+		loge("Unsupport method: %s", configuration.method);
 		return -1;
 	}
 
 	if (openfiles_init(configuration.maxfiles) != 0) {
-		ERROR("set max open files to %d failed: %s.",
+		loge("Set max open files to %d failed: %s",
 		      configuration.maxfiles, strerror(errno));
 		return -1;
 	}
 
 	sfd = listen_and_bind(configuration.local_addr, configuration.local_port);
 	if (sfd < 0) {
-		ERROR("listen_and_bind(): %s.", strerror(errno));
+		loge("listen_and_bind(): %s", strerror(errno));
 		return -1;
 	}
 
@@ -623,7 +611,7 @@ int start_local_proxy(const char *address, uint16_t port, const char *password, 
 		return -1;
 	}
 
-	INFO("Listening on port %d.", configuration.local_port);
+	logi("Listening on port %d", configuration.local_port);
 	running = 1;
 	xproxy_run(xproxy);
 
@@ -632,12 +620,18 @@ int start_local_proxy(const char *address, uint16_t port, const char *password, 
 
 void stop_local_proxy(void)
 {
+	running = 0;
+
+	if (sfd > 0)
+		close(sfd);
+
+	if (xproxy)
+		xproxy_free(xproxy);
+
 	free(configuration.remote_addr);
 	free(configuration.password);
 	free(configuration.method);
-	running = 0;
-	close(sfd);
-	xproxy_free(xproxy);
+	
 	cryptor_deinit(&cryptor);
 	crypt_cleanup();
 }
@@ -771,22 +765,22 @@ int main(int argc, char **argv)
 	crypt_setup();
 
 	if (cryptor_init(&cryptor, configuration.method, configuration.password) == -1) {
-		ERROR("Unsupport method: %s.", configuration.method);
+		loge("Unsupport method: %s", configuration.method);
 		return -1;
 	}
 
 	if (openfiles_init(configuration.maxfiles) != 0) {
-		ERROR("set max open files to %d failed: %s.", configuration.maxfiles, strerror(errno));
+		loge("Set max open files to %d failed: %s", configuration.maxfiles, strerror(errno));
 		return -1;
 	}
 
 	sfd = listen_and_bind(configuration.local_addr, configuration.local_port);
 	if (sfd < 0) {
-		ERROR("listen_and_bind(): %s.", strerror(errno));
+		loge("listen_and_bind(): %s", strerror(errno));
 		return -1;
 	}
 
-	INFO("Listening on port %d.", configuration.local_port);
+	logi("Listening on port %d", configuration.local_port);
 	running = 1;
 	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb);
 	if (!xproxy)
@@ -795,12 +789,14 @@ int main(int argc, char **argv)
 	xproxy_run(xproxy);
 
 cleanup:
-	cryptor_deinit(&cryptor);
+	if (sfd)
+		close(sfd);
+
 	if (xproxy)
 		xproxy_free(xproxy);
 
+	cryptor_deinit(&cryptor);
 	crypt_cleanup();
-	close(sfd);
 
 	return 0;
 }

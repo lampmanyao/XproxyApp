@@ -43,7 +43,7 @@ int listen_and_bind(const char *address, uint16_t port)
 
 	sfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sfd == -1) {
-		ERROR("socket(): %s", strerror(errno));
+		loge("socket(): %s", strerror(errno));
 		return -1;
 	}
 
@@ -53,15 +53,15 @@ int listen_and_bind(const char *address, uint16_t port)
 	serv_addr.sin_port = htons(port);
 
 	if (bind(sfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1) {
-		ERROR("bind(): %s", strerror(errno));
+		loge("bind(): %s", strerror(errno));
 		close(sfd);
 		return -1;
 	}
-	
+
 	set_nonblocking(sfd);
 
 	if (listen(sfd, BACKLOG) == -1) {
-		ERROR("listen(): %s", strerror(errno));
+		loge("listen(): %s", strerror(errno));
 		close(sfd);
 		return -1;
 	}
@@ -97,7 +97,7 @@ static int _connect(int fd, const struct sockaddr *address, socklen_t address_le
 		errno = error;
 		return -1;
 	}
-	
+
 	errno = 0;
 	return 0;
 }
@@ -111,7 +111,7 @@ int connect_nonblocking(const char *host, uint16_t port, int ms)
 	int sock = -1;
 
 	/* Check the host parameter whether is an IP address first. */
-	if (inet_aton(host, &ipv4addr.sin_addr) == 1) {	
+	if (inet_aton(host, &ipv4addr.sin_addr) == 1) {
 		sock = socket(AF_INET, SOCK_STREAM, 0);
 		if (slow(sock == -1))
 			return -1;

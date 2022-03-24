@@ -109,6 +109,6 @@ static void *_io_thread(void *arg)
 void el_run(struct el *el)
 {
 	if (pthread_create(&el->tid, NULL, _io_thread, el) < 0)
-		FATAL("pthread_create(): %s", strerror(errno));
+		logf("pthread_create(): %s", strerror(errno));
 }
 

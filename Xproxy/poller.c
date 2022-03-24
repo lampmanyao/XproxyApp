@@ -106,7 +106,7 @@ int poller_open()
 {
 	int fd = kqueue();
 	if (fd == -1)
-		FATAL("keueue() error: %s", strerror(errno));
+		logf("keueue() error: %s", strerror(errno));
 
 	return fd;
 }

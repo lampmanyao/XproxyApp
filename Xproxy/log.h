@@ -20,8 +20,7 @@
 #define GREEN_BEGIN "\e[0;32m"
 #define YELLO_BEGIN "\e[0;33m"
 
-#ifndef DEBUG
-#define DEBUG(fmt, args ...) do { \
+#define logd(fmt, args ...) do { \
 	char time_buff[32]; \
 	struct timeval tv; \
 	struct tm tm; \
@@ -31,10 +30,8 @@
 	fprintf(stdout, "%s %s:%u %ld " GREEN_BEGIN "DEBUG " COLOR_RESET fmt "\n", time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
 	fflush(stdout); \
 } while (0)
-#endif
 
-#ifndef INFO
-#define INFO(fmt, args ...) do { \
+#define logi(fmt, args ...) do { \
 	char time_buff[32]; \
 	struct timeval tv; \
 	struct tm tm; \
@@ -44,10 +41,8 @@
 	fprintf(stdout, "%s %s:%u %ld " YELLO_BEGIN "INFO " COLOR_RESET fmt "\n", time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
 	fflush(stdout); \
 } while (0)
-#endif
 
-#ifndef ERROR
-#define ERROR(fmt, args ...) do { \
+#define loge(fmt, args ...) do { \
 	char time_buff[32]; \
 	struct timeval tv; \
 	struct tm tm; \
@@ -57,10 +52,8 @@
 	fprintf(stderr, "%s %s:%u %ld " RED_BEGIN "ERROR " COLOR_RESET fmt "\n", time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
 	fflush(stderr); \
 } while (0)
-#endif
 
-#ifndef FATAL
-#define FATAL(fmt, args ...) do { \
+#define logf(fmt, args ...) do { \
 	char time_buff[32]; \
 	struct timeval tv; \
 	struct tm tm; \
@@ -71,7 +64,6 @@
 	fflush(stderr); \
 	exit(-1); \
 } while (0)
-#endif
 
 #endif  /* log_h */
 
