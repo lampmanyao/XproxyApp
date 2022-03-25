@@ -83,7 +83,7 @@ the request looks like 'CONNECT example.com:443 http/1.1' is the https request.
 
 Each packet between the local-proxy and the remote-proxy is as below:
 ┌─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┐
-|encrypted payload length| encrypted playload    ......   |
+|encrypted payload length| encrypted payload     ......   |
 └─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┘
 the payload length is a 4-byte unsigned integer, following a payload length data.
 
@@ -99,8 +99,8 @@ On iOS:
 See https://github.com/balthisar/openssl-xcframeworks for how to build OpenSSL for iOS.
 
 
-Complilation
-------------
+Compilation
+-----------
 
 1. % cd Xproxy
 2. % autoreconf --install
@@ -119,7 +119,7 @@ remote-proxy
 ------------
 
 Runing on Linux or macOS:
-% ./remote -c ./remote.conf
+% ./remote-proxy -c ./remote.conf
 
 
 TODOs
