@@ -29,12 +29,12 @@ class MasterTableViewController: UITableViewController, MasterTableViewControlle
         
         self.view.backgroundColor = UIColor(named: "XproxyBackgroudColor")
         self.tableView.backgroundColor = UIColor(named: "XproxyBackgroundColor")
-        
         reloadManagers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: false)
         reloadManagers()
     }
     

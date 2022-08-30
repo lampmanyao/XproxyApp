@@ -8,6 +8,12 @@
 #include <sys/resource.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+
+#ifdef __APPLE__
+#include <os/log.h>
+#endif
 
 #include "platform.h"
 #include "local-proxy.h"
@@ -420,7 +426,7 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 		uint8_t domain_name_len = (uint8_t)plaintext[SOCKS5_RSP_HEAD_SIZE];
 		memcpy(reply, plaintext, SOCKS5_RSP_HEAD_SIZE + 1 + domain_name_len + SOCKS5_PORT_SIZE);
 		tcp_connection_append_txbuf(client, reply,
-					    SOCKS5_RSP_HEAD_SIZE + 1 + domain_name_len + SOCKS5_PORT_SIZE);
+                                    SOCKS5_RSP_HEAD_SIZE + 1 + domain_name_len + SOCKS5_PORT_SIZE);
 	} else if (typ == SOCKS5_ATYP_IPv6) {
 		memcpy(reply, plaintext, SOCKS5_IPV6_REQ_SIZE);
 		tcp_connection_append_txbuf(client, reply, SOCKS5_IPV6_REQ_SIZE);
@@ -567,8 +573,12 @@ static int sendto_remote_cb(struct el *el, struct tcp_connection *remote)
 	}
 }
 
-int sfd = 0;
-int running = 0;
+
+static int server_fd = 0;
+static int traffic_fd = 0;
+char *shared_map = NULL;
+
+_Atomic int running = 0;
 struct xproxy *xproxy = NULL;
 
 int start_local_proxy(const char *address, uint16_t port, const char *password, const char *method)
@@ -584,46 +594,51 @@ int start_local_proxy(const char *address, uint16_t port, const char *password, 
 	configuration.local_port = 8080;
 	configuration.remote_addr = strdup(address);
 	configuration.remote_port = port;
-	configuration.maxfiles = 256;
+	configuration.maxfiles = 1024;
 
 	if (cryptor_init(&cryptor, configuration.method, configuration.password) == -1) {
 		loge("Unsupport method: %s", configuration.method);
-		return -1;
+		return ERR_UNSUPPORT_METHOD;
 	}
 
 	if (openfiles_init(configuration.maxfiles) != 0) {
 		loge("Set max open files to %d failed: %s",
 		      configuration.maxfiles, strerror(errno));
-		return -1;
+		return ERR_MAX_OPENFILES;
 	}
 
-	sfd = listen_and_bind(configuration.local_addr, configuration.local_port);
-	if (sfd < 0) {
+	server_fd = listen_and_bind(configuration.local_addr, configuration.local_port);
+	if (server_fd < 0) {
 		loge("listen_and_bind(): %s", strerror(errno));
-		return -1;
+		return ERR_ADDRESS_IN_USE;
 	}
 
-	set_nonblocking(sfd);
+	set_nonblocking(server_fd);
 
-	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb);
+	xproxy = xproxy_new(server_fd, configuration.nthread, accept_cb);
 	if (!xproxy) {
-		close(sfd);
-		return -1;
+		close(server_fd);
+		return ERR_SYSTEM;
 	}
 
 	logi("Listening on port %d", configuration.local_port);
 	running = 1;
 	xproxy_run(xproxy);
 
-        return 0;
+    return ERR_NONE;
 }
 
 void stop_local_proxy(void)
 {
 	running = 0;
 
-	if (sfd > 0)
-		close(sfd);
+	if (server_fd > 0)
+		close(server_fd);
+    
+    if (traffic_fd > 0)
+        close(traffic_fd);
+    
+    munmap(shared_map, 2 * sizeof(uint64_t));
 
 	if (xproxy)
 		xproxy_free(xproxy);

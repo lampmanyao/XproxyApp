@@ -38,41 +38,40 @@ class VpnStatusTableViewCell: UITableViewCell {
 			case .invalid:
 				self.toggle.isEnabled = true
 				self.toggle.isOn = false
-
 				self.spinner.stopAnimating()
 				self.statusLabel.text = "Invalid"
+				
 			case .disconnected:
 				self.toggle.isEnabled = true
 				self.toggle.isOn = false
-
 				self.spinner.stopAnimating()
 				self.statusLabel.text = "Disconnected"
+				
 			case .connecting:
 				self.toggle.isEnabled = false
 				self.toggle.isOn = true
-
 				self.spinner.startAnimating()
 				self.statusLabel.text = "Connecting..."
+				
 			case .connected:
 				self.toggle.isEnabled = true
 				self.toggle.isOn = true
-
 				self.spinner.stopAnimating()
 				self.statusLabel.text = "Connected"
+				
 			case .reasserting:
 				self.toggle.isEnabled = false
-
 				self.spinner.startAnimating()
 				self.statusLabel.text = "Reasserting..."
+
 			case .disconnecting:
 				self.toggle.isEnabled = false
-
 				self.spinner.startAnimating()
 				self.statusLabel.text = "Disconnecting..."
+				
 			@unknown default:
 				self.toggle.isEnabled = true
 				self.toggle.isOn = false
-
 				self.spinner.stopAnimating()
 				self.statusLabel.text = "Unknown"
 			}

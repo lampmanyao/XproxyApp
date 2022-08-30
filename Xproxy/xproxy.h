@@ -2,6 +2,7 @@
 #define xproxy_h
 
 #include <pthread.h>
+#include <stdatomic.h>
 
 #include "el.h"
 

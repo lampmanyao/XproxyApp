@@ -25,7 +25,8 @@ class PadVpnConfViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveVpn))
+        let menuItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: makeBarItemMenu())
+        navigationItem.rightBarButtonItem = menuItem
         navigationItem.title = "New VPN"
         
         tableView.dataSource = self
@@ -64,7 +65,7 @@ class PadVpnConfViewController: UIViewController {
                                         { (_, observer, _, _, _) -> Void in
                                             if let observer = observer {
                                                 let myself = Unmanaged<PadVpnConfViewController>.fromOpaque(observer).takeUnretainedValue()
-                                                myself.presentError("Network", "Cannot connect to remote-proxy")
+                                                myself.presentAlert("Network", "Cannot connect to remote-proxy")
                                             }
                                         },
                                         notificationName,
@@ -94,9 +95,59 @@ class PadVpnConfViewController: UIViewController {
         return storyboard.instantiateViewController(withIdentifier: "PadVpnConfViewController") as! PadVpnConfViewController
     }
     
+    private func makeBarItemMenu() -> UIMenu {
+        let saveAction = UIAction(title: "Save", image: UIImage(systemName: "square.and.arrow.down"), handler: { [self] action in
+            guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
+                presentAlert(nil, "pleass enter the empty filed")
+                return
+            }
+        
+            if vpnManager == nil {
+                vpnManager = NETunnelProviderManager()
+            }
+        
+            if vpnConfiguration.exceptionList.last == "" {
+                vpnConfiguration.exceptionList.removeLast(1)
+            }
+        
+            vpnManager!.isEnabled = true
+            vpnManager!.localizedDescription = "Xproxy"
+        
+            let providerProtocol = NETunnelProviderProtocol()
+            providerProtocol.providerConfiguration = providerConfiguration
+            providerProtocol.serverAddress = vpnConfiguration.address
+            vpnManager!.protocolConfiguration = providerProtocol
+        
+            vpnManager!.saveToPreferences { error in
+                if let saveError = error {
+                    self.presentAlert("VPN", saveError.localizedDescription)
+                    return
+                }
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+        let scanAction = UIAction(title: "Scan", image: UIImage(systemName: "qrcode.viewfinder"), handler: { action in
+            let vc = ScannerViewController.instance()
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+        
+        let showAction = UIAction(title: "Show", image: UIImage(systemName: "qrcode"), handler: { [self] action in
+            let vc = QRImageViewController.instance()
+            vc.qrImage = vpnConfiguration.genQRImage()
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+        
+        let menu = UIMenu(title: "", image: UIImage(named: "menu"), identifier: nil,
+                          options: .destructive,
+                          children: [saveAction, scanAction, showAction])
+        return menu
+    }
+    
     @objc func saveVpn() {
         guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
-            presentError(nil, "pleass enter the empty filed")
+            presentAlert(nil, "pleass enter the empty filed")
             return
         }
         
@@ -106,6 +157,9 @@ class PadVpnConfViewController: UIViewController {
         
         vpnManager!.isEnabled = true
         vpnManager!.localizedDescription = "Xproxy"
+        let connectRule = NEOnDemandRuleConnect()
+        connectRule.interfaceTypeMatch = .wiFi
+        vpnManager!.onDemandRules = [connectRule]
 
         let providerProtocol = NETunnelProviderProtocol()
         providerProtocol.providerConfiguration = providerConfiguration
@@ -114,7 +168,7 @@ class PadVpnConfViewController: UIViewController {
         
         vpnManager!.saveToPreferences { error in
             if let saveError = error {
-                self.presentError("VPN", saveError.localizedDescription)
+                self.presentAlert("VPN", saveError.localizedDescription)
                 return
             }
             self.delegate?.reloadManagers()
@@ -128,7 +182,7 @@ class PadVpnConfViewController: UIViewController {
                 if let error = error {
                     let title = String(describing: type(of: error))
                     let message = error.localizedDescription
-                    self.presentError(title, message)
+                    self.presentAlert(title, message)
                     return
                 }
 
@@ -142,10 +196,10 @@ class PadVpnConfViewController: UIViewController {
     private func startVPNTunnel() {
         do {
             try self.vpnManager?.connection.startVPNTunnel()
-        } catch {
+        } catch let error {
             let title = String(describing: type(of: error))
             let message = error.localizedDescription
-            presentError(title, message)
+            presentAlert(title, message)
         }
     }
     
@@ -237,6 +291,7 @@ extension PadVpnConfViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.toggle.addTarget(self, action: #selector(toggle(_:)), for: .valueChanged)
                     cell.manager = vpnManager
                     cell.toggle.isOn = vpnManager!.connection.status == .connected
+                    cell.statusLabel.text = cell.toggle.isOn ? "Connected" : "Disconnected"
                     cell.observeVpnStatus()
                     return cell
                 } else if indexPath.row < 5 {
@@ -372,5 +427,13 @@ extension PadVpnConfViewController: MethodPickerTableViewCellDelegate {
     func didSelect(_ cell: MethodPickerTableViewCell, didPick row: Int, value: Any) {
         vpnConfiguration.method = cell.textField.text
         self.view.endEditing(true)
+    }
+}
+
+extension PadVpnConfViewController: VpnConfigurationDelegate {
+    func applyVpnConfig(vpnConfiguration: VpnConfiguration?) {
+        guard let vpnConfiguration = vpnConfiguration else { return }
+        self.vpnConfiguration = vpnConfiguration
+        self.tableView.reloadData()
     }
 }

@@ -21,7 +21,8 @@ class VpnConfViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = "New VPN"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        let menuItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: makeBarItemMenu())
+        navigationItem.rightBarButtonItem = menuItem
         
         tableView.register(UINib(nibName: "VpnTableViewCell", bundle: nil), forCellReuseIdentifier: "VpnTableViewCell")
         tableView.register(UINib(nibName: "ExceptionTableViewCell", bundle: nil), forCellReuseIdentifier: "ExceptionCell")
@@ -65,6 +66,56 @@ class VpnConfViewController: UITableViewController {
         return vc
     }
     
+    private func makeBarItemMenu() -> UIMenu {
+        let saveAction = UIAction(title: "Save", image: UIImage(systemName: "square.and.arrow.down"), handler: { [self] action in
+            guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
+                presentAlert(nil, "pleass enter the empty filed")
+                return
+            }
+        
+            if vpnManager == nil {
+                vpnManager = NETunnelProviderManager()
+            }
+        
+            if vpnConfiguration.exceptionList.last == "" {
+                vpnConfiguration.exceptionList.removeLast(1)
+            }
+        
+            vpnManager!.isEnabled = true
+            vpnManager!.localizedDescription = "Xproxy"
+        
+            let providerProtocol = NETunnelProviderProtocol()
+            providerProtocol.providerConfiguration = providerConfiguration
+            providerProtocol.serverAddress = vpnConfiguration.address
+            vpnManager!.protocolConfiguration = providerProtocol
+        
+            vpnManager!.saveToPreferences { error in
+                if let saveError = error {
+                    self.presentAlert("VPN", saveError.localizedDescription)
+                    return
+                }
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+        let scanAction = UIAction(title: "Scan", image: UIImage(systemName: "qrcode.viewfinder"), handler: { action in
+            let vc = ScannerViewController.instance()
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+        
+        let showAction = UIAction(title: "Show", image: UIImage(systemName: "qrcode"), handler: { [self] action in
+            let vc = QRImageViewController.instance()
+            vc.qrImage = vpnConfiguration.genQRImage()
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+                                
+        let menu = UIMenu(title: "", image: UIImage(named: "menu"), identifier: nil,
+                          options: .destructive,
+                          children: [saveAction, scanAction, showAction])
+        return menu
+    }
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
@@ -99,37 +150,6 @@ class VpnConfViewController: UITableViewController {
         }
     }
     
-    @objc private func save() {
-        guard let providerConfiguration = vpnConfiguration.providerConfiguration() else {
-            presentError(nil, "pleass enter the empty filed")
-            return
-        }
-        
-        if vpnManager == nil {
-            vpnManager = NETunnelProviderManager()
-        }
-        
-        if vpnConfiguration.exceptionList.last == "" {
-            vpnConfiguration.exceptionList.removeLast(1)
-        }
-        
-        vpnManager!.isEnabled = true
-        vpnManager!.localizedDescription = "Xproxy"
-        
-        let providerProtocol = NETunnelProviderProtocol()
-        providerProtocol.providerConfiguration = providerConfiguration
-        providerProtocol.serverAddress = vpnConfiguration.address
-        vpnManager!.protocolConfiguration = providerProtocol
-        
-        vpnManager!.saveToPreferences { error in
-            if let saveError = error {
-                self.presentError("VPN", saveError.localizedDescription)
-                return
-            }
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -280,5 +300,13 @@ extension VpnConfViewController: MethodPickerTableViewCellDelegate {
     func didSelect(_ cell: MethodPickerTableViewCell, didPick row: Int, value: Any) {
         vpnConfiguration.method = cell.textField.text
         self.view.endEditing(true)
+    }
+}
+
+extension VpnConfViewController: VpnConfigurationDelegate {
+    func applyVpnConfig(vpnConfiguration: VpnConfiguration?) {
+        guard let vpnConfiguration = vpnConfiguration else { return }
+        self.vpnConfiguration = vpnConfiguration
+        self.tableView.reloadData()
     }
 }

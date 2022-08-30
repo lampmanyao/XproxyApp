@@ -39,6 +39,8 @@ int set_nonblocking(int fd)
 int listen_and_bind(const char *address, uint16_t port)
 {
 	int sfd;
+    int reuse = 1;
+    int on = 5;
 	struct sockaddr_in serv_addr;
 
 	sfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -46,6 +48,10 @@ int listen_and_bind(const char *address, uint16_t port)
 		loge("socket(): %s", strerror(errno));
 		return -1;
 	}
+    
+    setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &reuse, (socklen_t)sizeof(reuse));
+    setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &reuse, (socklen_t)sizeof(reuse));
+    setsockopt(sfd, IPPROTO_TCP, TCP_FASTOPEN, &on, sizeof(on));
 
 	bzero(&serv_addr, sizeof(struct sockaddr_in));
 	serv_addr.sin_family = AF_INET;

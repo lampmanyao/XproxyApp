@@ -21,12 +21,14 @@ class ViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVPN))
 		
         tableView.register(UINib(nibName: "VpnInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "VpnInfoTableViewCell")
+		
 		observeRemoteConnectFailure()
 		reloadManagers()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		self.navigationController?.setToolbarHidden(false, animated: false)
 		reloadManagers()
 	}
 	
@@ -40,7 +42,7 @@ class ViewController: UITableViewController {
                                         { (_, observer, _, _, _) -> Void in
                                             if let observer = observer {
                                                 let myself = Unmanaged<ViewController>.fromOpaque(observer).takeUnretainedValue()
-                                                myself.presentError("Network", "Cannot connect to remote-proxy")
+                                                myself.presentAlert("Network", "Cannot connect to remote-proxy")
                                             }
                                         },
                                         notificationName,
@@ -83,7 +85,7 @@ class ViewController: UITableViewController {
                 if let error = error {
 					let title = String(describing: type(of: error))
                     let message = error.localizedDescription
-                    self.presentError(title, message)
+                    self.presentAlert(title, message)
                     return
                 }
 
@@ -115,7 +117,7 @@ class ViewController: UITableViewController {
 		} catch {
 			let title = String(describing: type(of: error))
             let message = error.localizedDescription
-            self.presentError(title, message)
+            self.presentAlert(title, message)
 		}
 	}
 	
@@ -126,13 +128,9 @@ class ViewController: UITableViewController {
 		cell.toggle.addTarget(self, action: #selector(toggle), for: .valueChanged)
 		let manager = managers[indexPath.row]
 		cell.manager = manager
-		cell.observeVpnStatus()
-		if manager.connection.status == .connected {
-			cell.toggle.isOn = true
-		} else {
-			cell.toggle.isOn = false
-		}
-		
+		cell.toggle.isOn = manager.connection.status == .connected
+        cell.statusLabel.text = cell.toggle.isOn ? "Connected" : "Disconnected"
+        cell.observeVpnStatus()
 		if let providerConfiguration = (manager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration {
 			cell.nameLabel.text = providerConfiguration["name"] as? String
 			cell.addressLabel.text = providerConfiguration["address"] as? String

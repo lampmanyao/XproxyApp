@@ -12,10 +12,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     private var localProxyAddress = "127.0.0.1"
     private var localProxyPort = 8080
     
+    private var timer: Timer?
+    
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else {
-            completionHandler(nil)
+            completionHandler(TunnelError.invalidConfigure)
             return
         }
         
@@ -48,23 +50,30 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler(error)
                 return
             }
-
-            if (start_local_proxy(address, UInt16(port)!, password, method) == 0) {
+            
+            let err = start_local_proxy(address, UInt16(port)!, password, method)
+            if err == ERR_NONE {
                 completionHandler(nil)
+            } else if err == ERR_UNSUPPORT_METHOD {
+                completionHandler(TunnelError.unsupportMethod)
+            } else if err == ERR_MAX_OPENFILES {
+                completionHandler(TunnelError.maxOpenFiles)
+            } else if err ==  ERR_ADDRESS_IN_USE {
+                completionHandler(TunnelError.addressInUse)
+            } else if err == ERR_SYSTEM {
+                completionHandler(TunnelError.system)
             } else {
-                completionHandler(nil)
+                completionHandler(TunnelError.unknown)
             }
         }
     }
     
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
-        // Add code here to start the process of stopping the tunnel.
         stop_local_proxy()
         completionHandler()
     }
     
     override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)?) {
-        // Add code here to handle the message.
         if let handler = completionHandler {
             handler(messageData)
         }
