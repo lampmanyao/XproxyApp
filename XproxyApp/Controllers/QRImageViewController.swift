@@ -27,7 +27,12 @@ class QRImageViewController: UIViewController {
     }
     
     @objc private func saveToPhoto() {
-        UIImageWriteToSavedPhotosAlbum(qrImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        guard let qrImage = qrImage else {
+            self.presentAlert("Save Error", "No QR Code image.")
+            return
+        }
+
+        UIImageWriteToSavedPhotosAlbum(qrImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
