@@ -281,7 +281,7 @@ extension PadVpnConfViewController: UITableViewDataSource, UITableViewDelegate {
                     return cell
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! MethodPickerTableViewCell
-                    cell.dataSource = SupportMethods
+                    cell.dataSource = Constant.SupportMethods
                     cell.delegate = self
                     return cell
                 }
@@ -316,7 +316,7 @@ extension PadVpnConfViewController: UITableViewDataSource, UITableViewDelegate {
                     return cell
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! MethodPickerTableViewCell
-                    cell.dataSource = SupportMethods
+                    cell.dataSource = Constant.SupportMethods
                     cell.textField.text = vpnConfiguration.method
                     cell.delegate = self
                     return cell

@@ -7,4 +7,8 @@
 
 import Foundation
 
-let SupportMethods = ["aes-256-cfb", "aes-192-cfb", "aes-128-cfb"]
+struct Constant {
+    static let SupportMethods = ["aes-256-cfb", "aes-192-cfb", "aes-128-cfb"]
+
+    static let githubLink = "github.com/lampmanyao/XproxyIOS"
+}

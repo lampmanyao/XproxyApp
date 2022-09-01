@@ -246,7 +246,7 @@ class VpnConfViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PickerCell", for: indexPath) as! MethodPickerTableViewCell
-                cell.dataSource = SupportMethods
+                cell.dataSource = Constant.SupportMethods
                 cell.delegate = self
                 cell.textField.text = vpnConfiguration.method
                 return cell

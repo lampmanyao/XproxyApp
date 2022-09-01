@@ -76,8 +76,7 @@ class MasterTableViewController: UITableViewController, MasterTableViewControlle
     }
     
     @objc private func showAbout() {
-        let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "AboutTableViewController") as! AboutTableViewController
+        let vc = AboutTableViewController.instance()
         splitViewController?.setViewController(vc, for: .secondary)
     }
 

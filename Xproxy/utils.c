@@ -22,6 +22,8 @@
 #include <mach/thread_act.h>
 #endif
 
+#include <openssl/opensslv.h>
+
 #include "utils.h"
 #include "log.h"
 
