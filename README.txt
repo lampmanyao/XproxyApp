@@ -1,10 +1,14 @@
 Welcome to XproxyApp
 ====================
 
-The XproxyApp is a client for Xproxy on iOS (iOS 17.o or later) and macOS (14.0 or later), and Xproxy is a user-space VPN.
+The XproxyApp is a client for Xproxy on iOS and macOS, and Xproxy is a user-space VPN.
 The Xproxy dir in this repo is different with the Xproxy (see https://github.com/lampmanyao/xproxy),
 the former is a http/https proxy, the later is a SOCKS5 proxy.
 
+System Requirements
+-------------------
+iOS 17.0 or later
+macOS 14.0 or later
 
 HOW IT WORKS
 ------------
