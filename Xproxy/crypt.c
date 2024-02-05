@@ -203,6 +203,9 @@ void cryptor_deinit(struct cryptor *c)
 EVP_CIPHER_CTX *new_encrypt_cipher_ctx(struct cryptor *c)
 {
 	EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
+	if (!ctx)
+		return NULL;
+
 	if (EVP_EncryptInit_ex(ctx, c->evp_cipher, NULL,
 			       (const uint8_t *)c->key,
 			       (const uint8_t *)c->iv) != 1) {
@@ -216,6 +219,9 @@ EVP_CIPHER_CTX *new_encrypt_cipher_ctx(struct cryptor *c)
 EVP_CIPHER_CTX *new_decrypt_cipher_ctx(struct cryptor *c)
 {
 	EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
+	if (!ctx)
+		return NULL;
+
 	if (EVP_DecryptInit_ex(ctx, c->evp_cipher, NULL,
 			       (const uint8_t *)c->key,
 			       (const uint8_t *)c->iv) != 1) {
@@ -230,6 +236,10 @@ static int encrypt_cfb(struct cryptor *c, uint8_t **outbuf, uint32_t *outlen,
 			const uint8_t *inbuf, uint32_t inlen)
 {
 	EVP_CIPHER_CTX *ctx = new_encrypt_cipher_ctx(c);
+	if (!ctx) {
+		return -1;
+	}
+
 	int len = 0;
 	*outlen = 0;
 	*outbuf = malloc(inlen + EVP_MAX_BLOCK_LENGTH);
@@ -264,6 +274,9 @@ static int decrypt_cfb(struct cryptor *c, uint8_t **outbuf, uint32_t *outlen,
 			const uint8_t *inbuf, uint32_t inlen)
 {
 	EVP_CIPHER_CTX *ctx = new_decrypt_cipher_ctx(c);
+	if (!ctx)
+		return -1;
+	
 	uint32_t encrypted_len = 0;
 	int len = 0;
 	*outlen = 0;

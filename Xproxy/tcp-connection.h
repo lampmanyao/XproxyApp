@@ -18,7 +18,7 @@ typedef int (*send_callback) (struct el *, struct tcp_connection *);
 #define STAGE_STREAMING 1
 
 struct tcp_connection {
-	struct tcp_connection *peer_tcp_conn;
+	struct tcp_connection *peer;
 
 	int fd;
 	int stage: 28;

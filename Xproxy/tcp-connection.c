@@ -13,14 +13,15 @@
 
 struct tcp_connection* new_tcp_connection(int fd, uint32_t bufsize, recv_callback recv_cb, send_callback send_cb)
 {
-	struct tcp_connection *tcp_conn = calloc(1, sizeof(*tcp_conn));
+	struct tcp_connection *tcp_conn = malloc(sizeof(struct tcp_connection));
 	if (slow(!tcp_conn))
 		oom(sizeof(*tcp_conn));
+
+        tcp_conn->peer = NULL;
 
 	tcp_conn->fd = fd;
 	tcp_conn->stage = STAGE_HANDSHAKE;
 	tcp_conn->type = REQ_TYPE_UNKNOWN;
-	memset(tcp_conn->host, 0, 256);
 
 	tcp_conn->rxbuf = malloc(bufsize);
 	memset(tcp_conn->rxbuf, 0, bufsize);
@@ -35,7 +36,8 @@ struct tcp_connection* new_tcp_connection(int fd, uint32_t bufsize, recv_callbac
 	tcp_conn->recv_cb = recv_cb;
 	tcp_conn->send_cb = send_cb;
 
-	tcp_conn->peer_tcp_conn = NULL;
+        tcp_conn->port = 0;
+        memset(tcp_conn->host, 0, sizeof(tcp_conn->host));
 
 	return tcp_conn;
 }
@@ -56,7 +58,7 @@ void tcp_connection_append_rxbuf(struct tcp_connection *tcp_conn, const uint8_t 
 		tcp_conn->rxbuf_length += len;
 	} else {
 		if (tcp_conn->rxbuf_length > 0) {
-			uint8_t *new_buf = calloc(1, tcp_conn->rxbuf_length + len);
+			uint8_t *new_buf = malloc(tcp_conn->rxbuf_length + len);
 			memcpy(new_buf, tcp_conn->rxbuf, tcp_conn->rxbuf_length);
 			memcpy(new_buf + tcp_conn->rxbuf_length, data, len);
 			free(tcp_conn->rxbuf);
@@ -64,7 +66,7 @@ void tcp_connection_append_rxbuf(struct tcp_connection *tcp_conn, const uint8_t 
 			tcp_conn->rxbuf_capacity = tcp_conn->rxbuf_length + len;
 			tcp_conn->rxbuf_length += len;
 		} else {
-			uint8_t *new_buf = calloc(1, len);
+			uint8_t *new_buf = malloc(len);
 			memcpy(new_buf, data, len);
 			free(tcp_conn->rxbuf);
 			tcp_conn->rxbuf = new_buf;
@@ -82,7 +84,7 @@ void tcp_connection_append_txbuf(struct tcp_connection *tcp_conn, const uint8_t 
 		tcp_conn->txbuf_length += len;
 	} else {
 		if (tcp_conn->txbuf_length > 0) {
-			uint8_t *new_buf = calloc(1, tcp_conn->txbuf_length + len);
+			uint8_t *new_buf = malloc(tcp_conn->txbuf_length + len);
 			memcpy(new_buf, tcp_conn->txbuf, tcp_conn->txbuf_length);
 			memcpy(new_buf + tcp_conn->txbuf_length, data, len);
 			free(tcp_conn->txbuf);
@@ -90,7 +92,7 @@ void tcp_connection_append_txbuf(struct tcp_connection *tcp_conn, const uint8_t 
 			tcp_conn->txbuf_capacity = tcp_conn->txbuf_length + len;
 			tcp_conn->txbuf_length += len;
 		} else {
-			uint8_t *new_buf = calloc(1, len);
+			uint8_t *new_buf = malloc(len);
 			memcpy(new_buf, data, len);
 			free(tcp_conn->txbuf);
 			tcp_conn->txbuf = new_buf;

@@ -13,5 +13,6 @@
 
 #import "local-proxy.h"
 #import "utils.h"
+#import "crypt.h"
 
 #endif

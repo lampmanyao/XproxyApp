@@ -142,8 +142,8 @@ static int handle_handshake_request(struct el *el, struct tcp_connection *local)
 
 		logi("Connected to server (%s:%d)", ipv4, hsport);
 
-		server->peer_tcp_conn = local;
-		local->peer_tcp_conn = server;
+		server->peer = local;
+		local->peer = server;
 
 		memcpy(local->host, ipv4, sizeof(ipv4));
 		local->host[sizeof(ipv4)] = '\0';
@@ -175,8 +175,8 @@ static int handle_handshake_request(struct el *el, struct tcp_connection *local)
 
 		el_watch(el, server);
 
-		local->peer_tcp_conn = server;
-		server->peer_tcp_conn = local;
+		local->peer = server;
+		server->peer = local;
 
 		logi("Connected to server (%s:%d)", domain_name, hsport);
 
@@ -213,8 +213,8 @@ static int handle_handshake_request(struct el *el, struct tcp_connection *local)
 
 		logi("Connected to server (%s:%d)", ipv6, hsport);
 
-		server->peer_tcp_conn = local;
-		local->peer_tcp_conn = server;
+		server->peer = local;
+		local->peer = server;
 
 		memcpy(local->host, ipv6, sizeof(ipv6));
 		local->host[sizeof(ipv6)] = '\0';
@@ -267,7 +267,7 @@ static int handle_handshake_request(struct el *el, struct tcp_connection *local)
 static int stream_to_server(struct el *el, struct tcp_connection *local)
 {
 	int ret;
-	struct tcp_connection *server = local->peer_tcp_conn;;
+	struct tcp_connection *server = local->peer;;
 	uint8_t *data = NULL;
 	uint32_t data_len = 0;
 	uint32_t plaintext_len = 0;
@@ -354,7 +354,7 @@ static int recvfrom_local_cb(struct el *el, struct tcp_connection *local)
 
 static int sendto_local_cb(struct el *el, struct tcp_connection *local)
 {
-	struct tcp_connection *server = local->peer_tcp_conn;
+	struct tcp_connection *server = local->peer;
 	uint8_t *data = local->txbuf;
 	uint32_t data_len = local->txbuf_length;
 	ssize_t tx = send(local->fd, data, data_len, 0);
@@ -376,7 +376,7 @@ static int sendto_local_cb(struct el *el, struct tcp_connection *local)
 static int recvfrom_server_cb(struct el *el, struct tcp_connection *server)
 {
 	int ret;
-	struct tcp_connection *local = server->peer_tcp_conn;
+	struct tcp_connection *local = server->peer;
 	uint8_t *data;
 	uint32_t data_len;
 	uint8_t *ciphertext;
@@ -430,7 +430,7 @@ static int recvfrom_server_cb(struct el *el, struct tcp_connection *server)
 
 static int sendto_server_cb(struct el *el, struct tcp_connection *server)
 {
-	struct tcp_connection *local = server->peer_tcp_conn;
+	struct tcp_connection *local = server->peer;
 	uint8_t *data = server->txbuf;
 	uint32_t data_len = server->txbuf_length;
 	ssize_t tx = send(server->fd, data, data_len, 0);

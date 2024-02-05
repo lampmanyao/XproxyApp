@@ -25,7 +25,9 @@ enum {
 	ERR_NONE             = 0,
 };
 
-int start_local_proxy(const char *address, uint16_t port, const char *password, const char *method);
+int start_local_proxy(const char *local_address, uint16_t local_port,
+                      const char *server_address, uint16_t server_port,
+                      const char *password, const char *method);
 void stop_local_proxy(void);
 
 #endif /* local_proxy_h */

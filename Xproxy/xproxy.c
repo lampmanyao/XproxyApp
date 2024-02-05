@@ -26,9 +26,9 @@ struct xproxy *xproxy_new(int sfd, int nthread, accept_callback accept_cb)
 	if (poller == -1)
 		return NULL;
 
-	size_t size = sizeof(*xproxy) + (size_t)nthread * sizeof(struct el *);
+	size_t size = sizeof(struct xproxy) + (size_t)nthread * sizeof(struct el *);
 
-	xproxy = calloc(1, size);
+	xproxy = malloc(size);
 	if (!xproxy)
 		oom(size);
 

@@ -7,65 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F01742427ECBE3A00B49911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */; };
-		3F01AD6327DB680800906633 /* VpnConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F01AD6227DB680800906633 /* VpnConfViewController.swift */; };
-		3F16B9EF28C0709A00712896 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9ED28C0709A00712896 /* libcrypto.a */; };
-		3F16B9F028C0709A00712896 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9ED28C0709A00712896 /* libcrypto.a */; };
-		3F16B9F128C0709A00712896 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9EE28C0709A00712896 /* libssl.a */; };
-		3F16B9F228C0709A00712896 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9EE28C0709A00712896 /* libssl.a */; };
-		3F26DC1E27E22ED1001E5B8D /* MethodPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DC1C27E22ED1001E5B8D /* MethodPickerTableViewCell.swift */; };
-		3F26DC1F27E22ED1001E5B8D /* MethodPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F26DC1D27E22ED1001E5B8D /* MethodPickerTableViewCell.xib */; };
-		3F3D9CCF27DB91CC00DEB6D3 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3D9CCE27DB91CC00DEB6D3 /* iPad.storyboard */; };
-		3F3D9CD327DB948B00DEB6D3 /* MasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D9CD227DB948B00DEB6D3 /* MasterTableViewController.swift */; };
-		3F3D9CD527DB94F100DEB6D3 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D9CD427DB94F100DEB6D3 /* SplitViewController.swift */; };
-		3F3D9CD727DBBBE600DEB6D3 /* PadVpnConfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D9CD627DBBBE600DEB6D3 /* PadVpnConfViewController.swift */; };
-		3F3D9CDD27DBC84F00DEB6D3 /* VpnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D9CDB27DBC84F00DEB6D3 /* VpnTableViewCell.swift */; };
-		3F3D9CDE27DBC84F00DEB6D3 /* VpnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F3D9CDC27DBC84F00DEB6D3 /* VpnTableViewCell.xib */; };
-		3F3D9CE127DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D9CDF27DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift */; };
-		3F3D9CE227DBD43300DEB6D3 /* PadVpnInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F3D9CE027DBD43300DEB6D3 /* PadVpnInfoTableViewCell.xib */; };
-		3F66231B27DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66231927DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift */; };
-		3F66231C27DCB3C800CD2DF7 /* VpnStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F66231A27DCB3C800CD2DF7 /* VpnStatusTableViewCell.xib */; };
-		3F66231F27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66231D27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.swift */; };
-		3F66232027DCDEDA00CD2DF7 /* VpnInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F66231E27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.xib */; };
-		3F66232227DCF0C600CD2DF7 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66232127DCF0C600CD2DF7 /* AboutTableViewController.swift */; };
-		3F66232527DCF6CC00CD2DF7 /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
-		3F66232927DCF76B00CD2DF7 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; };
-		3F66232A27DCF77100CD2DF7 /* tcp-connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C327DA3C6F00B53758 /* tcp-connection.c */; };
-		3F66232B27DCF77700CD2DF7 /* xproxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C427DA3C6F00B53758 /* xproxy.c */; };
-		3F66232C27DCF77C00CD2DF7 /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; };
-		3F66232D27DCF78000CD2DF7 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C827DA3C6F00B53758 /* utils.c */; };
-		3F66232E27DCF78600CD2DF7 /* el.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07CD27DA3C6F00B53758 /* el.c */; };
-		3F66233027DD159200CD2DF7 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3F66232F27DD159200CD2DF7 /* README.txt */; };
-		3F66233427DD46C800CD2DF7 /* ExceptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F66233227DD46C800CD2DF7 /* ExceptionTableViewCell.swift */; };
-		3F66233527DD46C800CD2DF7 /* ExceptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F66233327DD46C800CD2DF7 /* ExceptionTableViewCell.xib */; };
-		3F8A711A28C0FC6A00626745 /* AboutTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8A711928C0FC6A00626745 /* AboutTableViewController.storyboard */; };
-		3F8A711C28C0FD9E00626745 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A711B28C0FD9E00626745 /* Bundle+Extension.swift */; };
-		3F8A711E28C1013B00626745 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A711D28C1013B00626745 /* String+Extension.swift */; };
-		3F8C880427E3A59E002031CB /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C880327E3A59E002031CB /* Constant.swift */; };
-		3F8C880627E3A6CA002031CB /* VpnConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C880527E3A6CA002031CB /* VpnConfiguration.swift */; };
-		3F8C880727E3A6CA002031CB /* VpnConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C880527E3A6CA002031CB /* VpnConfiguration.swift */; };
-		3F8CBE5927DF082D002EECBB /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; };
+		3F1652142B6A22F000594EB6 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */; };
+		3F1652172B6A22F000594EB6 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1652162B6A22F000594EB6 /* PacketTunnelProvider.swift */; };
+		3F16521C2B6A22F000594EB6 /* macOSPacketTunnel.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3F1652132B6A22F000594EB6 /* macOSPacketTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3F1652202B6A231F00594EB6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB5CF8A2B58228800AB5A06 /* libcrypto.a */; };
+		3F1652212B6A231F00594EB6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB5CF892B58228800AB5A06 /* libssl.a */; };
+		3F1652222B6A233100594EB6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB5CF8A2B58228800AB5A06 /* libcrypto.a */; };
+		3F1652232B6A233100594EB6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB5CF892B58228800AB5A06 /* libssl.a */; };
+		3F1652242B6A23F300594EB6 /* VPNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */; };
+		3F1652252B6A240400594EB6 /* tcp-connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C327DA3C6F00B53758 /* tcp-connection.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F1652262B6A240400594EB6 /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F1652272B6A240400594EB6 /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F1652282B6A240400594EB6 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C827DA3C6F00B53758 /* utils.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F1652292B6A240400594EB6 /* el.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07CD27DA3C6F00B53758 /* el.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F16522A2B6A240400594EB6 /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F16522B2B6A240400594EB6 /* xproxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C427DA3C6F00B53758 /* xproxy.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F16522C2B6A240400594EB6 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
+		3F22AAE32B69FF8D004B038C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */; };
+		3F22AB042B6A045A004B038C /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
+		3F22AB052B6A045B004B038C /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
+		3F22AB062B6A045E004B038C /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; };
+		3F22AB072B6A045F004B038C /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; };
+		3F22AB082B6A0462004B038C /* tcp-connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C327DA3C6F00B53758 /* tcp-connection.c */; };
+		3F22AB092B6A0463004B038C /* tcp-connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C327DA3C6F00B53758 /* tcp-connection.c */; };
+		3F22AB0A2B6A0467004B038C /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C827DA3C6F00B53758 /* utils.c */; };
+		3F22AB0B2B6A0467004B038C /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C827DA3C6F00B53758 /* utils.c */; };
+		3F22AB0C2B6A046A004B038C /* xproxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C427DA3C6F00B53758 /* xproxy.c */; };
+		3F22AB0D2B6A046B004B038C /* xproxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C427DA3C6F00B53758 /* xproxy.c */; };
+		3F3203E32B66A920004C13C3 /* el.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07CD27DA3C6F00B53758 /* el.c */; };
+		3F34BF9C2B62C7E500EA4A90 /* PacketTunnel.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3FBF611327D7B62000F35E67 /* PacketTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3F34BFA02B62C7F900EA4A90 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBF611527D7B62000F35E67 /* NetworkExtension.framework */; };
+		3F34BFA12B63EB2100EA4A90 /* VPNRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551FB2B616759005A480E /* VPNRowView.swift */; };
+		3F34BFA22B63EB2D00EA4A90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551E92B600E63005A480E /* ContentView.swift */; };
+		3F34BFA32B63EB6C00EA4A90 /* XproxyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551E72B600E63005A480E /* XproxyApp.swift */; };
+		3F34BFB62B63F8A800EA4A90 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C880327E3A59E002031CB /* Constant.swift */; };
+		3F34BFB72B63F8A900EA4A90 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C880327E3A59E002031CB /* Constant.swift */; };
+		3F3D22FD2B674E9C000C5469 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D22FC2B674E9C000C5469 /* StatusView.swift */; };
+		3F3D22FF2B677B36000C5469 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D22FE2B677B36000C5469 /* PreferencesView.swift */; };
+		3F3D23012B67B23C000C5469 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D23002B67B23C000C5469 /* GeneralView.swift */; };
+		3F3E7D022B69638F0087E4C7 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3203E82B66B9A5004C13C3 /* AppMenu.swift */; };
+		3F3E7D042B6966030087E4C7 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E7D032B6966030087E4C7 /* Defaults.swift */; };
+		3F3E7D052B6966030087E4C7 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E7D032B6966030087E4C7 /* Defaults.swift */; };
+		3F4551922B5BADC5005A480E /* VPNConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551912B5BADC5005A480E /* VPNConfigurationView.swift */; };
+		3F4551AA2B5EB5FA005A480E /* VPNConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F45518C2B5AE0D8005A480E /* VPNConfiguration.swift */; };
+		3F4551E82B600E63005A480E /* XproxyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551E72B600E63005A480E /* XproxyApp.swift */; };
+		3F4551EA2B600E63005A480E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551E92B600E63005A480E /* ContentView.swift */; };
+		3F4551EC2B600E64005A480E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4551EB2B600E64005A480E /* Assets.xcassets */; };
+		3F4551EF2B600E64005A480E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4551EE2B600E64005A480E /* Preview Assets.xcassets */; };
+		3F4551F42B60104C005A480E /* VPNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */; };
+		3F4551F52B60105D005A480E /* VPNConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F45518C2B5AE0D8005A480E /* VPNConfiguration.swift */; };
+		3F4551F82B60108A005A480E /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; };
+		3F4551F92B60108F005A480E /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; };
+		3F4551FC2B616759005A480E /* VPNRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551FB2B616759005A480E /* VPNRowView.swift */; };
+		3F4551FE2B629E51005A480E /* XproxyVPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551FD2B629E51005A480E /* XproxyVPNManager.swift */; };
+		3F4552012B629E51005A480E /* XproxyVPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551FD2B629E51005A480E /* XproxyVPNManager.swift */; };
+		3F4552032B62A4CB005A480E /* VPNConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551912B5BADC5005A480E /* VPNConfigurationView.swift */; };
+		3F4AB6FC2B24637F004085BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4AB6FB2B24637F004085BA /* Assets.xcassets */; };
+		3F4AB6FF2B24637F004085BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4AB6FE2B24637F004085BA /* Preview Assets.xcassets */; };
+		3F7527232B6D5FE60079F1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */; };
+		3F7527242B6D67D00079F1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */; };
 		3F8CBE5A27DF082D002EECBB /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; };
-		3F92CAC927E72721002FAD74 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F92CAC827E72721002FAD74 /* LICENSE */; };
-		3F96C61A28BD26F500E7FD2D /* QRImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F96C61928BD26F500E7FD2D /* QRImageViewController.swift */; };
-		3F96C61C28BD271300E7FD2D /* QRImageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F96C61B28BD271300E7FD2D /* QRImageViewController.storyboard */; };
-		3F96C61E28BD2E4600E7FD2D /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F96C61D28BD2E4600E7FD2D /* ScannerViewController.swift */; };
-		3F96C62028BD2E7F00E7FD2D /* ScannerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F96C61F28BD2E7F00E7FD2D /* ScannerViewController.storyboard */; };
-		3FBF60F827D7B46D00F35E67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF60F727D7B46D00F35E67 /* AppDelegate.swift */; };
-		3FBF60FA27D7B46D00F35E67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF60F927D7B46D00F35E67 /* SceneDelegate.swift */; };
-		3FBF60FC27D7B46D00F35E67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF60FB27D7B46D00F35E67 /* ViewController.swift */; };
-		3FBF60FF27D7B46D00F35E67 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF60FD27D7B46D00F35E67 /* iPhone.storyboard */; };
-		3FBF610227D7B46D00F35E67 /* Xproxy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF610027D7B46D00F35E67 /* Xproxy.xcdatamodeld */; };
-		3FBF610427D7B46E00F35E67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF610327D7B46E00F35E67 /* Assets.xcassets */; };
-		3FBF610727D7B46E00F35E67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF610527D7B46E00F35E67 /* LaunchScreen.storyboard */; };
+		3F92A46F2B71348400AA4A45 /* ConfigurationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92A46E2B71348400AA4A45 /* ConfigurationError.swift */; };
+		3F92A4702B71348400AA4A45 /* ConfigurationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F92A46E2B71348400AA4A45 /* ConfigurationError.swift */; };
+		3FB5CF7F2B58219D00AB5A06 /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; };
+		3FB5CF802B5821B100AB5A06 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; };
+		3FB5CF812B5821B600AB5A06 /* el.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07CD27DA3C6F00B53758 /* el.c */; };
+		3FB5CFA32B58288300AB5A06 /* VPNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */; };
+		3FBB563D2B6CB15200D23DDA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E7D032B6966030087E4C7 /* Defaults.swift */; };
+		3FBB563E2B6CB15200D23DDA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E7D032B6966030087E4C7 /* Defaults.swift */; };
 		3FBF611627D7B62000F35E67 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBF611527D7B62000F35E67 /* NetworkExtension.framework */; };
 		3FBF611927D7B62000F35E67 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF611827D7B62000F35E67 /* PacketTunnelProvider.swift */; };
-		3FBF611E27D7B62000F35E67 /* PacketTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3FBF611327D7B62000F35E67 /* PacketTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3FBF612327D7C53400F35E67 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBF611527D7B62000F35E67 /* NetworkExtension.framework */; };
-		3FCBC74B27EDFCA200C0AA0B /* TunnelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* TunnelError.swift */; };
-		3FCBC74C27EDFCA200C0AA0B /* TunnelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* TunnelError.swift */; };
-		3FCBC74E27EE009D00C0AA0B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74D27EE009D00C0AA0B /* FileManager+Extension.swift */; };
-		3FCBC74F27EE009D00C0AA0B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74D27EE009D00C0AA0B /* FileManager+Extension.swift */; };
+		3FCBC74C27EDFCA200C0AA0B /* VPNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */; };
 		3FDC07CF27DA3C6F00B53758 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; };
 		3FDC07D127DA3C6F00B53758 /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
 		3FDC07D327DA3C6F00B53758 /* tcp-connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C327DA3C6F00B53758 /* tcp-connection.c */; };
@@ -73,40 +85,62 @@
 		3FDC07D727DA3C6F00B53758 /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; };
 		3FDC07D927DA3C6F00B53758 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C827DA3C6F00B53758 /* utils.c */; };
 		3FDC07DB27DA3C6F00B53758 /* el.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07CD27DA3C6F00B53758 /* el.c */; };
-		3FEDC35828BE4A8200F00790 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDC35728BE4A8200F00790 /* Double+Extension.swift */; };
-		3FEDC35928BE4A8200F00790 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEDC35728BE4A8200F00790 /* Double+Extension.swift */; };
+		3FEF73462B6A423E00F11170 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9ED28C0709A00712896 /* libcrypto.a */; };
+		3FEF73472B6A423E00F11170 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9EE28C0709A00712896 /* libssl.a */; };
+		3FEF73482B6A425200F11170 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9ED28C0709A00712896 /* libcrypto.a */; };
+		3FEF73492B6A425200F11170 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F16B9EE28C0709A00712896 /* libssl.a */; };
+		3FEF734B2B6BA83B00F11170 /* VPNRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF734A2B6BA83B00F11170 /* VPNRow.swift */; };
+		3FEF734C2B6BAA8100F11170 /* VPNRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF734A2B6BA83B00F11170 /* VPNRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3FBF611C27D7B62000F35E67 /* PBXContainerItemProxy */ = {
+		3F16521A2B6A22F000594EB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FBF60EC27D7B46D00F35E67 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F1652122B6A22F000594EB6;
+			remoteInfo = macOSPacketTunnel;
+		};
+		3F34BF9D2B62C7E500EA4A90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FBF60EC27D7B46D00F35E67 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3FBF611227D7B62000F35E67;
-			remoteInfo = PacketTunnel;
+			remoteInfo = iOSPacketTunnel;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3F66232827DCF74D00CD2DF7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3FBF612227D7B62000F35E67 /* Embed App Extensions */ = {
+		3F22AAF52B6A0207004B038C /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3FBF611E27D7B62000F35E67 /* PacketTunnel.appex in Embed App Extensions */,
+				3F16521C2B6A22F000594EB6 /* macOSPacketTunnel.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F34BF9F2B62C7E500EA4A90 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3F34BF9C2B62C7E500EA4A90 /* PacketTunnel.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F7BE7AD2B556DB600B76260 /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3FDC07E027DA3DE800B53758 /* Embed Frameworks */ = {
@@ -122,8 +156,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; tabWidth = 4; };
-		3F01AD6227DB680800906633 /* VpnConfViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnConfViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
+		3F0369F12B63B5F200D744FE /* libssl_iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl_iOS.a; path = openssl/lib/iOS/libssl_iOS.a; sourceTree = "<group>"; };
+		3F0369F22B63B5F200D744FE /* libcrypto_iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto_iOS.a; path = openssl/lib/iOS/libcrypto_iOS.a; sourceTree = "<group>"; };
+		3F0369F32B63B63A00D744FE /* libcrypto_macOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto_macOS.a; path = openssl/lib/macOS/libcrypto_macOS.a; sourceTree = "<group>"; };
+		3F0369F52B63B76C00D744FE /* libssl_macOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl_macOS.a; path = openssl/lib/macOS/libssl_macOS.a; sourceTree = "<group>"; };
+		3F1652132B6A22F000594EB6 /* macOSPacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = macOSPacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F1652162B6A22F000594EB6 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		3F1652182B6A22F000594EB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F1652192B6A22F000594EB6 /* macOSPacketTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOSPacketTunnel.entitlements; sourceTree = "<group>"; };
 		3F16B98428C0709A00712896 /* pem2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pem2.h; sourceTree = "<group>"; };
 		3F16B98528C0709A00712896 /* kdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdf.h; sourceTree = "<group>"; };
 		3F16B98628C0709A00712896 /* pem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pem.h; sourceTree = "<group>"; };
@@ -230,82 +270,90 @@
 		3F16B9EB28C0709A00712896 /* asn1err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1err.h; sourceTree = "<group>"; };
 		3F16B9ED28C0709A00712896 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		3F16B9EE28C0709A00712896 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		3F26DC1C27E22ED1001E5B8D /* MethodPickerTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MethodPickerTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3F26DC1D27E22ED1001E5B8D /* MethodPickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MethodPickerTableViewCell.xib; sourceTree = "<group>"; };
-		3F3D9CCE27DB91CC00DEB6D3 /* iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
-		3F3D9CD227DB948B00DEB6D3 /* MasterTableViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MasterTableViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F3D9CD427DB94F100DEB6D3 /* SplitViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F3D9CD627DBBBE600DEB6D3 /* PadVpnConfViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PadVpnConfViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F3D9CDB27DBC84F00DEB6D3 /* VpnTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F3D9CDC27DBC84F00DEB6D3 /* VpnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VpnTableViewCell.xib; sourceTree = "<group>"; };
-		3F3D9CDF27DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PadVpnInfoTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F3D9CE027DBD43300DEB6D3 /* PadVpnInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PadVpnInfoTableViewCell.xib; sourceTree = "<group>"; };
-		3F66231927DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnStatusTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3F66231A27DCB3C800CD2DF7 /* VpnStatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VpnStatusTableViewCell.xib; sourceTree = "<group>"; };
-		3F66231D27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnInfoTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		3F66231E27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VpnInfoTableViewCell.xib; sourceTree = "<group>"; };
-		3F66232127DCF0C600CD2DF7 /* AboutTableViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
+		3F3203E82B66B9A5004C13C3 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
+		3F3D22FC2B674E9C000C5469 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		3F3D22FE2B677B36000C5469 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		3F3D23002B67B23C000C5469 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
+		3F3E7D032B6966030087E4C7 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		3F45518C2B5AE0D8005A480E /* VPNConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConfiguration.swift; sourceTree = "<group>"; };
+		3F4551912B5BADC5005A480E /* VPNConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConfigurationView.swift; sourceTree = "<group>"; };
+		3F4551E52B600E63005A480E /* XproxyiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XproxyiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F4551E72B600E63005A480E /* XproxyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XproxyApp.swift; sourceTree = "<group>"; };
+		3F4551E92B600E63005A480E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3F4551EB2B600E64005A480E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3F4551EE2B600E64005A480E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3F4551F32B600FF9005A480E /* Xproxy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xproxy.entitlements; sourceTree = "<group>"; };
+		3F4551FB2B616759005A480E /* VPNRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNRowView.swift; sourceTree = "<group>"; };
+		3F4551FD2B629E51005A480E /* XproxyVPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XproxyVPNManager.swift; sourceTree = "<group>"; };
+		3F4AB6F32B24637E004085BA /* XproxyMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XproxyMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F4AB6FB2B24637F004085BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3F4AB6FE2B24637F004085BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3F4AB7002B24637F004085BA /* Xproxy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xproxy.entitlements; sourceTree = "<group>"; };
 		3F66232F27DD159200CD2DF7 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		3F66233227DD46C800CD2DF7 /* ExceptionTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ExceptionTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3F66233327DD46C800CD2DF7 /* ExceptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExceptionTableViewCell.xib; sourceTree = "<group>"; };
-		3F6C8D0827DF205000E5FD97 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
-		3F8A711928C0FC6A00626745 /* AboutTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = AboutTableViewController.storyboard; path = XproxyApp/Controllers/AboutTableViewController.storyboard; sourceTree = SOURCE_ROOT; };
-		3F8A711B28C0FD9E00626745 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Bundle+Extension.swift"; path = "XproxyApp/Controllers/Bundle+Extension.swift"; sourceTree = SOURCE_ROOT; };
-		3F8A711D28C1013B00626745 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		3F6C8D0827DF205000E5FD97 /* platform.h */ = {isa = PBXFileReference; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; tabWidth = 8; };
+		3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F8C880327E3A59E002031CB /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		3F8C880527E3A6CA002031CB /* VpnConfiguration.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = VpnConfiguration.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3F8CBE5527DF082D002EECBB /* cfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfg.h; sourceTree = "<group>"; };
-		3F8CBE5627DF082D002EECBB /* cfg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cfg.c; sourceTree = "<group>"; };
+		3F8CBE5527DF082D002EECBB /* cfg.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = cfg.h; sourceTree = "<group>"; tabWidth = 8; };
+		3F8CBE5627DF082D002EECBB /* cfg.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = cfg.c; sourceTree = "<group>"; tabWidth = 8; };
+		3F92A46E2B71348400AA4A45 /* ConfigurationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationError.swift; sourceTree = "<group>"; };
 		3F92CAC827E72721002FAD74 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		3F96C61928BD26F500E7FD2D /* QRImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageViewController.swift; sourceTree = "<group>"; };
-		3F96C61B28BD271300E7FD2D /* QRImageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QRImageViewController.storyboard; sourceTree = "<group>"; };
-		3F96C61D28BD2E4600E7FD2D /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		3F96C61F28BD2E7F00E7FD2D /* ScannerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScannerViewController.storyboard; sourceTree = "<group>"; };
-		3FBF60F427D7B46D00F35E67 /* Xproxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xproxy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3FBF60F727D7B46D00F35E67 /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3FBF60F927D7B46D00F35E67 /* SceneDelegate.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3FBF60FB27D7B46D00F35E67 /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
-		3FBF60FE27D7B46D00F35E67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/iPhone.storyboard; sourceTree = "<group>"; };
-		3FBF610127D7B46D00F35E67 /* Xproxy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Xproxy.xcdatamodel; sourceTree = "<group>"; };
-		3FBF610327D7B46E00F35E67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3FBF610627D7B46E00F35E67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3FBF610827D7B46E00F35E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3FBF610E27D7B47500F35E67 /* Xproxy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xproxy.entitlements; sourceTree = "<group>"; };
+		3FB5CF892B58228800AB5A06 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		3FB5CF8A2B58228800AB5A06 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		3FBF611327D7B62000F35E67 /* PacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF611527D7B62000F35E67 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		3FBF611827D7B62000F35E67 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		3FBF611A27D7B62000F35E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FBF611B27D7B62000F35E67 /* PacketTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PacketTunnel.entitlements; sourceTree = "<group>"; };
-		3FCBC74A27EDFCA200C0AA0B /* TunnelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelError.swift; sourceTree = "<group>"; };
-		3FCBC74D27EE009D00C0AA0B /* FileManager+Extension.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; tabWidth = 4; };
-		3FDC07BF27DA3C6F00B53758 /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; };
-		3FDC07C027DA3C6F00B53758 /* local-proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "local-proxy.c"; sourceTree = "<group>"; };
-		3FDC07C127DA3C6F00B53758 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		3FDC07C227DA3C6F00B53758 /* poller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poller.h; sourceTree = "<group>"; };
-		3FDC07C327DA3C6F00B53758 /* tcp-connection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "tcp-connection.c"; sourceTree = "<group>"; };
-		3FDC07C427DA3C6F00B53758 /* xproxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xproxy.c; sourceTree = "<group>"; };
-		3FDC07C527DA3C6F00B53758 /* el.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = el.h; sourceTree = "<group>"; };
-		3FDC07C627DA3C6F00B53758 /* poller.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = poller.c; sourceTree = "<group>"; };
-		3FDC07C727DA3C6F00B53758 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		3FDC07C827DA3C6F00B53758 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
-		3FDC07C927DA3C6F00B53758 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
-		3FDC07CA27DA3C6F00B53758 /* xproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xproxy.h; sourceTree = "<group>"; };
-		3FDC07CB27DA3C6F00B53758 /* tcp-connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "tcp-connection.h"; sourceTree = "<group>"; };
-		3FDC07CC27DA3C6F00B53758 /* socks5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socks5.h; sourceTree = "<group>"; };
-		3FDC07CD27DA3C6F00B53758 /* el.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = el.c; sourceTree = "<group>"; };
-		3FDC07E127DA414B00B53758 /* local-proxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "local-proxy.h"; sourceTree = "<group>"; };
+		3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNError.swift; sourceTree = "<group>"; };
+		3FDC07BF27DA3C6F00B53758 /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
+		3FDC07C027DA3C6F00B53758 /* local-proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = "local-proxy.c"; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
+		3FDC07C127DA3C6F00B53758 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C227DA3C6F00B53758 /* poller.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = poller.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C327DA3C6F00B53758 /* tcp-connection.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = "tcp-connection.c"; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C427DA3C6F00B53758 /* xproxy.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = xproxy.c; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C527DA3C6F00B53758 /* el.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = el.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C627DA3C6F00B53758 /* poller.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = poller.c; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C727DA3C6F00B53758 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C827DA3C6F00B53758 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C927DA3C6F00B53758 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07CA27DA3C6F00B53758 /* xproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = xproxy.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07CB27DA3C6F00B53758 /* tcp-connection.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = "tcp-connection.h"; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07CC27DA3C6F00B53758 /* socks5.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = socks5.h; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07CD27DA3C6F00B53758 /* el.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = el.c; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07E127DA414B00B53758 /* local-proxy.h */ = {isa = PBXFileReference; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = "local-proxy.h"; sourceTree = "<group>"; tabWidth = 8; };
 		3FDC07E227DA41EC00B53758 /* Xproxy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xproxy-Bridging-Header.h"; sourceTree = "<group>"; };
-		3FEDC35728BE4A8200F00790 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		3FEF734A2B6BA83B00F11170 /* VPNRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNRow.swift; sourceTree = "<group>"; };
+		3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3FBF60F127D7B46D00F35E67 /* Frameworks */ = {
+		3F1652102B6A22F000594EB6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F16B9EF28C0709A00712896 /* libcrypto.a in Frameworks */,
-				3FBF612327D7C53400F35E67 /* NetworkExtension.framework in Frameworks */,
-				3F16B9F128C0709A00712896 /* libssl.a in Frameworks */,
+				3F1652222B6A233100594EB6 /* libcrypto.a in Frameworks */,
+				3F1652142B6A22F000594EB6 /* NetworkExtension.framework in Frameworks */,
+				3F1652232B6A233100594EB6 /* libssl.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4551E22B600E63005A480E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FEF73462B6A423E00F11170 /* libcrypto.a in Frameworks */,
+				3F34BFA02B62C7F900EA4A90 /* NetworkExtension.framework in Frameworks */,
+				3FEF73472B6A423E00F11170 /* libssl.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4AB6F02B24637E004085BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F1652202B6A231F00594EB6 /* libcrypto.a in Frameworks */,
+				3F22AAE32B69FF8D004B038C /* NetworkExtension.framework in Frameworks */,
+				3F1652212B6A231F00594EB6 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,15 +361,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F16B9F028C0709A00712896 /* libcrypto.a in Frameworks */,
+				3FEF73482B6A425200F11170 /* libcrypto.a in Frameworks */,
 				3FBF611627D7B62000F35E67 /* NetworkExtension.framework in Frameworks */,
-				3F16B9F228C0709A00712896 /* libssl.a in Frameworks */,
+				3FEF73492B6A425200F11170 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F1652152B6A22F000594EB6 /* macOSPacketTunnel */ = {
+			isa = PBXGroup;
+			children = (
+				3F1652162B6A22F000594EB6 /* PacketTunnelProvider.swift */,
+				3F1652182B6A22F000594EB6 /* Info.plist */,
+				3F1652192B6A22F000594EB6 /* macOSPacketTunnel.entitlements */,
+			);
+			path = macOSPacketTunnel;
+			sourceTree = "<group>";
+		};
 		3F16B98128C0709A00712896 /* openssl */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,65 +511,103 @@
 		3F16B9EC28C0709A00712896 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				3F16B9ED28C0709A00712896 /* libcrypto.a */,
-				3F16B9EE28C0709A00712896 /* libssl.a */,
+				3FB5CF882B58223400AB5A06 /* macOS */,
+				3FB5CF872B58222500AB5A06 /* iOS */,
 			);
 			path = lib;
 			sourceTree = "<group>";
 		};
-		3F3D9CD027DB945000DEB6D3 /* iPhone */ = {
+		3F34BFAF2B63F01B00EA4A90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3FBF60FD27D7B46D00F35E67 /* iPhone.storyboard */,
-				3FBF60FB27D7B46D00F35E67 /* ViewController.swift */,
-				3F01AD6227DB680800906633 /* VpnConfViewController.swift */,
-				3F66231D27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.swift */,
-				3F66231E27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.xib */,
-			);
-			path = iPhone;
-			sourceTree = "<group>";
-		};
-		3F3D9CD127DB946100DEB6D3 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				3F3D9CCE27DB91CC00DEB6D3 /* iPad.storyboard */,
-				3F3D9CD427DB94F100DEB6D3 /* SplitViewController.swift */,
-				3F3D9CD227DB948B00DEB6D3 /* MasterTableViewController.swift */,
-				3F3D9CD627DBBBE600DEB6D3 /* PadVpnConfViewController.swift */,
-				3F66231927DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift */,
-				3F66231A27DCB3C800CD2DF7 /* VpnStatusTableViewCell.xib */,
-				3F3D9CDF27DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift */,
-				3F3D9CE027DBD43300DEB6D3 /* PadVpnInfoTableViewCell.xib */,
-			);
-			path = iPad;
-			sourceTree = "<group>";
-		};
-		3F66233127DD1E9100CD2DF7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3F3D9CDB27DBC84F00DEB6D3 /* VpnTableViewCell.swift */,
-				3F66233227DD46C800CD2DF7 /* ExceptionTableViewCell.swift */,
-				3F66233327DD46C800CD2DF7 /* ExceptionTableViewCell.xib */,
-				3F3D9CDC27DBC84F00DEB6D3 /* VpnTableViewCell.xib */,
-				3F26DC1C27E22ED1001E5B8D /* MethodPickerTableViewCell.swift */,
-				3F26DC1D27E22ED1001E5B8D /* MethodPickerTableViewCell.xib */,
+				3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */,
+				3F4551E72B600E63005A480E /* XproxyApp.swift */,
+				3F4551912B5BADC5005A480E /* VPNConfigurationView.swift */,
+				3F4551FB2B616759005A480E /* VPNRowView.swift */,
+				3F4551E92B600E63005A480E /* ContentView.swift */,
+				3F3203E82B66B9A5004C13C3 /* AppMenu.swift */,
+				3F3D22FC2B674E9C000C5469 /* StatusView.swift */,
+				3F3D22FE2B677B36000C5469 /* PreferencesView.swift */,
+				3F3D23002B67B23C000C5469 /* GeneralView.swift */,
+				3FEF734A2B6BA83B00F11170 /* VPNRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3F8C880227E3A55C002031CB /* Model */ = {
+		3F34BFB02B63F03F00EA4A90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3F8A711B28C0FD9E00626745 /* Bundle+Extension.swift */,
+				3F3E7D032B6966030087E4C7 /* Defaults.swift */,
+				3F4551FD2B629E51005A480E /* XproxyVPNManager.swift */,
+				3F45518C2B5AE0D8005A480E /* VPNConfiguration.swift */,
+				3FCBC74A27EDFCA200C0AA0B /* VPNError.swift */,
+				3F92A46E2B71348400AA4A45 /* ConfigurationError.swift */,
 				3F8C880327E3A59E002031CB /* Constant.swift */,
-				3F8C880527E3A6CA002031CB /* VpnConfiguration.swift */,
-				3F01742327ECBE3A00B49911 /* UIViewController+Extension.swift */,
-				3FCBC74A27EDFCA200C0AA0B /* TunnelError.swift */,
-				3FCBC74D27EE009D00C0AA0B /* FileManager+Extension.swift */,
-				3FEDC35728BE4A8200F00790 /* Double+Extension.swift */,
-				3F8A711D28C1013B00626745 /* String+Extension.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3F4551E62B600E63005A480E /* iOSApp */ = {
+			isa = PBXGroup;
+			children = (
+				3F4551F32B600FF9005A480E /* Xproxy.entitlements */,
+				3F4551EB2B600E64005A480E /* Assets.xcassets */,
+				3F4551ED2B600E64005A480E /* Preview Content */,
+			);
+			path = iOSApp;
+			sourceTree = "<group>";
+		};
+		3F4551ED2B600E64005A480E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3F4551EE2B600E64005A480E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3F4AB6F42B24637E004085BA /* MacApp */ = {
+			isa = PBXGroup;
+			children = (
+				3F4AB6FB2B24637F004085BA /* Assets.xcassets */,
+				3F4AB7002B24637F004085BA /* Xproxy.entitlements */,
+				3F4AB6FD2B24637F004085BA /* Preview Content */,
+			);
+			path = MacApp;
+			sourceTree = "<group>";
+		};
+		3F4AB6FD2B24637F004085BA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3F4AB6FE2B24637F004085BA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3FB5CF872B58222500AB5A06 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3F16B9EE28C0709A00712896 /* libssl.a */,
+				3F16B9ED28C0709A00712896 /* libcrypto.a */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		3FB5CF882B58223400AB5A06 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				3FB5CF8A2B58228800AB5A06 /* libcrypto.a */,
+				3FB5CF892B58228800AB5A06 /* libssl.a */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		3FB5CFA22B58286D00AB5A06 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3F34BFB02B63F03F00EA4A90 /* Model */,
+				3F34BFAF2B63F01B00EA4A90 /* Views */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		3FBF60EB27D7B46D00F35E67 = {
@@ -520,9 +616,12 @@
 				3F66232F27DD159200CD2DF7 /* README.txt */,
 				3F92CAC827E72721002FAD74 /* LICENSE */,
 				3F16B98128C0709A00712896 /* openssl */,
-				3FDC07BE27DA3C6F00B53758 /* Xproxy */,
-				3FBF60F627D7B46D00F35E67 /* XproxyApp */,
 				3FBF611727D7B62000F35E67 /* PacketTunnel */,
+				3FDC07BE27DA3C6F00B53758 /* Xproxy */,
+				3FB5CFA22B58286D00AB5A06 /* Shared */,
+				3F4AB6F42B24637E004085BA /* MacApp */,
+				3F4551E62B600E63005A480E /* iOSApp */,
+				3F1652152B6A22F000594EB6 /* macOSPacketTunnel */,
 				3FBF611427D7B62000F35E67 /* Frameworks */,
 				3FBF60F527D7B46D00F35E67 /* Products */,
 			);
@@ -531,34 +630,22 @@
 		3FBF60F527D7B46D00F35E67 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3FBF60F427D7B46D00F35E67 /* Xproxy.app */,
 				3FBF611327D7B62000F35E67 /* PacketTunnel.appex */,
+				3F4AB6F32B24637E004085BA /* XproxyMac.app */,
+				3F4551E52B600E63005A480E /* XproxyiOS.app */,
+				3F1652132B6A22F000594EB6 /* macOSPacketTunnel.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		3FBF60F627D7B46D00F35E67 /* XproxyApp */ = {
-			isa = PBXGroup;
-			children = (
-				3FEDC36128BE6D0700F00790 /* Controllers */,
-				3F8C880227E3A55C002031CB /* Model */,
-				3F66233127DD1E9100CD2DF7 /* Views */,
-				3F3D9CD127DB946100DEB6D3 /* iPad */,
-				3F3D9CD027DB945000DEB6D3 /* iPhone */,
-				3FBF610E27D7B47500F35E67 /* Xproxy.entitlements */,
-				3FBF60F727D7B46D00F35E67 /* AppDelegate.swift */,
-				3FBF60F927D7B46D00F35E67 /* SceneDelegate.swift */,
-				3FBF610327D7B46E00F35E67 /* Assets.xcassets */,
-				3FBF610527D7B46E00F35E67 /* LaunchScreen.storyboard */,
-				3FBF610827D7B46E00F35E67 /* Info.plist */,
-				3FBF610027D7B46D00F35E67 /* Xproxy.xcdatamodeld */,
-			);
-			path = XproxyApp;
 			sourceTree = "<group>";
 		};
 		3FBF611427D7B62000F35E67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */,
+				3F0369F52B63B76C00D744FE /* libssl_macOS.a */,
+				3F0369F32B63B63A00D744FE /* libcrypto_macOS.a */,
+				3F0369F22B63B5F200D744FE /* libcrypto_iOS.a */,
+				3F0369F12B63B5F200D744FE /* libssl_iOS.a */,
 				3FBF611527D7B62000F35E67 /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
@@ -577,7 +664,7 @@
 		3FDC07BE27DA3C6F00B53758 /* Xproxy */ = {
 			isa = PBXGroup;
 			children = (
-				3F6C8D0827DF205000E5FD97 /* platform.h */,
+				3FDC07E227DA41EC00B53758 /* Xproxy-Bridging-Header.h */,
 				3F8CBE5627DF082D002EECBB /* cfg.c */,
 				3F8CBE5527DF082D002EECBB /* cfg.h */,
 				3FDC07BF27DA3C6F00B53758 /* crypt.c */,
@@ -587,6 +674,7 @@
 				3FDC07C027DA3C6F00B53758 /* local-proxy.c */,
 				3FDC07E127DA414B00B53758 /* local-proxy.h */,
 				3FDC07C927DA3C6F00B53758 /* log.h */,
+				3F6C8D0827DF205000E5FD97 /* platform.h */,
 				3FDC07C627DA3C6F00B53758 /* poller.c */,
 				3FDC07C227DA3C6F00B53758 /* poller.h */,
 				3FDC07CC27DA3C6F00B53758 /* socks5.h */,
@@ -596,45 +684,67 @@
 				3FDC07C127DA3C6F00B53758 /* utils.h */,
 				3FDC07C427DA3C6F00B53758 /* xproxy.c */,
 				3FDC07CA27DA3C6F00B53758 /* xproxy.h */,
-				3FDC07E227DA41EC00B53758 /* Xproxy-Bridging-Header.h */,
 			);
 			path = Xproxy;
-			sourceTree = "<group>";
-		};
-		3FEDC36128BE6D0700F00790 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3F8A711928C0FC6A00626745 /* AboutTableViewController.storyboard */,
-				3F66232127DCF0C600CD2DF7 /* AboutTableViewController.swift */,
-				3F96C61F28BD2E7F00E7FD2D /* ScannerViewController.storyboard */,
-				3F96C61D28BD2E4600E7FD2D /* ScannerViewController.swift */,
-				3F96C61B28BD271300E7FD2D /* QRImageViewController.storyboard */,
-				3F96C61928BD26F500E7FD2D /* QRImageViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3FBF60F327D7B46D00F35E67 /* Xproxy */ = {
+		3F1652122B6A22F000594EB6 /* macOSPacketTunnel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3FBF610B27D7B46E00F35E67 /* Build configuration list for PBXNativeTarget "Xproxy" */;
+			buildConfigurationList = 3F16521D2B6A22F000594EB6 /* Build configuration list for PBXNativeTarget "macOSPacketTunnel" */;
 			buildPhases = (
-				3FBF60F027D7B46D00F35E67 /* Sources */,
-				3FBF60F127D7B46D00F35E67 /* Frameworks */,
-				3FBF60F227D7B46D00F35E67 /* Resources */,
-				3FBF612227D7B62000F35E67 /* Embed App Extensions */,
-				3F66232827DCF74D00CD2DF7 /* Embed Frameworks */,
+				3F16520F2B6A22F000594EB6 /* Sources */,
+				3F1652102B6A22F000594EB6 /* Frameworks */,
+				3F1652112B6A22F000594EB6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3FBF611D27D7B62000F35E67 /* PBXTargetDependency */,
 			);
-			name = Xproxy;
-			productName = Xproxy;
-			productReference = 3FBF60F427D7B46D00F35E67 /* Xproxy.app */;
+			name = macOSPacketTunnel;
+			productName = macOSPacketTunnel;
+			productReference = 3F1652132B6A22F000594EB6 /* macOSPacketTunnel.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		3F4551E42B600E63005A480E /* XproxyiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F4551F02B600E64005A480E /* Build configuration list for PBXNativeTarget "XproxyiOS" */;
+			buildPhases = (
+				3F4551E12B600E63005A480E /* Sources */,
+				3F4551E22B600E63005A480E /* Frameworks */,
+				3F4551E32B600E63005A480E /* Resources */,
+				3F34BF9F2B62C7E500EA4A90 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F34BF9E2B62C7E500EA4A90 /* PBXTargetDependency */,
+			);
+			name = XproxyiOS;
+			productName = Xproxy_iOS;
+			productReference = 3F4551E52B600E63005A480E /* XproxyiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3F4AB6F22B24637E004085BA /* XproxyMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F4AB7012B24637F004085BA /* Build configuration list for PBXNativeTarget "XproxyMac" */;
+			buildPhases = (
+				3F4AB6EF2B24637E004085BA /* Sources */,
+				3F4AB6F02B24637E004085BA /* Frameworks */,
+				3F4AB6F12B24637E004085BA /* Resources */,
+				3F7BE7AD2B556DB600B76260 /* Embed System Extensions */,
+				3F22AAF52B6A0207004B038C /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F16521B2B6A22F000594EB6 /* PBXTargetDependency */,
+			);
+			name = XproxyMac;
+			productName = XproxyMac;
+			productReference = 3F4AB6F32B24637E004085BA /* XproxyMac.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3FBF611227D7B62000F35E67 /* PacketTunnel */ = {
@@ -662,11 +772,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					3FBF60F327D7B46D00F35E67 = {
-						CreatedOnToolsVersion = 13.2.1;
+					3F1652122B6A22F000594EB6 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					3F4551E42B600E63005A480E = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					3F4AB6F22B24637E004085BA = {
+						CreatedOnToolsVersion = 15.0.1;
 					};
 					3FBF611227D7B62000F35E67 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -686,32 +802,37 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3FBF60F327D7B46D00F35E67 /* Xproxy */,
+				3F4551E42B600E63005A480E /* XproxyiOS */,
+				3F4AB6F22B24637E004085BA /* XproxyMac */,
 				3FBF611227D7B62000F35E67 /* PacketTunnel */,
+				3F1652122B6A22F000594EB6 /* macOSPacketTunnel */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3FBF60F227D7B46D00F35E67 /* Resources */ = {
+		3F1652112B6A22F000594EB6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F96C61C28BD271300E7FD2D /* QRImageViewController.storyboard in Resources */,
-				3F3D9CCF27DB91CC00DEB6D3 /* iPad.storyboard in Resources */,
-				3F26DC1F27E22ED1001E5B8D /* MethodPickerTableViewCell.xib in Resources */,
-				3FBF610727D7B46E00F35E67 /* LaunchScreen.storyboard in Resources */,
-				3FBF610427D7B46E00F35E67 /* Assets.xcassets in Resources */,
-				3F66233527DD46C800CD2DF7 /* ExceptionTableViewCell.xib in Resources */,
-				3F66231C27DCB3C800CD2DF7 /* VpnStatusTableViewCell.xib in Resources */,
-				3F92CAC927E72721002FAD74 /* LICENSE in Resources */,
-				3F96C62028BD2E7F00E7FD2D /* ScannerViewController.storyboard in Resources */,
-				3F66232027DCDEDA00CD2DF7 /* VpnInfoTableViewCell.xib in Resources */,
-				3F8A711A28C0FC6A00626745 /* AboutTableViewController.storyboard in Resources */,
-				3F3D9CDE27DBC84F00DEB6D3 /* VpnTableViewCell.xib in Resources */,
-				3F66233027DD159200CD2DF7 /* README.txt in Resources */,
-				3FBF60FF27D7B46D00F35E67 /* iPhone.storyboard in Resources */,
-				3F3D9CE227DBD43300DEB6D3 /* PadVpnInfoTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4551E32B600E63005A480E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F4551EF2B600E64005A480E /* Preview Assets.xcassets in Resources */,
+				3F4551EC2B600E64005A480E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4AB6F12B24637E004085BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F4AB6FF2B24637F004085BA /* Preview Assets.xcassets in Resources */,
+				3F4AB6FC2B24637F004085BA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,43 +846,79 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3FBF60F027D7B46D00F35E67 /* Sources */ = {
+		3F16520F2B6A22F000594EB6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F26DC1E27E22ED1001E5B8D /* MethodPickerTableViewCell.swift in Sources */,
-				3F8A711E28C1013B00626745 /* String+Extension.swift in Sources */,
-				3F66231F27DCDEDA00CD2DF7 /* VpnInfoTableViewCell.swift in Sources */,
-				3F8C880627E3A6CA002031CB /* VpnConfiguration.swift in Sources */,
-				3F66232B27DCF77700CD2DF7 /* xproxy.c in Sources */,
-				3FBF60FC27D7B46D00F35E67 /* ViewController.swift in Sources */,
-				3FCBC74E27EE009D00C0AA0B /* FileManager+Extension.swift in Sources */,
-				3FEDC35828BE4A8200F00790 /* Double+Extension.swift in Sources */,
-				3F66232E27DCF78600CD2DF7 /* el.c in Sources */,
-				3F3D9CD527DB94F100DEB6D3 /* SplitViewController.swift in Sources */,
-				3F66233427DD46C800CD2DF7 /* ExceptionTableViewCell.swift in Sources */,
-				3F3D9CDD27DBC84F00DEB6D3 /* VpnTableViewCell.swift in Sources */,
-				3F66232D27DCF78000CD2DF7 /* utils.c in Sources */,
-				3F3D9CD327DB948B00DEB6D3 /* MasterTableViewController.swift in Sources */,
-				3F66232C27DCF77C00CD2DF7 /* poller.c in Sources */,
-				3F96C61E28BD2E4600E7FD2D /* ScannerViewController.swift in Sources */,
-				3F8C880427E3A59E002031CB /* Constant.swift in Sources */,
-				3FBF610227D7B46D00F35E67 /* Xproxy.xcdatamodeld in Sources */,
-				3F01742427ECBE3A00B49911 /* UIViewController+Extension.swift in Sources */,
-				3F3D9CE127DBD43300DEB6D3 /* PadVpnInfoTableViewCell.swift in Sources */,
-				3F8A711C28C0FD9E00626745 /* Bundle+Extension.swift in Sources */,
-				3F66231B27DCB3C800CD2DF7 /* VpnStatusTableViewCell.swift in Sources */,
-				3FBF60F827D7B46D00F35E67 /* AppDelegate.swift in Sources */,
-				3FBF60FA27D7B46D00F35E67 /* SceneDelegate.swift in Sources */,
-				3F8CBE5927DF082D002EECBB /* cfg.c in Sources */,
-				3F66232927DCF76B00CD2DF7 /* crypt.c in Sources */,
-				3F66232527DCF6CC00CD2DF7 /* local-proxy.c in Sources */,
-				3F96C61A28BD26F500E7FD2D /* QRImageViewController.swift in Sources */,
-				3F3D9CD727DBBBE600DEB6D3 /* PadVpnConfViewController.swift in Sources */,
-				3FCBC74B27EDFCA200C0AA0B /* TunnelError.swift in Sources */,
-				3F66232227DCF0C600CD2DF7 /* AboutTableViewController.swift in Sources */,
-				3F66232A27DCF77100CD2DF7 /* tcp-connection.c in Sources */,
-				3F01AD6327DB680800906633 /* VpnConfViewController.swift in Sources */,
+				3F16522A2B6A240400594EB6 /* local-proxy.c in Sources */,
+				3F16522B2B6A240400594EB6 /* xproxy.c in Sources */,
+				3F1652242B6A23F300594EB6 /* VPNError.swift in Sources */,
+				3F1652252B6A240400594EB6 /* tcp-connection.c in Sources */,
+				3F16522C2B6A240400594EB6 /* crypt.c in Sources */,
+				3F1652172B6A22F000594EB6 /* PacketTunnelProvider.swift in Sources */,
+				3F1652292B6A240400594EB6 /* el.c in Sources */,
+				3F1652282B6A240400594EB6 /* utils.c in Sources */,
+				3F1652262B6A240400594EB6 /* poller.c in Sources */,
+				3F1652272B6A240400594EB6 /* cfg.c in Sources */,
+				3FBB563E2B6CB15200D23DDA /* Defaults.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4551E12B600E63005A480E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F4551F92B60108F005A480E /* crypt.c in Sources */,
+				3F4551F52B60105D005A480E /* VPNConfiguration.swift in Sources */,
+				3F22AB0A2B6A0467004B038C /* utils.c in Sources */,
+				3F4551FE2B629E51005A480E /* XproxyVPNManager.swift in Sources */,
+				3F4552032B62A4CB005A480E /* VPNConfigurationView.swift in Sources */,
+				3F92A46F2B71348400AA4A45 /* ConfigurationError.swift in Sources */,
+				3F4551EA2B600E63005A480E /* ContentView.swift in Sources */,
+				3F22AB062B6A045E004B038C /* poller.c in Sources */,
+				3F7527242B6D67D00079F1C1 /* AppDelegate.swift in Sources */,
+				3F4551E82B600E63005A480E /* XproxyApp.swift in Sources */,
+				3F3E7D042B6966030087E4C7 /* Defaults.swift in Sources */,
+				3F3203E32B66A920004C13C3 /* el.c in Sources */,
+				3FEF734C2B6BAA8100F11170 /* VPNRow.swift in Sources */,
+				3F22AB042B6A045A004B038C /* local-proxy.c in Sources */,
+				3F34BFB62B63F8A800EA4A90 /* Constant.swift in Sources */,
+				3F22AB0C2B6A046A004B038C /* xproxy.c in Sources */,
+				3F4551F42B60104C005A480E /* VPNError.swift in Sources */,
+				3F22AB082B6A0462004B038C /* tcp-connection.c in Sources */,
+				3F4551F82B60108A005A480E /* cfg.c in Sources */,
+				3F4551FC2B616759005A480E /* VPNRowView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4AB6EF2B24637E004085BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F7527232B6D5FE60079F1C1 /* AppDelegate.swift in Sources */,
+				3F3D22FF2B677B36000C5469 /* PreferencesView.swift in Sources */,
+				3F22AB0D2B6A046B004B038C /* xproxy.c in Sources */,
+				3FB5CF7F2B58219D00AB5A06 /* cfg.c in Sources */,
+				3F3D22FD2B674E9C000C5469 /* StatusView.swift in Sources */,
+				3F22AB052B6A045B004B038C /* local-proxy.c in Sources */,
+				3F34BFA32B63EB6C00EA4A90 /* XproxyApp.swift in Sources */,
+				3F22AB072B6A045F004B038C /* poller.c in Sources */,
+				3FEF734B2B6BA83B00F11170 /* VPNRow.swift in Sources */,
+				3FB5CF812B5821B600AB5A06 /* el.c in Sources */,
+				3F4551922B5BADC5005A480E /* VPNConfigurationView.swift in Sources */,
+				3F34BFB72B63F8A900EA4A90 /* Constant.swift in Sources */,
+				3F4551AA2B5EB5FA005A480E /* VPNConfiguration.swift in Sources */,
+				3F92A4702B71348400AA4A45 /* ConfigurationError.swift in Sources */,
+				3FB5CF802B5821B100AB5A06 /* crypt.c in Sources */,
+				3F34BFA12B63EB2100EA4A90 /* VPNRowView.swift in Sources */,
+				3F3D23012B67B23C000C5469 /* GeneralView.swift in Sources */,
+				3F4552012B629E51005A480E /* XproxyVPNManager.swift in Sources */,
+				3F22AB0B2B6A0467004B038C /* utils.c in Sources */,
+				3F3E7D052B6966030087E4C7 /* Defaults.swift in Sources */,
+				3F34BFA22B63EB2D00EA4A90 /* ContentView.swift in Sources */,
+				3F22AB092B6A0463004B038C /* tcp-connection.c in Sources */,
+				3FB5CFA32B58288300AB5A06 /* VPNError.swift in Sources */,
+				3F3E7D022B69638F0087E4C7 /* AppMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,16 +927,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FDC07CF27DA3C6F00B53758 /* crypt.c in Sources */,
+				3FBB563D2B6CB15200D23DDA /* Defaults.swift in Sources */,
 				3FDC07D927DA3C6F00B53758 /* utils.c in Sources */,
 				3FDC07D727DA3C6F00B53758 /* poller.c in Sources */,
 				3FDC07D327DA3C6F00B53758 /* tcp-connection.c in Sources */,
-				3FEDC35928BE4A8200F00790 /* Double+Extension.swift in Sources */,
 				3F8CBE5A27DF082D002EECBB /* cfg.c in Sources */,
-				3FCBC74F27EE009D00C0AA0B /* FileManager+Extension.swift in Sources */,
 				3FDC07D127DA3C6F00B53758 /* local-proxy.c in Sources */,
 				3FDC07D527DA3C6F00B53758 /* xproxy.c in Sources */,
-				3F8C880727E3A6CA002031CB /* VpnConfiguration.swift in Sources */,
-				3FCBC74C27EDFCA200C0AA0B /* TunnelError.swift in Sources */,
+				3FCBC74C27EDFCA200C0AA0B /* VPNError.swift in Sources */,
 				3FDC07DB27DA3C6F00B53758 /* el.c in Sources */,
 				3FBF611927D7B62000F35E67 /* PacketTunnelProvider.swift in Sources */,
 			);
@@ -788,37 +943,299 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3FBF611D27D7B62000F35E67 /* PBXTargetDependency */ = {
+		3F16521B2B6A22F000594EB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F1652122B6A22F000594EB6 /* macOSPacketTunnel */;
+			targetProxy = 3F16521A2B6A22F000594EB6 /* PBXContainerItemProxy */;
+		};
+		3F34BF9E2B62C7E500EA4A90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3FBF611227D7B62000F35E67 /* PacketTunnel */;
-			targetProxy = 3FBF611C27D7B62000F35E67 /* PBXContainerItemProxy */;
+			targetProxy = 3F34BF9D2B62C7E500EA4A90 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		3FBF60FD27D7B46D00F35E67 /* iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3FBF60FE27D7B46D00F35E67 /* Base */,
-			);
-			name = iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		3FBF610527D7B46E00F35E67 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3FBF610627D7B46E00F35E67 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
+		3F16521E2B6A22F000594EB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Xproxy\"",
+					"\"$(SRCROOT)/openssl/include\"",
+				);
+				INFOPLIST_FILE = macOSPacketTunnel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = macOSPacketTunnel;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.macOSPacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3F16521F2B6A22F000594EB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Xproxy\"",
+					"\"$(SRCROOT)/openssl/include\"",
+				);
+				INFOPLIST_FILE = macOSPacketTunnel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = macOSPacketTunnel;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.macOSPacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3F4551F12B600E64005A480E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = iOSApp/Xproxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"iOSApp/Preview Content\"";
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/openssl/include\"";
+				INFOPLIST_KEY_CFBundleDisplayName = Xproxy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/iOS",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3F4551F22B600E64005A480E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = iOSApp/Xproxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"iOSApp/Preview Content\"";
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/openssl/include\"";
+				INFOPLIST_KEY_CFBundleDisplayName = Xproxy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/iOS",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3F4AB7022B24637F004085BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = MacApp/Xproxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"MacApp/Preview Content\"";
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/openssl/include\"",
+					"\"$(SRCROOT)/Xproxy\"",
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = Xproxy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3F4AB7032B24637F004085BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = MacApp/Xproxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"MacApp/Preview Content\"";
+				DEVELOPMENT_TEAM = KMX6B9L26T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/openssl/include\"",
+					"\"$(SRCROOT)/Xproxy\"",
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = Xproxy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		3FBF610927D7B46E00F35E67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -880,6 +1297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -931,92 +1349,6 @@
 			};
 			name = Release;
 		};
-		3FBF610C27D7B46E00F35E67 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = XproxyApp/Xproxy.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
-				DEVELOPMENT_TEAM = KMX6B9L26T;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/openssl/include\"";
-				INFOPLIST_FILE = XproxyApp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Xproxy needs permission to scan QR code...";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Xproxy needs permission to write photos...";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/openssl/lib",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		3FBF610D27D7B46E00F35E67 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = XproxyApp/Xproxy.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
-				DEVELOPMENT_TEAM = KMX6B9L26T;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/openssl/include\"";
-				INFOPLIST_FILE = XproxyApp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Xproxy needs permission to scan QR code...";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Xproxy needs permission to write photos...";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/openssl/lib",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		3FBF612027D7B62000F35E67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1036,7 +1368,7 @@
 				INFOPLIST_FILE = PacketTunnel/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PacketTunnel;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1045,11 +1377,19 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/openssl/lib",
+					"$(PROJECT_DIR)/openssl/lib/iOS",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.2.0;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
@@ -1077,7 +1417,7 @@
 				INFOPLIST_FILE = PacketTunnel/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PacketTunnel;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1086,11 +1426,19 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/openssl/lib",
+					"$(PROJECT_DIR)/openssl/lib/iOS",
+					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.2.0;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Xproxy/Xproxy-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
@@ -1102,20 +1450,38 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F16521D2B6A22F000594EB6 /* Build configuration list for PBXNativeTarget "macOSPacketTunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F16521E2B6A22F000594EB6 /* Debug */,
+				3F16521F2B6A22F000594EB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F4551F02B600E64005A480E /* Build configuration list for PBXNativeTarget "XproxyiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F4551F12B600E64005A480E /* Debug */,
+				3F4551F22B600E64005A480E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F4AB7012B24637F004085BA /* Build configuration list for PBXNativeTarget "XproxyMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F4AB7022B24637F004085BA /* Debug */,
+				3F4AB7032B24637F004085BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3FBF60EF27D7B46D00F35E67 /* Build configuration list for PBXProject "Xproxy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FBF610927D7B46E00F35E67 /* Debug */,
 				3FBF610A27D7B46E00F35E67 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3FBF610B27D7B46E00F35E67 /* Build configuration list for PBXNativeTarget "Xproxy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3FBF610C27D7B46E00F35E67 /* Debug */,
-				3FBF610D27D7B46E00F35E67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1130,19 +1496,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		3FBF610027D7B46D00F35E67 /* Xproxy.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3FBF610127D7B46D00F35E67 /* Xproxy.xcdatamodel */,
-			);
-			currentVersion = 3FBF610127D7B46D00F35E67 /* Xproxy.xcdatamodel */;
-			path = Xproxy.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 3FBF60EC27D7B46D00F35E67 /* Project object */;
 }

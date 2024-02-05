@@ -17,7 +17,7 @@ int poller_open()
 {
 	int fd = epoll_create(1024);
 	if (fd == -1)
-		FATAL("epoll_create() error: %s", strerror(errno));
+		logf("epoll_create() error: %s", strerror(errno));
 
 	return fd;
 }
@@ -102,7 +102,7 @@ int poller_wait(int poller, struct poller_event *e, int max, int ms)
 #include <sys/event.h>
 #include <sys/time.h>
 
-int poller_open()
+int poller_open(void)
 {
 	int fd = kqueue();
 	if (fd == -1)

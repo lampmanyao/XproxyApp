@@ -27,7 +27,7 @@
 #include "crypt.h"
 #include "utils.h"
 
-#define BUFF_SIZE 4096
+#define BUFF_SIZE 2048
 
 static void accept_cb(struct xproxy *xproxy);
 static int recvfrom_client_cb(struct el *el, struct tcp_connection *tcp_conn);
@@ -208,8 +208,8 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	logi("Connected to remote-proxy (%s:%d)", configuration.remote_addr, configuration.remote_port);
 
 	remote = new_tcp_connection(fd, BUFF_SIZE, recvfrom_remote_cb, sendto_remote_cb);
-	remote->peer_tcp_conn = client;
-	client->peer_tcp_conn = remote;
+	remote->peer = client;
+	client->peer = remote;
 	el_watch(el, remote);
 
 	uint8_t request[512];
@@ -274,7 +274,7 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 		}
 		return 0;
 	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK) {
+		if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) {
 			poller_unwatch_read(el->poller, client->fd, client);
 			poller_watch_write(el->poller, remote->fd, remote);
 			return 0;
@@ -299,6 +299,9 @@ static int stream_to_remote(struct el *el, struct tcp_connection *client, struct
 		return -1;
 	}
 
+	if (!remote)
+		return -1;
+
 	tcp_connection_append_txbuf(remote, ciphertext, (uint32_t)ciphertext_len);
 
 	tcp_connection_reset_rxbuf(client);
@@ -310,14 +313,16 @@ static int stream_to_remote(struct el *el, struct tcp_connection *client, struct
 	tx = send(remote->fd, data, data_len, 0);
 
 	if (fast(tx > 0)) {
-		tcp_connection_move_txbuf(remote, (uint32_t)tx);
-		if (slow((uint32_t)tx < data_len)) {
+		if (fast(tx == data_len)) {
+			tcp_connection_reset_txbuf(remote);
+		} else {
+			tcp_connection_move_txbuf(remote, (uint32_t)tx);
 			poller_unwatch_read(el->poller, client->fd, client);
 			poller_watch_write(el->poller, remote->fd, remote);
 		}
 		return 0;
 	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK) {
+		if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) {
 			poller_unwatch_read(el->poller, client->fd, client);
 			poller_watch_write(el->poller, remote->fd, remote);
 			return 0;
@@ -340,7 +345,7 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 			if (rx < BUFF_SIZE - 1)
 				break;
 		} else if (rx < 0) {
-			if (errno == EAGAIN || errno == EWOULDBLOCK)
+			if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
 				break;
 
 			return -1;  /* error */
@@ -355,7 +360,7 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 		break;
 
 	case STAGE_STREAMING:
-		remote = client->peer_tcp_conn;
+		remote = client->peer;
 		ret = stream_to_remote(el, client, remote);
 		break;
 
@@ -368,19 +373,21 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 
 static int sendto_client_cb(struct el *el, struct tcp_connection *client)
 {
-	struct tcp_connection *remote = client->peer_tcp_conn;
+	struct tcp_connection *remote = client->peer;
 	uint8_t *data = client->txbuf;
 	uint32_t data_len = client->txbuf_length;
 	ssize_t tx = send(client->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
-		tcp_connection_move_txbuf(client, (uint32_t)tx);
 		if (fast((uint32_t)tx == data_len)) {
+			tcp_connection_reset_txbuf(client);
+		} else {
+			tcp_connection_move_txbuf(client, (uint32_t)tx);
 			poller_unwatch_write(el->poller, client->fd, client);
 			poller_watch_read(el->poller, remote->fd, remote);
 		}
 		return 0;
 	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK)
+		if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
 			return 0;
 		return -1;
 	}
@@ -389,7 +396,7 @@ static int sendto_client_cb(struct el *el, struct tcp_connection *client)
 static int handle_handshake_response(struct el *el, struct tcp_connection *remote)
 {
 	int ret;
-	struct tcp_connection *client = remote->peer_tcp_conn;
+	struct tcp_connection *client = remote->peer;
 	uint8_t *data = remote->rxbuf;
 	uint32_t data_len = remote->rxbuf_length;
 	uint32_t plaintext_len;
@@ -456,7 +463,7 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 		tcp_connection_reset_txbuf(client);
 		return 0;
 	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK) {
+		if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) {
 			poller_unwatch_read(el->poller, remote->fd, remote);
 			poller_watch_write(el->poller, client->fd, client);
 			return 0;
@@ -469,7 +476,7 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 static int stream_to_client(struct el *el, struct tcp_connection *remote)
 {
 	int ret;
-	struct tcp_connection *client = remote->peer_tcp_conn;
+	struct tcp_connection *client = remote->peer;
 	uint8_t *data = NULL;
 	uint32_t data_len = 0;
 	uint32_t plaintext_len = 0;
@@ -500,18 +507,21 @@ static int stream_to_client(struct el *el, struct tcp_connection *remote)
 		tx = send(client->fd, data, data_len, 0);
 
 		if (fast(tx > 0)) {
-			tcp_connection_move_txbuf(client, (uint32_t)tx);
-			if (slow(tx < data_len)) {
+			if (fast(tx == data_len)) {
+				tcp_connection_reset_txbuf(client);
+			} else {
+				tcp_connection_move_txbuf(client, (uint32_t)tx);
 				poller_unwatch_read(el->poller, remote->fd, remote);
 				poller_watch_write(el->poller, client->fd, client);
 				return 0;
 			}
 		} else {
-			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+			if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) {
 				poller_unwatch_read(el->poller, remote->fd, remote);
 				poller_watch_write(el->poller, client->fd, client);
 				return 0;
 			}
+			
 			return -1;
 		}
 	}
@@ -528,11 +538,11 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 			if (rx < BUFF_SIZE - 1)
 				break;
 		} else if (rx < 0) {
-			if (errno == EAGAIN || errno == EWOULDBLOCK)
+			if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
 				break;
-			return -1;  /* error */
+			return -1;
 		} else {
-			return -1;  /* eof */
+			return -1;
 		}
 	}
 
@@ -555,19 +565,21 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 
 static int sendto_remote_cb(struct el *el, struct tcp_connection *remote)
 {
-	struct tcp_connection *client = remote->peer_tcp_conn;
+	struct tcp_connection *client = remote->peer;
 	uint8_t *data = remote->txbuf;
 	uint32_t data_len = remote->txbuf_length;
 	ssize_t tx = send(remote->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
-		tcp_connection_move_txbuf(remote, (uint32_t)tx);
 		if ((uint32_t)tx == data_len) {
+			tcp_connection_reset_txbuf(remote);
+		} else {
+			tcp_connection_move_txbuf(remote, (uint32_t)tx);
 			poller_unwatch_write(el->poller, remote->fd, remote);
 			poller_watch_read(el->poller, client->fd, client);
 		}
 		return 0;
 	} else {
-		if (errno == EAGAIN || errno == EWOULDBLOCK)
+		if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
 			return 0;
 		return -1;
 	}
@@ -575,13 +587,13 @@ static int sendto_remote_cb(struct el *el, struct tcp_connection *remote)
 
 
 static int server_fd = 0;
-static int traffic_fd = 0;
-char *shared_map = NULL;
 
 _Atomic int running = 0;
 struct xproxy *xproxy = NULL;
 
-int start_local_proxy(const char *address, uint16_t port, const char *password, const char *method)
+int start_local_proxy(const char *local_address, uint16_t local_port,
+		      const char *server_address, uint16_t server_port,
+		      const char *password, const char *method)
 {
 	signals_init();
 	coredump_init();
@@ -590,10 +602,10 @@ int start_local_proxy(const char *address, uint16_t port, const char *password, 
 	configuration.password = strdup(password);
 	configuration.method = strdup(method);
 	configuration.nthread = 6;
-	configuration.local_addr = "127.0.0.1";
-	configuration.local_port = 8080;
-	configuration.remote_addr = strdup(address);
-	configuration.remote_port = port;
+	configuration.local_addr = strdup(local_address);
+	configuration.local_port = local_port;
+	configuration.remote_addr = strdup(server_address);
+	configuration.remote_port = server_port;
 	configuration.maxfiles = 1024;
 
 	if (cryptor_init(&cryptor, configuration.method, configuration.password) == -1) {
@@ -635,11 +647,6 @@ void stop_local_proxy(void)
 	if (server_fd > 0)
 		close(server_fd);
     
-    if (traffic_fd > 0)
-        close(traffic_fd);
-    
-    munmap(shared_map, 2 * sizeof(uint64_t));
-
 	if (xproxy)
 		xproxy_free(xproxy);
 
@@ -789,7 +796,7 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	sfd = listen_and_bind(configuration.local_addr, configuration.local_port);
+	int sfd = listen_and_bind(configuration.local_addr, configuration.local_port);
 	if (sfd < 0) {
 		loge("listen_and_bind(): %s", strerror(errno));
 		return -1;

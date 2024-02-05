@@ -6,7 +6,9 @@
 #  if TARGET_OS_IPHONE == 1
 #    undef HAS_MAIN
 #  elif TARGET_OS_MAC == 1
-#    define HAS_MAIN 1
+#    if !defined(HAS_MAIN)
+#      undef HAS_MAIN
+#    endif
 #  endif
 #elif defined(__linux__)
 #  define HAS_MAIN 1

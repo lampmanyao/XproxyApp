@@ -30,15 +30,14 @@ AC_CHECK_HEADERS(m4_normalize([
 
 AC_CHECK_FUNCS([getaddrinfo getnameinfo inet_ntop inet_ntoa])
 
-AC_ARG_ENABLE([static_openssl],
-		AS_HELP_STRING([--enable-static-openssl], [Compile with static openssl libs.]),
-		[static_openssl="yes"], #
-		[static_openssl="no"])
+AC_ARG_WITH([openssl-include-path],
+	    [AS_HELP_STRING([--with-openssl-include-path="-I/path/to/openssl/header"], [OpenSSL header files search directory.])],
+	    [CPPFLAGS+="$withval"])
 
-AM_CONDITIONAL(DEBUG, test x"$static_openssl" = x"yes")
-AS_IF([test x"$static_openssl" = x"yes"],
-      [LDFLAGS="/usr/local/lib/libssl.a /usr/local/lib/libcrypto.a" LIBS="-lpthread -ldl"],
-      [LIBS="-lpthread -ldl -lssl -lcrypto"])
+AC_ARG_WITH([openssl-static-lib-path],
+	    [AS_HELP_STRING([--with-openssl-static-lib-path=DIR], [OpenSSL static lib search directory.])],
+	    [LDFLAGS+="$withval/libssl.a $withval/libcrypto.a" LIBS="-lpthread -ldl"],
+	    [LIBS="-lpthread -ldl -lssl -lcrypto"])
 
 AC_ARG_ENABLE([debug],
 AS_HELP_STRING([--enable-debug=yes|no], [Enable debugging, default is disabled.]),
@@ -50,18 +49,17 @@ AS_IF([test x"$debug" = x"yes"],
       [CFLAGS="-g3 -O0 -fsanitize=address"],
       [CFLAGS="-O2"])
 
+CFLAGS="$CFLAGS -DHAS_MAIN \
+  -std=c99 -Wall -Wpointer-arith -fno-omit-frame-pointer \
+  -Wsign-compare -Wno-unused-result -Wno-unused-function \
+  -Wextra -Wshadow -Wconversion -funroll-loops -fPIC -pipe"
 
-CFLAGS="$CFLAGS \
-	-std=c99 -Wall -Wpointer-arith -fno-omit-frame-pointer \
-	-Wsign-compare -Wno-unused-result -Wno-unused-function \
-	-Wextra -Wshadow -Wconversion -funroll-loops -fPIC -pipe"
-
-CPPFLAGS="-D_GNU_SOURCE -D_POSIX_SOURCE -D_DEFAULT_SOURCE -D_DARWIN_C_SOURCE -D_REENTRANT -DOPEN_PRINT"
+CPPFLAGS="$CPPFLAGS -DHAS_MAIN -D_GNU_SOURCE -D_POSIX_SOURCE -D_DEFAULT_SOURCE -D_DARWIN_C_SOURCE -D_REENTRANT -DOPEN_PRINT"
 
 AC_CHECK_HEADERS([openssl/md5.h openssl/ssl.h openssl/evp.h openssl/err.h],[],[AC_MSG_ERROR([OpenSSL headers required])])
 
 AC_CONFIG_FILES([
- Makefile
+  Makefile
 ])
 AC_OUTPUT
 
@@ -69,9 +67,8 @@ AC_MSG_NOTICE([ === Configuration results ===])
 AC_MSG_NOTICE([Version:             $PACKAGE_VERSION])
 AC_MSG_NOTICE([c compiler:          $CC])
 AC_MSG_NOTICE([CPPFLAGS:            $CPPFLAGS])
-AC_MSG_NOTICE([CLAGS:               $CFLAGS])
+AC_MSG_NOTICE([CFLAGS:              $CFLAGS])
 AC_MSG_NOTICE([LDFLAGS:             $LDFLAGS])
 AC_MSG_NOTICE([Enable debug:        $debug])
-AC_MSG_NOTICE([Compile with static openssl libs: $static_openssl])
 AC_MSG_NOTICE([ =============================])
 

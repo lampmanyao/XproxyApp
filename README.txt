@@ -1,7 +1,7 @@
-Welcome to XproxyIOS
+Welcome to XproxyApp
 ====================
 
-The XproxyIOS is a client for Xproxy on iOS, and Xproxy is a user-space VPN.
+The XproxyApp is a client for Xproxy on iOS (iOS 17.o or later) and macOS (14.0 or later), and Xproxy is a user-space VPN.
 The Xproxy dir in this repo is different with the Xproxy (see https://github.com/lampmanyao/xproxy),
 the former is a http/https proxy, the later is a SOCKS5 proxy.
 
@@ -10,7 +10,7 @@ HOW IT WORKS
 ------------
 
 NetworkExtension on iOS doesn't provide proxy settings for socks, but it has two kinds of
-proxy settings: http and https. We can set http and https proxy settings in startTunnel()
+proxy settings: http and https. We can setup http and https proxy settings in startTunnel()
 of NEPacketTunnelProvider like this:
 
         var localProxyAddres = "127.0.0.1"
@@ -18,22 +18,22 @@ of NEPacketTunnelProvider like this:
 
         let networkSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "172.20.10.25")
         networkSettings.mtu = 1500
-        
+
         let ipv4Settings = NEIPv4Settings(addresses: ["172.20.10.25"], subnetMasks: ["255.255.255.0"])
         let proxySettings = NEProxySettings()
-        
+
         // set the http proxy
         proxySettings.httpEnabled = true
         proxySettings.httpServer = NEProxyServer(address: localProxyAddress, port: localProxyPort)
-        
+
         // set the https proxy
         proxySettings.httpsEnabled = true
         proxySettings.httpsServer = NEProxyServer(address: localProxyAddress, port: localProxyPort)
-        
+
         proxySettings.matchDomains = [""]
         // exception list
         proxySettings.exceptionList = exceptionList
-        
+
         networkSettings.proxySettings = proxySettings
         networkSettings.ipv4Settings = ipv4Settings
 
@@ -51,7 +51,7 @@ of NEPacketTunnelProvider like this:
         }
 
 start_local_proxy() will run a local http/https proxy server (local-proxy) which is listening on the localProxyPort,
-the system will passes all the http and https traffics except the domains in the exceptionList through to the local-proxy.
+the system will redirect all the http and https traffics except the domains in the exceptionList to the local-proxy.
 
   ┌ ─ ─ ─ ┐     0. http request    ┌ ─ ─ ─ ─ ─ ─ ─ ┐                          ┌ ─ ─ ─ ─ ─ ─ ─ ┐                ┌ ─ ─ ─ ─ ─ ┐
   |       |"GET http://example.com/|  local-proxy  |1. SOCKS5 CONNECT request |  remote-proxy | 2. open a tcp  |           |
@@ -79,7 +79,7 @@ the request looks like 'CONNECT example.com:443 http/1.1' is the https request.
 3. the remote-proxy replies a SOCKS5 CONNECT response to the local-proxy
 4. a) the local-proxy forwards the request to the remote-proxy if the request is http request;
    b) the local-proxy replies a 'HTTP/1.1 200 Connection Established' response to the app if the request is https request
-5. blinded exchange data
+5. exchange data blindly
 
 Each packet between the local-proxy and the remote-proxy is as below:
 ┌─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┐
@@ -93,11 +93,7 @@ Dependency
 On Linux or macOS:
 - libssl-dev
 
-On iOS:
-- OpenSSL.framework
-
-See https://github.com/balthisar/openssl-xcframeworks for how to build OpenSSL for iOS.
-
+OpenSSL-3.2.0 is precompiled as static library at openssl/lib, iOS and macOS (Intel and Apple Sillicon).
 
 Compilation
 -----------
@@ -127,5 +123,3 @@ TODOs
 
 - udp proxy
 - more secure cipher-suit
-- client on macOS
-
