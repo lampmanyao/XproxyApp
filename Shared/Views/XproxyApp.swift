@@ -47,12 +47,12 @@ struct XproxyApp: App {
         })
 
         #else
-        WindowGroup {
+        WindowGroup(id: "Xproxy", content: {
             ContentView(xproxyVPNManager: xproxyVPNManager, selectedConfiguration: nil)
                 .task {
                     await xproxyVPNManager.loadVPNPerferences()
                 }
-        }
+        })
         #endif
     }
 }

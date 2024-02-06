@@ -28,14 +28,24 @@ struct VPNConfigurationView: View {
                         Spacer()
 
                         Toggle("Status", isOn: $isOn)
-                            .onChange(of: isOn, {
-                                if isOn {
-                                    do {
-                                        try manager.connection.startVPNTunnel()
-                                    } catch let error {
-                                        showAlert = true
-                                        alertTitle = "Start VPN Failed."
-                                        alertMessage = error.localizedDescription
+                            .onAppear {
+                                isOn = vpnConfiguration.manager?.connection.status == .connected
+                            }
+                            .onChange(of: isOn, perform: { value in
+                                if value {
+                                    if !manager.isEnabled {
+                                        manager.isEnabled = true
+                                        manager.saveToPreferences { error in
+                                            if let saveError = error {
+                                                showAlert = true
+                                                alertTitle = "Save VPN Configuration Failed."
+                                                alertMessage = saveError.localizedDescription
+                                            } else {
+                                                startVPN(manager)
+                                            }
+                                        }
+                                    } else {
+                                        startVPN(manager)
                                     }
                                 } else {
                                     manager.connection.stopVPNTunnel()
@@ -146,12 +156,9 @@ struct VPNConfigurationView: View {
             .headerProminence(.increased)
         }
         .environment(\.defaultMinListRowHeight, 35)
-        .onChange(of: vpnConfiguration, {
+        .onChange(of: vpnConfiguration, perform: { value in
             isOn = vpnConfiguration.manager?.connection.status == .connected
         })
-        .onAppear {
-            isOn = vpnConfiguration.manager?.connection.status == .connected
-        }
         .toolbar {
             Button("Save", action: {
                 if let error = vpnConfiguration.verify() {
@@ -183,5 +190,15 @@ struct VPNConfigurationView: View {
             }
         }
         .navigationTitle(vpnConfiguration.name)
+    }
+
+    func startVPN(_ manager: NEVPNManager) {
+        do {
+            try manager.connection.startVPNTunnel()
+        } catch let error {
+            showAlert = true
+            alertTitle = "Start VPN Failed."
+            alertMessage = error.localizedDescription
+        }
     }
 }

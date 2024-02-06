@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var xproxyVPNManager: XproxyVPNManager
+    @ObservedObject var xproxyVPNManager: XproxyVPNManager
     @State var selectedConfiguration: VPNConfiguration?
 
     @State var showAlert = false
@@ -26,20 +26,39 @@ struct ContentView: View {
                         )
                         #endif
                         .contextMenu {
-                            if selectedConfiguration?.manager?.connection.status == .connected {
+                            if configuration.manager?.connection.status == .connected {
                                 Button(action: {
-                                    selectedConfiguration?.manager?.connection.stopVPNTunnel()
+                                    configuration.manager?.connection.stopVPNTunnel()
                                 }, label: {
                                     Text("Disconnect")
                                 })
-                            } else if selectedConfiguration?.manager?.connection.status == .disconnected {
+                            } else if configuration.manager?.connection.status == .disconnected {
                                 Button(action: {
-                                    do {
-                                        try selectedConfiguration?.manager?.connection.startVPNTunnel()
-                                    } catch {
-                                        showAlert = true
-                                        alertTitle = "Start VPN Failed."
-                                        alertMessage = error.localizedDescription
+                                    if !configuration.manager!.isEnabled {
+                                        configuration.manager?.isEnabled = true
+                                        configuration.manager?.saveToPreferences { error in
+                                            if let saveError = error {
+                                                showAlert = true
+                                                alertTitle = "Start VPN Failed."
+                                                alertMessage = saveError.localizedDescription
+                                                return
+                                            }
+                                            do {
+                                                try configuration.manager?.connection.startVPNTunnel()
+                                            } catch {
+                                                showAlert = true
+                                                alertTitle = "Start VPN Failed."
+                                                alertMessage = error.localizedDescription
+                                            }
+                                        }
+                                    } else {
+                                        do {
+                                            try configuration.manager?.connection.startVPNTunnel()
+                                        } catch {
+                                            showAlert = true
+                                            alertTitle = "Start VPN Failed."
+                                            alertMessage = error.localizedDescription
+                                        }
                                     }
                                 }, label: {
                                     Text("Connect")
@@ -48,7 +67,7 @@ struct ContentView: View {
 
                             Button(action: {
                                 Task {
-                                    await xproxyVPNManager.delete(by: selectedConfiguration)
+                                    await xproxyVPNManager.delete(by: configuration)
                                     selectedConfiguration = nil
                                     await xproxyVPNManager.loadVPNPerferences()
                                 }

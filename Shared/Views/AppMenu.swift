@@ -107,14 +107,6 @@ struct AppMenu: View {
         .onChange(of: selectedConfiguration, {
             isConnected = selectedConfiguration?.manager?.connection.status == .connected
         })
-//        .task {
-//            await xproxyVPNManager.loadVPNPerferences()
-//            for configuration in xproxyVPNManager.configurations {
-//                if Defaults.shared.selectedVPN == configuration.address + ":" + configuration.port {
-//                    selectedConfiguration = configuration
-//                }
-//            }
-//        }
         .padding()
     }
 

@@ -7,7 +7,7 @@ the former is a http/https proxy, the later is a SOCKS5 proxy.
 
 System Requirements
 -------------------
-iOS 17.0 or later
+iOS 16.0 or later
 macOS 14.0 or later
 
 HOW IT WORKS

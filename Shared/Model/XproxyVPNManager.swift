@@ -8,9 +8,8 @@
 import Foundation
 import NetworkExtension
 
-@Observable
 class XproxyVPNManager: ObservableObject {
-    var configurations: [VPNConfiguration] = []
+    @Published var configurations: [VPNConfiguration] = []
 
     @MainActor func loadVPNPerferences() async {
         configurations.removeAll()
