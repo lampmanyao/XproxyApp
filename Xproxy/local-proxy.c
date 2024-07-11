@@ -535,6 +535,17 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 		ssize_t rx = recv(remote->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
 			tcp_connection_append_rxbuf(remote, buf, (uint32_t)rx);
+			switch (remote->stage) {
+			case STAGE_HANDSHAKE:
+				ret = handle_handshake_response(el, remote);
+				break;
+			case STAGE_STREAMING:
+				ret = stream_to_client(el, remote);
+				break;
+			default:
+				ret = -1;
+				break;
+			}
 			if (rx < BUFF_SIZE - 1)
 				break;
 		} else if (rx < 0) {
@@ -544,20 +555,6 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 		} else {
 			return -1;
 		}
-	}
-
-	switch (remote->stage) {
-	case STAGE_HANDSHAKE:
-		ret = handle_handshake_response(el, remote);
-		break;
-
-	case STAGE_STREAMING:
-		ret = stream_to_client(el, remote);
-		break;
-
-	default:
-		ret = -1;
-		break;
 	}
 
 	return ret;

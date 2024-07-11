@@ -314,7 +314,7 @@
 		3FDC07C527DA3C6F00B53758 /* el.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = el.h; sourceTree = "<group>"; tabWidth = 8; };
 		3FDC07C627DA3C6F00B53758 /* poller.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = poller.c; sourceTree = "<group>"; tabWidth = 8; };
 		3FDC07C727DA3C6F00B53758 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; tabWidth = 8; };
-		3FDC07C827DA3C6F00B53758 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; tabWidth = 8; };
+		3FDC07C827DA3C6F00B53758 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
 		3FDC07C927DA3C6F00B53758 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; tabWidth = 8; };
 		3FDC07CA27DA3C6F00B53758 /* xproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = xproxy.h; sourceTree = "<group>"; tabWidth = 8; };
 		3FDC07CB27DA3C6F00B53758 /* tcp-connection.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 8; lastKnownFileType = sourcecode.c.h; path = "tcp-connection.h"; sourceTree = "<group>"; tabWidth = 8; };
@@ -616,12 +616,12 @@
 				3F66232F27DD159200CD2DF7 /* README.txt */,
 				3F92CAC827E72721002FAD74 /* LICENSE */,
 				3F16B98128C0709A00712896 /* openssl */,
-				3FBF611727D7B62000F35E67 /* PacketTunnel */,
 				3FDC07BE27DA3C6F00B53758 /* Xproxy */,
 				3FB5CFA22B58286D00AB5A06 /* Shared */,
 				3F4AB6F42B24637E004085BA /* MacApp */,
-				3F4551E62B600E63005A480E /* iOSApp */,
 				3F1652152B6A22F000594EB6 /* macOSPacketTunnel */,
+				3F4551E62B600E63005A480E /* iOSApp */,
+				3FBF611727D7B62000F35E67 /* PacketTunnel */,
 				3FBF611427D7B62000F35E67 /* Frameworks */,
 				3FBF60F527D7B46D00F35E67 /* Products */,
 			);
@@ -773,7 +773,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					3F1652122B6A22F000594EB6 = {
 						CreatedOnToolsVersion = 15.2;
@@ -963,6 +963,7 @@
 				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1005,6 +1006,7 @@
 				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1073,7 +1075,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1121,7 +1123,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1172,7 +1174,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1221,7 +1223,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

@@ -41,8 +41,8 @@ int set_nonblocking(int fd)
 int listen_and_bind(const char *address, uint16_t port)
 {
 	int sfd;
-    int reuse = 1;
-    int on = 5;
+	int reuse = 1;
+	int on = 5;
 	struct sockaddr_in serv_addr;
 
 	sfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -51,9 +51,9 @@ int listen_and_bind(const char *address, uint16_t port)
 		return -1;
 	}
     
-    setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &reuse, (socklen_t)sizeof(reuse));
-    setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &reuse, (socklen_t)sizeof(reuse));
-    setsockopt(sfd, IPPROTO_TCP, TCP_FASTOPEN, &on, sizeof(on));
+	setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &reuse, (socklen_t)sizeof(reuse));
+	setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &reuse, (socklen_t)sizeof(reuse));
+	setsockopt(sfd, IPPROTO_TCP, TCP_FASTOPEN, &on, sizeof(on));
 
 	bzero(&serv_addr, sizeof(struct sockaddr_in));
 	serv_addr.sin_family = AF_INET;
@@ -129,7 +129,7 @@ int connect_nonblocking(const char *host, uint16_t port, int ms)
 		ipv4addr.sin_family = AF_INET;
 		ipv4addr.sin_port = htons(port);
 
-		if (_connect(sock, (const struct sockaddr*)&ipv4addr, sizeof(struct sockaddr), ms) == 0)
+		if (_connect(sock, (const struct sockaddr *)&ipv4addr, sizeof(struct sockaddr), ms) == 0)
 			return sock;
 
 		close(sock);

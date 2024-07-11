@@ -199,7 +199,7 @@ int poller_wait(int poller,  struct poller_event *ev, int max, int ms)
 		int16_t filter = ke[i].filter;
 		uint16_t flags = ke[i].flags;
 		uint16_t eof = flags & EV_EOF;
-		ev[i].read  = (filter == EVFILT_READ);
+		ev[i].read  = (filter == EVFILT_READ) && !eof;
 		ev[i].write = (filter == EVFILT_WRITE);
 		ev[i].eof   = eof;
 		ev[i].error = flags & EV_ERROR;
