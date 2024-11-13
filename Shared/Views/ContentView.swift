@@ -21,9 +21,7 @@ struct ContentView: View {
                 ForEach(xproxyVPNManager.configurations, id: \.self) { configuration in
                     VPNRow(selectedConfiguration: $selectedConfiguration, configuration: configuration)
                         #if os(iOS)
-                        .listRowBackground(
-                            self.selectedConfiguration == configuration ? RoundedRectangle(cornerRadius: 7.5).fill(Color.orange.opacity(0.5)) : nil
-                        )
+                        .listRowBackground(self.selectedConfiguration == configuration ? RoundedRectangle(cornerRadius: 7.5).fill(Color.orange.opacity(0.5)) : nil )
                         #endif
                         .contextMenu {
                             if configuration.manager?.connection.status == .connected {
@@ -82,6 +80,9 @@ struct ContentView: View {
                         }
                 }
             }
+            .onAppear {
+                self.selectedConfiguration = self.xproxyVPNManager.configurations.first
+            }
             .toolbar {
                 Button(action: {
                     selectedConfiguration = xproxyVPNManager.newVPNConfiguration()
@@ -94,6 +95,8 @@ struct ContentView: View {
         } detail: {
             if let selected = selectedConfiguration {
                 VPNConfigurationView(vpnConfiguration: selected)
+            } else {
+                Text("No selection")
             }
         }
     }

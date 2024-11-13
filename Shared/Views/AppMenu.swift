@@ -121,9 +121,3 @@ struct AppMenu: View {
         NSApp.terminate(self)
     }
 }
-
-//struct AppMenu_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AppMenu(xproxyVPNManager: XproxyVPNManager())
-//    }
-//}

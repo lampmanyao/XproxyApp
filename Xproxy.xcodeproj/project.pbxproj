@@ -23,7 +23,6 @@
 		3F16522A2B6A240400594EB6 /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
 		3F16522B2B6A240400594EB6 /* xproxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C427DA3C6F00B53758 /* xproxy.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
 		3F16522C2B6A240400594EB6 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07BF27DA3C6F00B53758 /* crypt.c */; settings = {COMPILER_FLAGS = "-g3 -O0"; }; };
-		3F22AAE32B69FF8D004B038C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */; };
 		3F22AB042B6A045A004B038C /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
 		3F22AB052B6A045B004B038C /* local-proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C027DA3C6F00B53758 /* local-proxy.c */; };
 		3F22AB062B6A045E004B038C /* poller.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC07C627DA3C6F00B53758 /* poller.c */; };
@@ -64,6 +63,7 @@
 		3F4552032B62A4CB005A480E /* VPNConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4551912B5BADC5005A480E /* VPNConfigurationView.swift */; };
 		3F4AB6FC2B24637F004085BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4AB6FB2B24637F004085BA /* Assets.xcassets */; };
 		3F4AB6FF2B24637F004085BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F4AB6FE2B24637F004085BA /* Preview Assets.xcassets */; };
+		3F4D452F2CE399B200D65956 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF78E032B66A3D3002ABE5F /* NetworkExtension.framework */; };
 		3F7527232B6D5FE60079F1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */; };
 		3F7527242B6D67D00079F1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7527222B6D5FE60079F1C1 /* AppDelegate.swift */; };
 		3F8CBE5A27DF082D002EECBB /* cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CBE5627DF082D002EECBB /* cfg.c */; };
@@ -352,7 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F1652202B6A231F00594EB6 /* libcrypto.a in Frameworks */,
-				3F22AAE32B69FF8D004B038C /* NetworkExtension.framework in Frameworks */,
+				3F4D452F2CE399B200D65956 /* NetworkExtension.framework in Frameworks */,
 				3F1652212B6A231F00594EB6 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -773,7 +773,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					3F1652122B6A22F000594EB6 = {
 						CreatedOnToolsVersion = 15.2;
@@ -962,7 +962,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -987,7 +987,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.macOSPacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1005,7 +1005,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = macOSPacketTunnel/macOSPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1030,7 +1030,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.macOSPacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1049,7 +1049,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = iOSApp/Xproxy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEVELOPMENT_ASSET_PATHS = "\"iOSApp/Preview Content\"";
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_PREVIEWS = YES;
@@ -1075,7 +1075,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1097,7 +1097,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = iOSApp/Xproxy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEVELOPMENT_ASSET_PATHS = "\"iOSApp/Preview Content\"";
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				ENABLE_PREVIEWS = YES;
@@ -1123,7 +1123,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1139,7 +1139,6 @@
 		3F4AB7022B24637F004085BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1147,7 +1146,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacApp/Xproxy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MacApp/Preview Content\"";
 				DEVELOPMENT_TEAM = KMX6B9L26T;
@@ -1174,7 +1173,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1188,7 +1187,6 @@
 		3F4AB7032B24637F004085BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1196,7 +1194,7 @@
 				CODE_SIGN_ENTITLEMENTS = MacApp/Xproxy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MacApp/Preview Content\"";
 				DEVELOPMENT_TEAM = KMX6B9L26T;
@@ -1223,7 +1221,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1356,7 +1354,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1383,7 +1381,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1405,7 +1403,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 133;
+				CURRENT_PROJECT_VERSION = 241113;
 				DEVELOPMENT_TEAM = KMX6B9L26T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1432,7 +1430,7 @@
 					"$(PROJECT_DIR)/openssl/lib/macOS",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lampmanyao.Xproxy.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";

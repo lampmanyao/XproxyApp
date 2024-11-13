@@ -764,7 +764,6 @@ int main(int argc, char **argv)
 	argv += optind;
 
 	if (vflag) {
-		//printf("xproxy, version %s\n", xproxy_version());
 		return 0;
 	}
 

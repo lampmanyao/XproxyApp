@@ -11,7 +11,7 @@ struct Constant {
     static let SupportMethods: [String] = ["aes-256-cfb", "aes-192-cfb", "aes-128-cfb"]
 }
 
-extension String: Identifiable {
+extension String: @retroactive Identifiable {
     public typealias ID = Int
     public var id: Int {
         return hash

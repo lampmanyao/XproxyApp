@@ -10,8 +10,7 @@ import NetworkExtension
 
 struct VPNConfigurationView: View {
     @ObservedObject var vpnConfiguration: VPNConfiguration
-    @State private var isOn: Bool = false
-
+    @State private var vpnStatus: Bool = false
     @State private var showAlert = false
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
@@ -27,11 +26,12 @@ struct VPNConfigurationView: View {
 
                         Spacer()
 
-                        Toggle("Status", isOn: $isOn)
+                        Toggle("Status", isOn: $vpnStatus)
                             .onAppear {
-                                isOn = vpnConfiguration.manager?.connection.status == .connected
+                                vpnStatus = vpnConfiguration.manager?.connection.status == .connected
                             }
-                            .onChange(of: isOn, perform: { value in
+                            #if os(iOS)
+                            .onChange(of: vpnStatus, perform: { value in
                                 if value {
                                     if !manager.isEnabled {
                                         manager.isEnabled = true
@@ -51,6 +51,28 @@ struct VPNConfigurationView: View {
                                     manager.connection.stopVPNTunnel()
                                 }
                             })
+                            #else
+                            .onChange(of: vpnStatus) {
+                                if vpnStatus {
+                                    if !manager.isEnabled {
+                                        manager.isEnabled = true
+                                        manager.saveToPreferences { error in
+                                            if let saveError = error {
+                                                showAlert = true
+                                                alertTitle = "Save VPN Configuration Failed."
+                                                alertMessage = saveError.localizedDescription
+                                            } else {
+                                                startVPN(manager)
+                                            }
+                                        }
+                                    } else {
+                                        startVPN(manager)
+                                    }
+                                } else {
+                                    manager.connection.stopVPNTunnel()
+                                }
+                            }
+                            #endif
                     }
                     .labelsHidden()
                     .toggleStyle(.switch)
@@ -156,30 +178,36 @@ struct VPNConfigurationView: View {
             .headerProminence(.increased)
         }
         .environment(\.defaultMinListRowHeight, 35)
-        .onChange(of: vpnConfiguration, perform: { value in
-            isOn = vpnConfiguration.manager?.connection.status == .connected
+        #if os(iOS)
+        .onChange(of: self.vpnConfiguration, perform: { value in
+            vpnStatus = self.vpnConfiguration.manager?.connection.status == .connected
         })
+        #else
+        .onChange(of: self.vpnConfiguration) {
+            vpnStatus = vpnConfiguration.manager?.connection.status == .connected
+        }
+        #endif
         .toolbar {
             Button("Save", action: {
-                if let error = vpnConfiguration.verify() {
-                    showAlert = true
-                    alertTitle = "Invalid Configuration."
-                    alertMessage = error.description
+                if let error = self.vpnConfiguration.verify() {
+                    self.showAlert = true
+                    self.alertTitle = "Invalid Configuration."
+                    self.alertMessage = error.description
                     return
                 }
 
                 let providerProtocol = NETunnelProviderProtocol()
                 let providerConfiguration = vpnConfiguration.configuration()
                 providerProtocol.providerConfiguration = providerConfiguration
-                providerProtocol.serverAddress = vpnConfiguration.address
-                vpnConfiguration.manager!.isEnabled = true
-                vpnConfiguration.manager!.localizedDescription = "Xproxy"
-                vpnConfiguration.manager!.protocolConfiguration = providerProtocol
-                vpnConfiguration.manager!.saveToPreferences { error in
+                providerProtocol.serverAddress = self.vpnConfiguration.address
+                self.vpnConfiguration.manager!.isEnabled = true
+                self.vpnConfiguration.manager!.localizedDescription = "Xproxy"
+                self.vpnConfiguration.manager!.protocolConfiguration = providerProtocol
+                self.vpnConfiguration.manager!.saveToPreferences { error in
                     if let saveError = error {
-                        showAlert = true
-                        alertTitle = "Save VPN Configuration Failed."
-                        alertMessage = saveError.localizedDescription
+                        self.showAlert = true
+                        self.alertTitle = "Save VPN Configuration Failed."
+                        self.alertMessage = saveError.localizedDescription
                     }
                 }
             })
@@ -193,12 +221,16 @@ struct VPNConfigurationView: View {
     }
 
     func startVPN(_ manager: NEVPNManager) {
-        do {
-            try manager.connection.startVPNTunnel()
-        } catch let error {
-            showAlert = true
-            alertTitle = "Start VPN Failed."
-            alertMessage = error.localizedDescription
-        }
+        manager.isEnabled = true
+        manager.loadFromPreferences(completionHandler: { error in
+            guard error == nil else { return }
+            do {
+                try manager.connection.startVPNTunnel()
+            } catch let error {
+                self.showAlert = true
+                self.alertTitle = "Start VPN Failed."
+                self.alertMessage = error.localizedDescription
+            }
+        })
     }
 }

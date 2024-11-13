@@ -11,7 +11,8 @@ import NetworkExtension
 class XproxyVPNManager: ObservableObject {
     @Published var configurations: [VPNConfiguration] = []
 
-    @MainActor func loadVPNPerferences() async {
+    @MainActor
+    func loadVPNPerferences() async {
         configurations.removeAll()
         do {
             let managers = try await NETunnelProviderManager.loadAllFromPreferences()

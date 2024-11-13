@@ -21,6 +21,7 @@ struct XproxyApp: App {
 
     var body: some Scene {
         #if os(macOS)
+
         MenuBarExtra("Xproxy", image: "status", content: {
             AppMenu(xproxyVPNManager: xproxyVPNManager, selectedConfiguration: $selectedConfiguration)
                 .frame(width: 300)
@@ -45,14 +46,17 @@ struct XproxyApp: App {
         Window("Xproxy", id: "Xproxy", content: {
             ContentView(xproxyVPNManager: xproxyVPNManager, selectedConfiguration: nil)
         })
+        .windowStyle(.automatic)
 
         #else
+
         WindowGroup(id: "Xproxy", content: {
             ContentView(xproxyVPNManager: xproxyVPNManager, selectedConfiguration: nil)
                 .task {
                     await xproxyVPNManager.loadVPNPerferences()
                 }
         })
+
         #endif
     }
 }
