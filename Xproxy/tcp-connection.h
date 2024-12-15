@@ -10,9 +10,9 @@ struct tcp_connection;
 typedef int (*recv_callback) (struct el *, struct tcp_connection *);
 typedef int (*send_callback) (struct el *, struct tcp_connection *);
 
-#define REQ_TYPE_UNKNOWN (-1)
-#define REQ_TYPE_HTTP    (0)
-#define REQ_TYPE_HTTPS   (1)
+#define SCHEME_UNKNOWN (-1)
+#define SCHEME_HTTP    (0)
+#define SCHEME_HTTPS   (1)
 
 #define STAGE_HANDSHAKE 0
 #define STAGE_STREAMING 1
@@ -22,7 +22,7 @@ struct tcp_connection {
 
 	int fd;
 	int stage: 28;
-	int type: 4;
+	int scheme: 4;
 
 	uint8_t *rxbuf;
 	uint32_t rxbuf_capacity;

@@ -76,6 +76,8 @@ static void accept_cb(struct xproxy *xproxy)
 			inet_ntoa(sock_addr.sin_addr), ntohs(sock_addr.sin_port));
 
 		set_nonblocking(fd);
+		set_recv_buffer_size(fd, 1024 * 1024);
+		set_send_buffer_size(fd, 1024 * 1024);
 		tcp_conn = new_tcp_connection(fd, BUFF_SIZE, recvfrom_client_cb, sendto_client_cb);
 		el_watch(xproxy->els[fd % xproxy->nthread], tcp_conn);
 	}
@@ -84,8 +86,8 @@ static void accept_cb(struct xproxy *xproxy)
 		loge("accept(): %s", strerror(errno));
 }
 
-#define CHECK_END()       \
-	if (buf == end)   \
+#define CHECK_END()      \
+	if (buf == end)  \
 		return 0;
 
 static inline uint16_t parse_port(const char *buf, long len)
@@ -124,10 +126,10 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 	if (strncmp((const char *)buf, "http://", 7) == 0) {
 		buf += 7;
 		pos = buf;
-		client->type = REQ_TYPE_HTTP;
+		client->scheme = SCHEME_HTTP;
 	} else {
 		tcp_connection_reset_rxbuf(client);
-		client->type = REQ_TYPE_HTTPS;
+		client->scheme = SCHEME_HTTPS;
 	}
 
 	// ipv6
@@ -207,6 +209,8 @@ static int handle_client_request(struct el *el, struct tcp_connection *client)
 
 	logi("Connected to remote-proxy (%s:%d)", configuration.remote_addr, configuration.remote_port);
 
+	set_recv_buffer_size(fd, 1024 * 1024);
+	set_send_buffer_size(fd, 1024 * 1024);
 	remote = new_tcp_connection(fd, BUFF_SIZE, recvfrom_remote_cb, sendto_remote_cb);
 	remote->peer = client;
 	client->peer = remote;
@@ -341,6 +345,7 @@ static int recvfrom_client_cb(struct el *el, struct tcp_connection *client)
 		uint8_t buf[BUFF_SIZE];
 		ssize_t rx = recv(client->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
+			__sync_fetch_and_add(xproxy->stat->sent_bytes, rx);
 			tcp_connection_append_rxbuf(client, buf, (uint32_t)rx);
 			if (rx < BUFF_SIZE - 1)
 				break;
@@ -378,6 +383,7 @@ static int sendto_client_cb(struct el *el, struct tcp_connection *client)
 	uint32_t data_len = client->txbuf_length;
 	ssize_t tx = send(client->fd, data, data_len, 0);
 	if (fast(tx > 0)) {
+		*xproxy->stat->recv_bytes += tx;
 		if (fast((uint32_t)tx == data_len)) {
 			tcp_connection_reset_txbuf(client);
 		} else {
@@ -449,14 +455,14 @@ static int handle_handshake_response(struct el *el, struct tcp_connection *remot
 	client->stage = STAGE_STREAMING;
 	remote->stage = STAGE_STREAMING;
 
-	if (client->type == REQ_TYPE_HTTP)
+	if (client->scheme == SCHEME_HTTP)
 		return stream_to_remote(el, client, remote);
 
 	tcp_connection_append_txbuf(client, (uint8_t *)"HTTP/1.1 200 Connection Established\r\n\r\n", 39);
 
 	data = client->txbuf;
 	data_len = client->txbuf_length;
-	
+
 	ssize_t tx = send(client->fd, data, data_len, 0);
 
 	if (fast(tx > 0)) {
@@ -521,7 +527,7 @@ static int stream_to_client(struct el *el, struct tcp_connection *remote)
 				poller_watch_write(el->poller, client->fd, client);
 				return 0;
 			}
-			
+
 			return -1;
 		}
 	}
@@ -534,6 +540,7 @@ static int recvfrom_remote_cb(struct el *el, struct tcp_connection *remote)
 		uint8_t buf[BUFF_SIZE];
 		ssize_t rx = recv(remote->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
+			__sync_fetch_and_add(xproxy->stat->recv_bytes, rx);
 			tcp_connection_append_rxbuf(remote, buf, (uint32_t)rx);
 			switch (remote->stage) {
 			case STAGE_HANDSHAKE:
@@ -590,7 +597,8 @@ struct xproxy *xproxy = NULL;
 
 int start_local_proxy(const char *local_address, uint16_t local_port,
 		      const char *server_address, uint16_t server_port,
-		      const char *password, const char *method)
+		      const char *password, const char *method,
+		      const char *shared_sent_path, const char *shared_recv_path)
 {
 	signals_init();
 	coredump_init();
@@ -624,7 +632,7 @@ int start_local_proxy(const char *local_address, uint16_t local_port,
 
 	set_nonblocking(server_fd);
 
-	xproxy = xproxy_new(server_fd, configuration.nthread, accept_cb);
+	xproxy = xproxy_new(server_fd, configuration.nthread, accept_cb, shared_sent_path, shared_recv_path);
 	if (!xproxy) {
 		close(server_fd);
 		return ERR_SYSTEM;
@@ -643,14 +651,14 @@ void stop_local_proxy(void)
 
 	if (server_fd > 0)
 		close(server_fd);
-    
+
 	if (xproxy)
 		xproxy_free(xproxy);
 
 	free(configuration.remote_addr);
 	free(configuration.password);
 	free(configuration.method);
-	
+
 	cryptor_deinit(&cryptor);
 	crypt_cleanup();
 }
@@ -674,7 +682,7 @@ static void usage(void)
 	printf("        -r <remote-address>   Host name or IP address of remote xproxy.\n");
 	printf("        -p <remote-port>      Port number of remote xproxy.\n");
 	printf("        -k <password>         Password.\n");
-	printf("        [-e <method>]         Cipher suite: aes-128-cfb, aes-192-cfb, aes-256-cfb.\n");
+	printf("        [-e <method>]         Cipher suite: aes-128-cfb, aes-192-cfb or aes-256-cfb.\n");
 	printf("        [-t <nthread>         I/O thread number. Defaults to 8.\n");
 	printf("        [-m <max-open-files>  Max open files number. Defaults to 1024.\n");
 	printf("        [-d]                  Debug mode, print debug information.\n");
@@ -800,7 +808,7 @@ int main(int argc, char **argv)
 
 	logi("Listening on port %d", configuration.local_port);
 	running = 1;
-	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb);
+	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb, NULL, NULL);
 	if (!xproxy)
 		goto cleanup;
 

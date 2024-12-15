@@ -27,9 +27,8 @@ static int sendto_local_cb(struct el *el, struct tcp_connection *tcp_conn);
 static int recvfrom_server_cb(struct el *el, struct tcp_connection *tcp_conn);
 static int sendto_server_cb(struct el *el, struct tcp_connection *tcp_conn);
 
+static struct xproxy *xproxy;
 static struct cryptor cryptor;
-uint64_t last_recv = 0;
-uint64_t last_sent = 0;
 
 struct remote_config {
 	char *password;
@@ -65,6 +64,8 @@ static void accept_cb(struct xproxy *xproxy)
 		logi("Accept incoming from local %s:%d",
 		      inet_ntoa(sock_addr.sin_addr), ntohs(sock_addr.sin_port));
 		set_nonblocking(fd);
+		set_recv_buffer_size(fd, 1024 * 1024);
+		set_send_buffer_size(fd, 1024 * 1024);
 		tcp_conn = new_tcp_connection(fd, BUFF_SIZE, recvfrom_local_cb, sendto_local_cb);
 		el_watch(xproxy->els[fd % xproxy->nthread], tcp_conn);
 	}
@@ -136,6 +137,8 @@ static int handle_handshake_request(struct el *el, struct tcp_connection *local)
 			return -1;
 		}
 
+		set_recv_buffer_size(fd, 1024 * 1024);
+		set_send_buffer_size(fd, 1024 * 1024);
 		server = new_tcp_connection(fd, BUFF_SIZE, recvfrom_server_cb, sendto_server_cb);
 
 		el_watch(el, server);
@@ -323,7 +326,21 @@ static int recvfrom_local_cb(struct el *el, struct tcp_connection *local)
 		uint8_t buf[BUFF_SIZE];
 		ssize_t rx = recv(local->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
+			__sync_fetch_and_add(xproxy->stat->sent_bytes, rx);
 			tcp_connection_append_rxbuf(local, buf, (uint32_t)rx);
+			switch (local->stage) {
+			case STAGE_HANDSHAKE:
+				ret = handle_handshake_request(el, local);
+				break;
+
+			case STAGE_STREAMING:
+				ret = stream_to_server(el, local);
+				break;
+
+			default:
+				ret = -1;
+				break;
+			}
 			if (rx < BUFF_SIZE - 1)
 				break;
 		} else if (rx < 0) {
@@ -333,20 +350,6 @@ static int recvfrom_local_cb(struct el *el, struct tcp_connection *local)
 		} else {
 			return -1;
 		}
-	}
-
-	switch (local->stage) {
-	case STAGE_HANDSHAKE:
-		ret = handle_handshake_request(el, local);
-		break;
-
-	case STAGE_STREAMING:
-		ret = stream_to_server(el, local);
-		break;
-
-	default:
-		ret = -1;
-		break;
 	}
 
 	return ret;
@@ -387,6 +390,7 @@ static int recvfrom_server_cb(struct el *el, struct tcp_connection *server)
 	while (1) {
 		rx = recv(server->fd, buf, BUFF_SIZE - 1, 0);
 		if (fast(rx > 0)) {
+			__sync_fetch_and_add(xproxy->stat->recv_bytes, rx);
 			tcp_connection_append_rxbuf(server, buf, (uint32_t)rx);
 			ret = cryptor.encrypt(&cryptor, &ciphertext, &ciphertext_len,
 						server->rxbuf, server->rxbuf_length);
@@ -556,7 +560,6 @@ int main(int argc, char **argv)
 	}
 
 	int sfd;
-	struct xproxy *xproxy;
 
 	if (openfiles_init(configuration.maxfiles) != 0) {
 		logf("Set max open files to %d failed: %s",
@@ -571,7 +574,7 @@ int main(int argc, char **argv)
 
 	logi("Listening on port %d", configuration.local_port);
 
-	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb);
+	xproxy = xproxy_new(sfd, configuration.nthread, accept_cb, NULL, NULL);
 	running = 1;
 	xproxy_run(xproxy);
 

@@ -21,7 +21,9 @@
 
 #define SHUTUP_WARNING(x) (void)(x);
 
-int set_nonblocking(int sfd);
+void set_recv_buffer_size(int fd, int size);
+void set_send_buffer_size(int fd, int size);
+int set_nonblocking(int fd);
 int listen_and_bind(const char * address, uint16_t port);
 int connect_nonblocking(const char *host, uint16_t port, int ms);
 int connect6_nonblocking(const char *address, uint16_t port, int ms);
@@ -38,6 +40,8 @@ void signals_init(void);
 
 const char *openssl_version(void);
 const char *openssl_built_on(void);
+
+void create_shared_file(const char *path);
 
 #endif  /* utils_h */
 

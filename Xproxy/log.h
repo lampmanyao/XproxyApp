@@ -16,47 +16,6 @@
 #  define threadid() pthread_mach_thread_np(pthread_self())
 #include <os/log.h>
 
-//#define logd(fmt, args ...) do { \
-//        char time_buff[32]; \
-//        struct timeval tv; \
-//        struct tm tm; \
-//        gettimeofday(&tv, NULL); \
-//        localtime_r(&tv.tv_sec, &tm); \
-//        snprintf(time_buff, 32, "%04d-%02d-%02d %02d:%02d:%02d.%06d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, (int)tv.tv_usec); \
-//        os_log_debug(OS_LOG_DEFAULT, "%s %s:%u %ld " GREEN_BEGIN "DEBUG " COLOR_RESET fmt "\n",  time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
-//} while(0)
-//
-//#define logi(fmt, args ...) do { \
-//        char time_buff[32]; \
-//        struct timeval tv; \
-//        struct tm tm; \
-//        gettimeofday(&tv, NULL); \
-//        localtime_r(&tv.tv_sec, &tm); \
-//        snprintf(time_buff, 32, "%04d-%02d-%02d %02d:%02d:%02d.%06d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, (int)tv.tv_usec); \
-//        os_log_debug(OS_LOG_DEFAULT, "%s %s:%u %ld " YELLOW_BEGIN "DEBUG " COLOR_RESET fmt "\n",  time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
-//} while(0)
-//
-//#define loge(fmt, args ...) do { \
-//        char time_buff[32]; \
-//        struct timeval tv; \
-//        struct tm tm; \
-//        gettimeofday(&tv, NULL); \
-//        localtime_r(&tv.tv_sec, &tm); \
-//        snprintf(time_buff, 32, "%04d-%02d-%02d %02d:%02d:%02d.%06d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, (int)tv.tv_usec); \
-//        os_log_debug(OS_LOG_DEFAULT, "%s %s:%u %ld " RED_BEGIN "ERROR " COLOR_RESET fmt "\n",  time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
-//} while(0)
-//
-//#define logf(fmt, args ...) do { \
-//        char time_buff[32]; \
-//        struct timeval tv; \
-//        struct tm tm; \
-//        gettimeofday(&tv, NULL); \
-//        localtime_r(&tv.tv_sec, &tm); \
-//        snprintf(time_buff, 32, "%04d-%02d-%02d %02d:%02d:%02d.%06d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, (int)tv.tv_usec); \
-//        os_log_debug(OS_LOG_DEFAULT, "%s %s:%u %ld " RED_BEGIN "FATAL " COLOR_RESET fmt "\n",  time_buff, __FILE__, __LINE__, (long)threadid(), ##args); \
-//        exit(-1); \
-//} while(0)
-
 #elif defined(__linux__)
 #  define threadid() syscall(__NR_gettid)
 #else
@@ -108,6 +67,4 @@
         exit(-1); \
 } while (0)
 
-
 #endif  /* log_h */
-

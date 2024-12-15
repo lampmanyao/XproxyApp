@@ -27,7 +27,8 @@ enum {
 
 int start_local_proxy(const char *local_address, uint16_t local_port,
                       const char *server_address, uint16_t server_port,
-                      const char *password, const char *method);
+		      const char *password, const char *method,
+		      const char *shared_sent_path, const char *shared_recv_path);
 void stop_local_proxy(void);
 
 #endif /* local_proxy_h */

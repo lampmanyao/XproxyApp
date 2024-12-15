@@ -1,4 +1,4 @@
-AC_INIT([xproxy], [1.0.0], [lampmanyao@gmail.com])
+AC_INIT([xproxy], [1.1.0], [lampmanyao@gmail.com])
 
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 

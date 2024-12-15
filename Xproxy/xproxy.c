@@ -18,7 +18,7 @@
 
 extern int running;
 
-struct xproxy *xproxy_new(int sfd, int nthread, accept_callback accept_cb)
+struct xproxy *xproxy_new(int sfd, int nthread, accept_callback accept_cb, const char *shared_sent_path, const char *shared_recv_path)
 {
 	struct xproxy *xproxy = NULL;
 
@@ -38,6 +38,9 @@ struct xproxy *xproxy_new(int sfd, int nthread, accept_callback accept_cb)
 	poller_watch(xproxy->poller, xproxy->sfd, NULL);
 
 	xproxy->accept_cb = accept_cb;
+
+	xproxy->stat = statstic_new(shared_sent_path, shared_recv_path);
+
 	for (int i = 0; i < nthread; i++)
 		xproxy->els[i] = el_new();
 
@@ -102,6 +105,7 @@ void xproxy_run(struct xproxy *xproxy)
 void xproxy_free(struct xproxy *xproxy)
 {
 	pthread_join(xproxy->tid, NULL);
+	statstic_free(xproxy->stat);
 	for (int i = 0; i < xproxy->nthread; i++) {
 		pthread_join(xproxy->els[i]->tid, NULL);
 		el_free(xproxy->els[i]);

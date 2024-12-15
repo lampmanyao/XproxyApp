@@ -21,7 +21,7 @@ struct tcp_connection* new_tcp_connection(int fd, uint32_t bufsize, recv_callbac
 
 	tcp_conn->fd = fd;
 	tcp_conn->stage = STAGE_HANDSHAKE;
-	tcp_conn->type = REQ_TYPE_UNKNOWN;
+	tcp_conn->scheme = SCHEME_UNKNOWN;
 
 	tcp_conn->rxbuf = malloc(bufsize);
 	memset(tcp_conn->rxbuf, 0, bufsize);

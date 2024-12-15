@@ -29,6 +29,20 @@
 
 #define BACKLOG 65535
 
+void set_recv_buffer_size(int fd, int size)
+{
+    if (setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size)) < 0) {
+        loge("setsockopt failed: error=%d(%s)", errno, strerror(errno));
+    }
+}
+
+void set_send_buffer_size(int fd, int size)
+{
+    if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &size, sizeof(size)) < 0) {
+        loge("setsockopt failed: error=%d(%s)", errno, strerror(errno));
+    }
+}
+
 int set_nonblocking(int fd)
 {
 	int flags = fcntl(fd, F_GETFL, 0);
@@ -296,3 +310,14 @@ const char *openssl_built_on(void)
 	return OpenSSL_version(OPENSSL_BUILT_ON);
 }
 
+void create_shared_file(const char *path)
+{
+	int fd = open(path, O_RDWR | O_CREAT, 0777);
+	if (fd > 0) {
+		logd("Create %s ok", path);
+		ftruncate(fd, sizeof(uint64_t));
+		close(fd);
+	} else {
+		loge("Create %s failed, errno: %d (%s)", path, errno, strerror(errno));
+	}
+}
