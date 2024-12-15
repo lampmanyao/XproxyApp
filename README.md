@@ -80,16 +80,16 @@ of NEPacketTunnelProvider like this:
 start_local_proxy() will run a local http/https proxy server (local-proxy) which is listening on the localProxyPort,
 the system will redirect all the http and https traffics except the domains in the exceptionList to the local-proxy.
 
-  ┌ ─ ─ ─ ┐     0. http request    ┌ ─ ─ ─ ─ ─ ─ ─ ┐                          ┌ ─ ─ ─ ─ ─ ─ ─ ┐                ┌ ─ ─ ─ ─ ─ ┐
-  |       |"GET http://example.com/|  local-proxy  |1. SOCKS5 CONNECT request |  remote-proxy | 2. open a tcp  |           |
-  │       │        http/1.1"       │┌─────┐ ┌─────┐├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ >│┌─────┐ ┌─────┐├ ─ ─ ─ ─ ─ ─ ─ >│           │
-  |       |─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>|│     │ │     │|                          |│     │ │     │|                |           |
-  │       │                        ││     │ │     ││3. SOCKS5 CONNECT response││     │ │     ││                │           │
-  |  app  |                        |│ tcp │ │ tcp │|<─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─|│ tcp │ │ tcp │|                |example.com|
-  │       │                        ││     │ │     ││                          ││     │ │     ││blinded exchange│           │
-  |       | blinded exchange data  |│     │ │     │|  blinded exchange data   |│     │ │     │|      data      |           |
-  │       │< ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>│└─────┘ └─────┘│< ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>│└─────┘ └─────┘│< ─ ─ ─ ─ ─ ─ ─>│           │
-  └ ─ ─ ─ ┘                        └ ─ ─ ─ ─ ─ ─ ─ ┘                          └ ─ ─ ─ ─ ─ ─ ─ ┘                └ ─ ─ ─ ─ ─ ┘
+        ┌ ─ ─ ─ ┐     0. http request    ┌ ─ ─ ─ ─ ─ ─ ─ ┐                          ┌ ─ ─ ─ ─ ─ ─ ─ ┐                ┌ ─ ─ ─ ─ ─ ┐
+        |       |"GET http://example.com/|  local-proxy  |1. SOCKS5 CONNECT request |  remote-proxy | 2. open a tcp  |           |
+        │       │        http/1.1"       │┌─────┐ ┌─────┐├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ >│┌─────┐ ┌─────┐├ ─ ─ ─ ─ ─ ─ ─ >│           │
+        |─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>|│     │ │     │|                          |│     │ │     │|                |           |
+        │       │                        ││     │ │     ││3. SOCKS5 CONNECT response││     │ │     ││                │           │
+        |  app  |                        |│ tcp │ │ tcp │|<─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─|│ tcp │ │ tcp │|                |example.com|
+        │       │                        ││     │ │     ││                          ││     │ │     ││blinded exchange│           │
+        |       | blinded exchange data  |│     │ │     │|  blinded exchange data   |│     │ │     │|      data      |           |
+        │       │< ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>│└─────┘ └─────┘│< ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─>│└─────┘ └─────┘│< ─ ─ ─ ─ ─ ─ ─>│           │
+        └ ─ ─ ─ ┘                        └ ─ ─ ─ ─ ─ ─ ─ ┘                          └ ─ ─ ─ ─ ─ ─ ─ ┘                └ ─ ─ ─ ─ ─ ┘
 
 
 Handle request
@@ -109,9 +109,10 @@ the request looks like 'CONNECT example.com:443 http/1.1' is the https request.
 5. exchange data blindly
 
 Each packet between the local-proxy and the remote-proxy is as below:
-┌─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┐
-|encrypted payload length| encrypted payload     ......   |
-└─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┘
+
+        ┌─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┐
+        |encrypted payload length| encrypted payload     ......   |
+        └─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ + ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ~ ~ ~ ─ ─┘
 the payload length is a 4-byte unsigned integer, following a payload length data.
 
 
@@ -120,7 +121,7 @@ Dependency
 On Linux or macOS:
 - libssl-dev
 
-OpenSSL-3.2.0 is precompiled as static library at openssl/lib, iOS and macOS (Intel and Apple Sillicon).
+OpenSSL-3.4.0 is precompiled as static library at openssl/lib, iOS and macOS (Intel and Apple Sillicon).
 
 Compilation
 -----------
