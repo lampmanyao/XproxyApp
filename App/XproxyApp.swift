@@ -14,13 +14,13 @@ struct XproxyApp: App {
     @ObservedObject var xproxyVPNManager = XproxyVPNManager()
 
     var body: some Scene {
-#if os(macOS)
+        #if os(macOS)
         MenuBarExtra("Xproxy", image: "StatusBarIcon", content: {
             AppMenu(xproxyVPNManager: xproxyVPNManager)
                 .frame(width: 300)
         })
         .menuBarExtraStyle(.window)
-#endif
+        #endif
 
         #if os(macOS)
         WindowGroup(for: ContentView.Group.self) { $selectedGroup in
@@ -36,6 +36,7 @@ struct XproxyApp: App {
             ContentView(xproxyVPNManager, selectedGroup: selectedGroup)
                 .onAppear {
                     FileManager.createSharedFiles()
+                    FileManager.copyBuiltinPACFile()
                     TrafficReader.shared.setupSharedMemory()
                 }
         } defaultValue: {

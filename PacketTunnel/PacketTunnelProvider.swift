@@ -6,24 +6,23 @@
 //
 
 import NetworkExtension
+import OSLog
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
-    private func readPACFile() -> String? {
-        let bundle = Bundle.main
-        let pacFilePath = bundle.path(forResource: "config", ofType: "pac")
+    let logger = Logger(subsystem: "com.lampmanyao.Xproxy", category: "PacketTunnel")
 
-        if let pacFilePath = pacFilePath {
+    private func readPACFile() -> String? {
+        var content: String?
+        if let pacURL = FileManager.sharedPacURL {
             do {
-                let pacFileData = try Data(contentsOf: URL(fileURLWithPath: pacFilePath))
-                return String(data: pacFileData, encoding: .utf8)
-            } catch {
-                print("Read config.pac error: \(error)")
+                content = try String(contentsOf: pacURL, encoding: .utf8)
+            } catch let error {
+                content = nil
+                logger.error("Cannot read config.pac file with error:\(error.localizedDescription)")
             }
-        } else {
-            print("config.pac not exist")
         }
-        return nil
+        return content
     }
 
     private var localProxyAddress = "127.0.0.1"
@@ -33,6 +32,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration else {
             completionHandler(VPNError.invalidConfigure)
+            logger.error("Invalid configuration")
             return
         }
 
@@ -40,6 +40,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let remoteProxyPort = conf["port"] as! String
         let method = conf["method"] as! String
         let password = conf["password"] as! String
+        let autoConfig = conf["autoConfig"] as! Bool
         let exceptionList = conf["exceptionList"] as! [String]
 
         let networkSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "10.0.0.1")
@@ -57,18 +58,20 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         proxySettings.matchDomains = [""]
         proxySettings.exceptionList = exceptionList
 
-        if (Defaults.shared.autoConfig) {
+        if (autoConfig) {
             if let js = readPACFile() {
                 proxySettings.autoProxyConfigurationEnabled = true
                 proxySettings.proxyAutoConfigurationJavaScript = js
             }
 
             // FIXME: - don't know why this doesn't work.
-//            if let filePath = Bundle.main.path(forResource: "config", ofType: "pac") {
-//                let fileURL = URL(fileURLWithPath: filePath)
+//            if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Bundle.groupid) {
+//                let pacURL = containerURL.appending(path: "Library/Caches/config.pac")
 //                proxySettings.autoProxyConfigurationEnabled = true
-//                proxySettings.proxyAutoConfigurationURL = fileURL
+//                proxySettings.proxyAutoConfigurationURL = pacURL
 //            }
+        } else {
+            logger.debug("autoConfig disabled")
         }
 
         networkSettings.proxySettings = proxySettings
@@ -93,17 +96,21 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler(nil)
             } else if err == ERR_UNSUPPORT_METHOD {
                 completionHandler(VPNError.unsupportMethod)
+                self.logger.error("Unsupport method")
             } else if err == ERR_MAX_OPENFILES {
                 completionHandler(VPNError.maxOpenFiles)
+                self.logger.error("Max open files")
             } else if err ==  ERR_ADDRESS_IN_USE {
                 completionHandler(VPNError.addressInUse)
+                self.logger.error("Address in used")
             } else if err == ERR_SYSTEM {
                 completionHandler(VPNError.system)
+                self.logger.error("System")
             } else {
                 completionHandler(VPNError.unknown)
+                self.logger.error("Unknown")
             }
         }
-
     }
 
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {

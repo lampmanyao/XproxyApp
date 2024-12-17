@@ -35,7 +35,7 @@ struct ServerConfigurationView: View {
                             .foregroundStyle(.secondary)
                         Spacer()
                         Toggle("Status", isOn: $status)
-#if os(iOS)
+                        #if os(iOS)
                             .onChange(of: status) { value in
                                 if value {
                                     Task {
@@ -51,7 +51,7 @@ struct ServerConfigurationView: View {
                                     self.serverConfiguration.stopVPN()
                                 }
                             }
-#else
+                            #else
                             .onChange(of: status) {
                                 if status {
                                     Task {
@@ -67,7 +67,7 @@ struct ServerConfigurationView: View {
                                     self.serverConfiguration.stopVPN()
                                 }
                             }
-#endif
+                            #endif
                             .onAppear {
                                 status = serverConfiguration.vpnManager.connection.status == .connected
                             }
@@ -147,7 +147,18 @@ struct ServerConfigurationView: View {
                     }
                 }
                 .headerProminence(.increased)
-                
+
+                Section {
+                    HStack {
+                        Text("Auto config")
+                        Spacer()
+                        Toggle("", isOn: $serverConfiguration.autoConfig)
+                        .toggleStyle(.switch)
+                    }
+                } header: {
+                    Text("Proxy Auto Config")
+                }
+
                 Section {
                     ForEach(serverConfiguration.exceptionList.indices, id: \.self) { idx in
                         TextField("Required", text: $serverConfiguration.exceptionList[idx])
@@ -173,7 +184,7 @@ struct ServerConfigurationView: View {
                 }
                 .headerProminence(.increased)
                 
-#if os(macOS)
+                #if os(macOS)
                 HStack {
                     Spacer()
                     Button {
@@ -199,9 +210,9 @@ struct ServerConfigurationView: View {
                     .buttonStyle(.bordered)
                 }
                 .padding(6.0)
-#endif
+                #endif
             }
-#if os(iOS)
+            #if os(iOS)
             .toolbar {
                 Button {
                     save()
@@ -210,7 +221,7 @@ struct ServerConfigurationView: View {
                     Text("Save")
                 }
             }
-#endif
+            #endif
             .alert(alertTitle, isPresented: $showAlert) {
                 Button("Cancel", role: .cancel) {}
             } message: {

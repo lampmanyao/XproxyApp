@@ -28,6 +28,7 @@ typealias AppArgType = UIApplication
 class AppDelegate: NSObject, XProxyAppDelegate {
     func applicationDidFinishLaunching(_ arg: AppArgType) {
         FileManager.createSharedFiles()
+        FileManager.copyBuiltinPACFile()
         TrafficReader.shared.setupSharedMemory()
     }
 

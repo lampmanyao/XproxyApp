@@ -23,12 +23,12 @@ struct PacView: View {
                 .navigationTitle("config.pac")
         }
         .onAppear {
-            if let pacURL = Bundle.main.url(forResource: "config", withExtension: "pac") {
+            if let pacURL = FileManager.sharedPacURL {
                 do {
                     self.text = try String(contentsOf: pacURL, encoding: .utf8)
                 } catch let error {
                     self.showAlert = true
-                    self.alertTitle = "Open pac file failed"
+                    self.alertTitle = "Open config.pac file failed"
                     self.alertMessage = error.localizedDescription
                 }
             }
@@ -36,8 +36,14 @@ struct PacView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    if let pacURL = Bundle.main.url(forResource: "config", withExtension: "pac") {
-                        try? text.write(to: pacURL, atomically: true, encoding: .utf8)
+                    if let pacURL = FileManager.sharedPacURL {
+                        do {
+                            try text.write(to: pacURL, atomically: true, encoding: .utf8)
+                        } catch let error {
+                            self.showAlert = true
+                            self.alertTitle = "Save config.pac file failed"
+                            self.alertMessage = error.localizedDescription
+                        }
                     }
                 } label: {
                     Text("Save")
@@ -49,6 +55,5 @@ struct PacView: View {
         } message: {
             Text(alertMessage)
         }
-
     }
 }

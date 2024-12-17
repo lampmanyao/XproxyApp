@@ -1,5 +1,5 @@
 //
-//  MenuVPNRow.swift
+//  MenuBarVPNRow.swift
 //  Xproxy
 //
 //  Created by lampman on 12/12/24.
@@ -8,18 +8,20 @@
 import SwiftUI
 
 #if os(macOS)
-struct MenuVPNRow: View {
+struct MenuBarVPNRow: View {
     @ObservedObject var serverConfigutaion: ServerConfiguration
     @State private var isOn = false
 
     var body: some View {
         HStack {
             Text(serverConfigutaion.name)
+                .padding(.leading, 4)
             Spacer()
 
             Toggle(isOn: $isOn) {
 
             }
+            .padding(.trailing, 4)
             .toggleStyle(.switch)
             .onChange(of: isOn) {
                 if isOn {
@@ -34,7 +36,6 @@ struct MenuVPNRow: View {
                 self.isOn = serverConfigutaion.isConnected
             }
         }
-        .padding(.init(top: 0, leading: 4, bottom: 4, trailing: 0))
     }
 }
 #endif

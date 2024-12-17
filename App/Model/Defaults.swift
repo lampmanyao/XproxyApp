@@ -13,7 +13,4 @@ class Defaults: ObservableObject {
 
     @AppStorage("port", store: UserDefaults(suiteName: Bundle.groupid))
     public var localPort: Int = 1081
-
-    @AppStorage("autoConfig", store: UserDefaults(suiteName: Bundle.groupid))
-    public var autoConfig: Bool = false
 }

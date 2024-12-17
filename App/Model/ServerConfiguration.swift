@@ -15,6 +15,7 @@ class ServerConfiguration: ObservableObject, Identifiable, Hashable {
     @Published var port: String
     @Published var password: String
     @Published var method: String
+    @Published var autoConfig: Bool
     @Published var exceptionList: [String]
     @Published var isConnected: Bool = false
 
@@ -32,6 +33,7 @@ class ServerConfiguration: ObservableObject, Identifiable, Hashable {
         self.port = port
         self.password = password
         self.method = method
+        self.autoConfig = autoConfig
         self.exceptionList = exceptionList
         self.isConnected = vpnManager.connection.status == .connected
     }
@@ -43,6 +45,7 @@ class ServerConfiguration: ObservableObject, Identifiable, Hashable {
         conf["port"] = port
         conf["password"] = password
         conf["method"] = method
+        conf["autoConfig"] = autoConfig
         conf["exceptionList"] = exceptionList.filter { $0 != "" }
         return conf
     }

@@ -13,10 +13,9 @@ struct AppMenu: View {
     @ObservedObject var xproxyVPNManager: XproxyVPNManager
 
     @State private var connectedTime: String = "00:00:00"
+    @State private var hovered = false
 
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
-
-    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -91,7 +90,7 @@ struct AppMenu: View {
                         Text("--:--:--")
                     }
                     .padding(4)
-                        
+
                     HStack {
                         Text("Connected at:")
                             .font(.headline)
@@ -103,44 +102,21 @@ struct AppMenu: View {
             }
 
             Divider()
-
-            Button("Servers") {
-                openWindow(value: ContentView.groups[1])
-            }
-            .buttonStyle(.plain)
-            .keyboardShortcut("S")
-            .padding(.leading, 0)
-            .padding(.top, 4)
-            .padding(.bottom, 4)
-            .keyboardShortcut("s", modifiers: [.command])
+            MenuBarServersRow()
 
             List {
                 ForEach(xproxyVPNManager.configurations) { configuration in
-                    MenuVPNRow(serverConfigutaion: configuration)
+                    MenuBarVPNRow(serverConfigutaion: configuration)
                 }
                 .listRowSeparator(.hidden)
             }
+            .listStyle(.plain)
 
             Divider()
-            Button("Settings") {
-                openWindow(value: ContentView.groups[2])
-            }
-            .buttonStyle(.plain)
-            .keyboardShortcut("S")
-            .padding(.leading, 0)
-            .padding(.top, 4)
-            .padding(.bottom, 4)
-            .keyboardShortcut("p", modifiers: [.command])
+            MenuBarSettingsRow()
 
             Divider()
-            Button("Quit") {
-                NSApplication.shared.terminate(nil)
-            }
-            .buttonStyle(.plain)
-            .keyboardShortcut("q")
-            .padding(.leading, 0)
-            .padding(.top, 4)
-            .padding(.bottom, 4)
+            MenuBarQuitRow()
         }
         .padding()
     }

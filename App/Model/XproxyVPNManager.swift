@@ -42,6 +42,7 @@ class XproxyVPNManager: ObservableObject {
                         port: conf["port"] as! String,
                         password: conf["password"] as! String,
                         method: conf["method"] as! String,
+                        autoConfig: conf["autoConfig"] as! Bool,
                         exceptionList: conf["exceptionList"] as! [String]
                     )
                     self.configurations.append(configuration)

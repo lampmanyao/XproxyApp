@@ -10,7 +10,10 @@ import SwiftUI
 struct SettingsView: View {
 
     @State private var localPort: Int = Defaults.shared.localPort
-    @State private var autoConfig = Defaults.shared.autoConfig
+
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
 
     var body: some View {
         NavigationStack {
@@ -44,29 +47,24 @@ struct SettingsView: View {
                     }
                 }
 
-                Section(header: Text("Proxy Auto Config")) {
+                Section {
+                    NavigationLink("config.pac", destination: {
+                        PacView()
+                    })
+                } header: {
                     HStack {
-                        Text("Auto config")
+                        Text("Proxy configuration file")
                         Spacer()
-                        Toggle(isOn: $autoConfig) {
-                        }
-                        .toggleStyle(.switch)
-                        #if os(iOS)
-                        .onChange(of: autoConfig, perform: { _ in
-                            Defaults.shared.autoConfig = autoConfig
-                        })
-                        #else
-                        .onChange(of: autoConfig) {
-                            Defaults.shared.autoConfig = autoConfig
-                        }
-                        #endif
-                    }
-
-                    if autoConfig {
-                        HStack {
-                            NavigationLink("config.pac", destination: {
-                                PacView()
-                            })
+                        Button {
+                            do {
+                                try FileManager.resetPACFile()
+                            } catch let error {
+                                self.showAlert = true
+                                self.alertTitle = "Reset pac file failed"
+                                self.alertMessage = error.localizedDescription
+                            }
+                        } label: {
+                            Text("Reset")
                         }
                     }
                 }
@@ -86,6 +84,11 @@ struct SettingsView: View {
                         }
                     }
                 }
+            }
+            .alert(alertTitle, isPresented: $showAlert) {
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text(alertMessage)
             }
             .navigationTitle("Settings")
         }
